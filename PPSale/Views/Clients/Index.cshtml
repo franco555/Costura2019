@@ -1,0 +1,120 @@
+﻿@model IEnumerable<PPSale.Models.Departure.Client>
+@{
+    var Pagina = "Cliente";
+    var Controler = "Client";
+    var Controlers = "Clients";
+    ViewBag.Title = Pagina;
+}
+
+<h2 class="header-title">Nueva  @Pagina</h2>
+
+@if (TempData["Valid"] != null && TempData.Count != 0)
+{
+    <p class="btn-new">
+        <a class="btn btn-primary" disabled href="" title="Nuevo"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Nuevo</a>
+    </p>
+}
+else
+{
+    <p class="btn-new">
+        <a class="btn btn-primary" href="@Url.Action("Create",Controlers )" title="Nuevo"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
+    </p>
+}
+
+@if (TempData["Error"] != null && TempData.Count != 0)
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Alerta!</strong>&nbsp;&nbsp;@TempData["Error"]
+    </div>
+}
+
+<table class="table table-responsive tableTwoBtn ">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Logo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country.Name)&nbsp;
+            @Html.DisplayNameFor(model => model.Province.Name)&nbsp;
+            @Html.DisplayNameFor(model => model.City.Name)&nbsp;
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IvaCondition.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cuit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Web)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstDate)
+        </th>
+
+        <th>Acci&oacute;n</th>
+    </tr>
+    @if (Model == null || Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="4">
+                No hay Elementos...
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Logo))
+                    {
+                        <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:25px; padding:0px; margin:0px;" />
+                    }
+                </td>
+                <td class="data-@Html.DisplayFor(modelItem => item.ClientId)">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.Name)&nbsp;
+                    @Html.DisplayFor(modelItem => item.Province.Name)&nbsp;
+                    @Html.DisplayFor(modelItem => item.City.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IvaCondition.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cuit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Web)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstDate)
+                </td>
+
+                <td>
+                    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit","Clients",new { id=item.ClientId})" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.ClientId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+        }
+    }
+
+
+</table>

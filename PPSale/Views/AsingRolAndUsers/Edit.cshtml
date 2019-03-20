@@ -1,0 +1,73 @@
+﻿@model PPSale.Models.Globals.AsingRolAndUser
+
+@{
+    var Pagina = "Asignar Rol Usuario y Empresa";
+    var Controlers = "AsingRolAndUsers";
+    ViewBag.Title = Pagina;
+}
+
+<h5 class="f-title f-titleEdit">
+    <span class="title_CreateEdit f-orange">
+        Editar:
+    </span> @Pagina
+</h5>
+
+
+@using (Html.BeginForm("Edit", @Controlers, FormMethod.Post, new { @class = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.AsingRolAndUserId)
+    @Html.HiddenFor(model => model.Email)
+
+    <div class="form-Edit">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CompanyId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserId,  htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RolId,  htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("RolId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RolId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lock, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Lock)
+                    @Html.ValidationMessageFor(model => model.Lock, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-warning" />
+                <a href="@Url.Action("Index")" class="btn btn-success" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

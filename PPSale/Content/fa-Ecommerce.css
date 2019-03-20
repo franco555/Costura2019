@@ -1,0 +1,436 @@
+﻿body:after {
+    content: url("Logos/Empresa/Logopdp.png");
+    z-index: -9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    user-select: none;
+    transform: scale(.5);
+    opacity: 0.25;
+}
+
+    /*Formto de tabla*/
+table.table tr:first-child {
+    /*background: rgba(3, 171, 217, 0.91) !important;*/
+    background: #61b12a;
+    color: #ffffff !important;
+}
+
+.tablethree tr th:last-child,
+.tableFourBtn tr th:last-child,
+.tableTwoBtn tr th:last-child {
+    text-align: center;
+}
+
+.tablethree tr th:last-child {
+    width: 150px;
+}
+
+.tableTwoBtn tr th:last-child{
+    width:100px;
+}
+
+.tableFourBtn tr th:last-child {
+    width: 165px;
+}
+
+.table tr:nth-child(2n+1) {
+    background: #cffeb0;
+    border-bottom: 1px solid #61b12a !important;
+}
+
+.f-block {
+    color: #ffffff;
+    text-align: center;
+    border-radius: 35px;
+    padding: 15px 0;
+}
+
+.f-block-all {
+    display: inline-block !important;
+    width: 100%;
+    padding: 15px 0px;
+    opacity:.5;
+}
+
+.f-background-orange {
+    background: #f3872f !important;
+}
+
+.f-background-red {
+    background: rgba(206, 34, 10, 0.91) !important;
+}
+
+.f-background-skyblue {
+    background: rgba(3, 171, 217, 0.91) !important;
+}
+
+.f-background-blue {
+    background: #045FB4 !important;
+}
+
+.f-background-orange-l {
+    border: 1px solid rgba(243, 135, 47, 0.30);
+    background: rgba(254, 172, 105, 0.36) !important;
+}
+
+.f-background-red-l {
+    border: 1px solid rgba(206, 34, 10, 0.15);
+    background: rgba(252, 79, 55, 0.20) !important;
+}
+
+.f-background-skyblue-l {
+    border: 1px solid rgba(3, 171, 217, 0.15);
+    background: rgba(15, 194, 243, 0.20) !important;
+}
+
+.f-background-blue-l {
+    border: 1px solid rgba(29, 78, 137, 0.30);
+    background: rgba(62, 126, 203, 0.15) !important;
+}
+
+.f-border-skyblue {
+    border: 1px solid rgb(29, 78, 137) !important;
+}
+
+.save{
+    color: #ffffff;
+    display: inline-block;
+    min-height: 11px;
+    min-width: 11px;
+    font-size: 10px;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.save-false {
+    background: rgba(206, 34, 10, 0.91);
+}
+
+.save-true {
+    background: #61993b;
+}
+
+.save-Edit {
+    background: rgb(62, 149, 255);
+}
+
+.col-Title {
+    border-bottom: 3px solid rgb(29, 78, 137);
+    border-left: 2px solid rgb(29, 78, 137);
+    padding: 5px;
+}
+
+.content-btn {
+    position: relative;
+    margin-bottom:60px;
+}
+
+.content-btn2 {
+    position: relative;
+}
+
+.content-btn a.dialog-window {
+    padding-left: 30px;
+    position: absolute;
+    left: 0;
+    z-index: 0;
+}
+
+.icon-float {
+    color: #ffffff;
+    position: absolute;
+    margin-right:10px;
+    left:10px;
+    top:10px;
+    z-index: 1;
+}
+/*titulo de la pagina*/
+.header-title {
+    color: #61b12a;
+    border-bottom: 1px solid #61b12a;
+    text-align:right;
+    padding-left:10px;
+}
+
+/*Ventana modal*/
+#WindowModal {
+    background: rgba(29, 78, 137,0.5);
+}
+
+.modal-title {
+    padding-left:10px;
+}
+
+#ModalTitle {
+    
+    /*background: rgba(3, 171, 217, 0.91);
+    color: #ffffff;*/
+}
+
+.titleModalCreate {
+    background: rgb(29, 78, 137) !important;
+    color: #ffffff;
+}
+
+.titleModalEdit {
+    background: #f3872f !important;
+    color: #ffffff;
+}
+
+.titleModalDetail {
+    background: rgba(2, 193, 245, 0.99) !important;
+    color: #ffffff;
+}
+
+#ModalTitle .Closed {
+    background-color: rgba(206, 34, 10, 0.91);
+    padding: 5px;
+}
+.Closed {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 1px 0 #000;
+    filter: alpha(opacity=80);
+    width: 30px;
+    opacity: .6;
+}
+
+.Closed:focus, .Closed:hover {
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+        filter: alpha(opacity=50);
+        opacity: .8
+    }
+
+button.Closed {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+}
+
+.jconfirm-title {
+    width: 100% !important;
+}
+
+.buble {
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
+}
+
+    .buble:before { /* Este es un truco para crear una flechita */
+        content: '';
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 8px solid #BC1010;
+        border-left: 8px solid transparent;
+        left: -16px;
+        position: absolute;
+        top: 5px;
+    }
+
+    /*Contenido de html*/
+.navbar {
+    background:#414141;
+    color:#ffffff !important;
+    border-bottom: 1px solid rgb(29, 78, 137);
+}
+
+.navbar-header a div{
+    color:#cacaca;
+}
+
+.foot {
+    background: rgb(29, 78, 137);
+    color: #ffffff;
+    display: block;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+.foot p{
+    font-size:10px;
+    margin:0px;
+    padding: 5px;
+}
+
+.validation-summary-errors {
+    background:#9b2222;
+    color:#eaeaea;
+}
+
+/*Botones de incio*/
+.jumbotron {
+    background:#d0feb2;
+    text-align:center;
+}
+.card-button {
+    background: #61993b;
+    color: #e9e9e9;
+    border: 1px solid #61993b;
+    display: inline-flex;
+    margin-left: 0.3em;
+    margin-bottom: 0.5em;
+    text-align: center;
+    padding: 1em 0em;
+    padding-bottom: 0px;
+}
+
+.card-button a{
+    text-decoration:none;
+    color:#afdb92;
+}
+.card-title {
+    border-top: 1px solid #ffffff;
+    background: #548037;
+    padding: 1em 0em;
+    margin-bottom:0px;
+}
+.card-button:hover .card-title{
+    background:#3b6d19;
+}
+
+.card-button:active {
+    background: #3b6d19;
+}
+.return {
+    background: #f3872f !important;
+    border: 1px solid #f3872f !important;
+}
+    .return .card-title {
+        background: #d16710;
+    }
+    .return:hover .card-title {
+        background: #c26214 !important;
+    }
+
+.return:active {
+    background: #d16710 !important;
+}
+
+.Logg {
+    background: #045FB4 !important;
+    border: 1px solid #045FB4 !important;
+    color:#6db9ff !important;
+}
+
+    .Logg .card-title {
+        background: rgb(29, 78, 137);
+    }
+
+    .Logg:hover .card-title {
+        background: #014585 !important;
+    }
+
+    .Logg:active {
+        background: #054078 !important;
+    }
+/*Formulario */
+form {
+    padding: 2px;
+    margin-top:15px;
+}
+    form .form-horizontal {
+        display: inline-flex;
+        
+    }
+.form{
+    text-align:center;
+}
+.form-Create, .form-Edit {
+    background: #ffffff;
+    text-align: left;
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 450px;
+    box-shadow: 0px 0px 5px #000000;
+}
+.form-Create {
+    border: 1px solid #3f8fff;
+    
+}
+
+.form-Edit {
+    border: 1px solid #DF7401;
+}
+
+.f-title {
+    display: block;
+    text-align: left;
+}
+
+.f-titleCreate {
+    border-bottom: 2px double #045FB4;
+}
+
+.f-titleEdit {
+    border-bottom: 2px double #DF7401;
+}
+
+.title_CreateEdit {
+    border-radius: 10px 0px 0px 0px;
+    display: inline-block;
+    padding: 10px 15px;
+}
+
+.f-red {
+    background: #B40404;
+    color: #fff;
+}
+
+.f-blue {
+    background: #045FB4;
+    color: #fff;
+}
+
+.f-green {
+    background: #0B610B;
+    color: #fff;
+}
+
+.f-orange {
+    background: #DF7401;
+    color: #fff;
+}
+
+.f-yellow {
+    background: #dda90e;
+    color: #fff;
+}
+
+.f-skyblue {
+    background: #4dc9ff;
+    color: #fff;
+}
+
+@media only screen and (max-width: 768px) {
+  
+}
+
+@media only screen and (min-width: 991px) {
+
+}
+
+@media only screen and (min-width: 1200px) {
+
+}

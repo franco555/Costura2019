@@ -1,0 +1,136 @@
+﻿
+.Factura {
+}
+
+.F-Limit, .F-border {
+    width: 1100px;
+}
+
+.F-border {
+    border-bottom: 2px solid #000000;
+}
+
+.F-Encabezado {
+    display: inline-flex;
+    padding: 10px 0px;
+}
+
+    .F-Encabezado .F-Empresa {
+        /*border-right: 1px solid #000000;*/
+        border-bottom: 1px solid #000000;
+        width: 530px;
+    }
+
+        .F-Encabezado .F-Empresa figure {
+            display: inline-flex;
+        }
+
+            .F-Encabezado .F-Empresa figure img {
+                height: 100px;
+            }
+
+            .F-Encabezado .F-Empresa figure figcaption {
+                /*background:red;*/
+                font-size: 35px;
+                padding: 3px 5px;
+            }
+
+
+    .F-Encabezado .F-Factura {
+        border-bottom: 1px solid #000000;
+        width: 530px;
+    }
+
+        .F-Encabezado .F-Factura h2, .F-Encabezado .F-Factura h5 {
+            /*background: red;*/
+        }
+
+        .F-Encabezado .F-Factura h2{
+            text-align:center;
+        }
+
+        .F-Encabezado .F-Factura h5 {
+            padding-left:50px;
+            margin-bottom:0px;
+        }
+
+.cat-Doc {
+    border: 1px solid #000000;
+    background: #fff;
+    float: left;
+    text-align: center;
+    left: 513px;
+    padding: 5px;
+    position: absolute;
+    height: 65px;
+    font-size: 40px;
+    z-index:3;
+    width: 60px;
+}
+
+.F-Proveedor {
+    display: inline-flex;
+}
+
+    .F-Proveedor div {
+        width: 270px;
+        padding: 5px;
+    }
+
+.F-Cliente {
+    padding: 15px 0px;
+}
+
+    .F-Cliente div {
+        display: inline-block;
+        width: 270px;
+    }
+
+
+.tb-especial {
+    background: none !important;
+}
+
+    .tb-especial tr {
+        background: none !important;
+        border-bottom: 1px solid #000000 !important;
+        color: #000000 !important;
+    }
+
+        .tb-especial tr th {
+            background: #d1d1d1 !important;
+            color: #000000 !important;
+        }
+
+        .tb-especial tr th, .tb-especial tr td {
+            border-top: 1px solid #000000 !important;
+            border-bottom: 1px solid #000000 !important;
+        }
+
+            .tb-especial tr td:last-child {
+                background: none !important;
+                text-align: right;
+            }
+
+.F-Footer {
+    display: inline-flex;
+    padding: 10px 0px;
+}
+
+    .F-Footer .F-Iva {
+        width: 350px;
+    }
+
+
+    .F-Footer .F-Total {
+        margin-left: 300px;
+        width: 350px;
+    }
+
+.F-tableTotal tr th {
+    background: none !important;
+}
+
+.tb-tableTotal tr th:last-child {
+    text-align: right !important;
+}

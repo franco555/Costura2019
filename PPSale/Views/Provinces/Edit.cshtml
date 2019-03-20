@@ -1,0 +1,54 @@
+﻿@model PPSale.Models.Globals.Province
+
+@{
+    var Pagina = "Provincia";
+    var Controlers = "Provinces";
+    ViewBag.Title = Pagina;
+}
+
+<h5 class="f-title f-titleEdit">
+    <span class="title_CreateEdit f-orange">
+        Editar:
+    </span> @Pagina
+</h5>
+
+
+@using (Html.BeginForm("Edit", @Controlers, FormMethod.Post, new { @class = "form"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ProvinceId)
+        <div class="form-Edit">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CountryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CountryId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Guardar" class="btn btn-warning" />
+                    <a href="@Url.Action("Index")" class="btn btn-success" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="Conten-Menu">
+        <Nav class="Ec-Menu">
+            <div class="LogoName">
+                <a class="logo-company" href="@Url.Action("Index","Home")">
+                    <div class="imgCompany p-2">
+                        <img src="~/Content/Logos/Empresa/Logopdp.png">
+                    </div>
+                    <div class="nameCompany p-2">Pesca del Pacífico</div>
+                </a>
+            </div>
+        </Nav>
+        <div class="Ec-btn-Menu btn">
+            <span class="glyphicon glyphicon-menu-hamburger"></span>
+        </div>
+
+
+        <div class="Ec-ContentMenu flex-wrap align-content-stretch">
+            @if (User.IsInRole("Admin"))
+            {
+            <div class="col-md-3">
+
+                <ul class="RowColumnMenu">
+                    <li id="especial">Ubicación</li>
+                    <li><a href="@Url.Action("Index","Countries")">Pa&iacute;s</a></li>
+                    <li><a href="@Url.Action("Index","Provinces")">Provincia</a></li>
+                    <li><a href="@Url.Action("Index","Cities")">Ciudad</a></li>
+                </ul>
+
+
+                <ul class="RowColumnMenu">
+                    <li id="especial">Compañía</li>
+                    <li><a href="@Url.Action("Index","IvaConditions")">Condici&oacute;n frente al IVA</a></li>
+                    <li><a href="@Url.Action("Index","TypeDocuments")">Tipo de documento</a></li>
+                    <li><a href="@Url.Action("Index","CategoryDocuments")">Categoría de documento</a></li>
+                    <li><a href="@Url.Action("Index","Companies")">Compañias</a></li>
+                    <li><a href="@Url.Action("Index","Users")">Usuarios</a></li>
+                    <li><a href="@Url.Action("Index","Rols")">Roles</a></li>
+                    <li><a href="@Url.Action("Index","AsingRolAndUsers")">Relacionar Usuario Rol y Compañía</a></li>
+                </ul>
+
+
+                <ul class="RowColumnMenu">
+                    <li id="especial">Complemento</li>
+                    <li><a href="@Url.Action("Index","Providers")">Proveedor</a></li>
+                    <li><a href="@Url.Action("Index","Clients")">Clientes</a></li>
+                    <li><a href="@Url.Action("Index","TypePayments")">Tipo de Pago</a></li>
+                    <li><a href="@Url.Action("Index","MeasuredUnits")">Unidad de Medida</a></li>
+                    <li><a href="@Url.Action("Index","Products")">Producto</a></li>
+                    <li><a href="@Url.Action("Index","Classifications")">Clasificacion</a></li>
+                    <li><a href="@Url.Action("Index","ProductClassifications")">Productos Clasificados</a></li>
+                </ul>
+
+                <ul class="RowColumnMenu">
+                    <li id="especial">Entrada</li>
+                    <li><a href="@Url.Action("Index","DocumentEntries")">Ventas</a></li>
+                    <li><a href="">Agregar Productos</a></li>
+                </ul>
+
+            </div>
+            }
+        <div class="col-md-3">
+            <ul class="RowColumnMenu">
+                <li id="especial">Ubicación2</li>
+                <li><a href="@Url.Action("Index","Countries")">Pa&iacute;s</a></li>
+                <li><a href="@Url.Action("Index","Provinces")">Provincia</a></li>
+                <li><a href="@Url.Action("Index","Cities")">Ciudad</a></li>
+            </ul>
+            <ul class="RowColumnMenu">
+                <li id="especial">Compañía</li>
+                <li><a href="@Url.Action("Index","IvaConditions")">Condici&oacute;n frente al IVA</a></li>
+                <li><a href="@Url.Action("Index","Companies")">Compañias</a></li>
+                <li><a href="@Url.Action("Index","Users")">Usuarios</a></li>
+                <li><a href="@Url.Action("Index","Rols")">Roles</a></li>
+                <li><a href="@Url.Action("Index","AsingRolAndUsers")">Relacionar Usuario Rol y Compañía</a></li>
+            </ul>
+            <ul class="RowColumnMenu">
+                <li id="especial">Complemento</li>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="RowColumnMenu">
+                <li id="especial">Ubicación</li>
+                <li><a href="@Url.Action("Index","Countries")">Pa&iacute;s</a></li>
+                <li><a href="@Url.Action("Index","Provinces")">Provincia</a></li>
+                <li><a href="@Url.Action("Index","Cities")">Ciudad</a></li>
+            </ul>
+            <ul class="RowColumnMenu">
+                <li id="especial">Compañía</li>
+                <li><a href="@Url.Action("Index","IvaConditions")">Condici&oacute;n frente al IVA</a></li>
+                <li><a href="@Url.Action("Index","Companies")">Compañias</a></li>
+                <li><a href="@Url.Action("Index","Users")">Usuarios</a></li>
+                <li><a href="@Url.Action("Index","Rols")">Roles</a></li>
+                <li><a href="@Url.Action("Index","AsingRolAndUsers")">Relacionar Usuario Rol y Compañía</a></li>
+            </ul>
+            <ul class="RowColumnMenu">
+                <li id="especial">Complemento</li>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+                <li>sdf</li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="RowColumnMenu">
+                <li id="especial">Ubicación</li>
+                <li><a href="@Url.Action("Index","Countries")">Pa&iacute;s</a></li>
+                <li><a href="@Url.Action("Index","Provinces")">Provincia</a></li>
+                <li><a href="@Url.Action("Index","Cities")">Ciudad</a></li>
+            </ul>
+            <ul class="RowColumnMenu">
+                <li id="especial">Compañía</li>
+                <li><a href="@Url.Action("Index","IvaConditions")">Condici&oacute;n frente al IVA</a></li>
+                <li><a href="@Url.Action("Index","Companies")">Compañias</a></li>
+                <li><a href="@Url.Action("Index","Users")">Usuarios</a></li>
+                <li><a href="@Url.Action("Index","Rols")">Roles</a></li>
+                <li><a href="@Url.Action("Index","AsingRolAndUsers")">Relacionar Usuario Rol y Compañía</a></li>
+                <li><i class="fa fa-address-book"></i> <span class="fa fa-edit"></span></li>
+            </ul>
+            <ul class="RowColumnMenu">
+                @Html.Partial("_LoginPartial")
+            </ul>
+        </div>
+        </div>
+    </div>
+
+
+    <div class="Ec-Container">
+        @RenderBody()
+        <hr />
+        <footer class="foot">
+            <p>&copy; @DateTime.Now.Year - Desarrollado por: Franco Caysahuana Ch.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

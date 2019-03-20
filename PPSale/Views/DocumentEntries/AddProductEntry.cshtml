@@ -1,0 +1,242 @@
+﻿@model PPSale.Models.Entry.AddProductEntries
+
+@{
+    var Pagina = "Agregar Productos";
+    var Controler = "AddProductEntries";
+    var Controlers = "AddProductEntries";
+    ViewBag.Title = Pagina;
+}
+<div class="container">
+    <div class="col-lg-12 F-border">
+        <div class="F-Encabezado">
+            <div class="F-Empresa">
+                <figure>
+                    <img src="../../@Html.DisplayFor(Model => Model.p_Logo)" />
+                    <figcaption>Razon Social: @Html.DisplayFor(Model => Model.p_Provider)</figcaption>
+                </figure>
+                @*<span>@Html.DisplayNameFor(Model => Model.c_Company):</span>*@
+            </div>
+            <div class="F-Factura">
+                <h2>@Html.DisplayFor(Model => Model.TypeDocument)</h2>
+                <h5><b>N&uacute;mero de Doc.:</b>@Html.DisplayFor(Model => Model.NumberDoc) 4</h5>
+                <h5><b>Fecha de Emisi&oacute;n:</b>@Html.DisplayFor(Model => Model.Date)</h5>
+            </div>
+            <span class="cat-Doc">@Html.DisplayFor(Model => Model.CategoryDocument)</span>
+        </div>
+
+        <div class="F-Proveedor">
+            <div>
+                <b>Direcci&oacute;n:</b> @Html.DisplayFor(Model => Model.p_Address)
+            </div>
+            <div>
+                <b>Tel&eacute;fono:</b>  No Disponible
+            </div>
+            <div>
+                <b>Ing. Brutos:</b> No Disponible
+            </div>
+            <div>
+                <b>Inicio Actividad:</b> @Html.DisplayFor(Model => Model.p_Date)
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-12 F-Limit">
+        <div class="F-Cliente">
+
+            <div>
+                <b>Cliente:</b> @Html.DisplayFor(Model => Model.c_Company)
+            </div>
+            <div>
+                <b>Direcci&oacute;n:</b> @Html.DisplayFor(Model => Model.c_Address)
+            </div>
+            <div>
+                <b>Tel&eacute;fono:</b>  No Disponible
+            </div>
+            <div>
+                <b>Resp. Iva:</b>  @Html.DisplayFor(Model => Model.c_IVA)
+            </div> <br />
+            <div>
+                <b>Condicion de Venta:</b> @Html.DisplayFor(Model => Model.TypePayment)
+            </div>
+            <div>
+                <b>CUIT:</b> @Html.DisplayFor(Model => Model.c_Cuit)
+            </div>
+        </div>
+
+    </div>
+
+    @if (TempData["Error"] != null && TempData.Count != 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            <strong>Alerta!</strong>&nbsp;&nbsp;@TempData["Error"]
+        </div>
+    }
+
+    <div class="col-lg-12 F-Limit">
+        <table class="table tableTwoBtn tb-especial">
+            <tr>
+                <th>
+                    C&oacute;digo
+                </th>
+                <th>
+                    Descripci&oacute;n
+                </th>
+                <th>
+                    Cantidad
+                </th>
+                <th>
+                    U. Medida
+                </th>
+                <th>
+                    Precio Unitario
+                </th>
+                <th>
+                    Total
+                </th>
+                <th>
+                    @Html.ActionLink("Nuevo Producto", "AddProductEntryNew", "DocumentEntryDetails", new { id = Model.DocumentEntryId }, new { @class = "dialog-window btn btn-sm btn-info", @id = "btn-Option", @data_Option = "Create", @data_title = "Nuevo Producto" })
+                </th>
+            </tr>
+            @if (Model == null || Model.DocumentEntryDetails.Count() == 0)
+            {
+                <tr>
+                    <td colspan="7">
+                        No hay Elementos...
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.DocumentEntryDetails)
+                {
+
+                    <tr>
+                        <td>
+                            @if (item.save == false)
+                            {
+                                <span class="save save-false" title="No guardado!"></span>
+                            }
+                            else
+                            {
+                                    <span class="save save-true" title="Guardado!"></span>
+                            }
+                            C&oacute;digo
+                        </td>
+                        <td class="data-@Html.DisplayFor(modelItem => item.DocumentEntryDetailId)">
+                            @Html.DisplayFor(modelItem => item.FullName)&nbsp;
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+
+                            <pan style="font-size:10px; color:#ff6a00;">
+                                &#91;
+                                @*
+                                @if (item.OtherTable == true)
+                                {
+                                    @Html.DisplayFor(modelItem => item.OtherProduct) @(" - ");
+                                    @Html.DisplayFor(modelItem => item.alt_Quantity)
+                                }
+                                else
+                                {
+                                    if (item.Edit == true)
+                                    {
+                                        <span>@Html.DisplayFor(modelItem => item.alt_Quantity)</span>
+                                    }
+                                    else
+                                    {
+                                        <span>No Editado</span>
+                                    }
+
+                                }
+                                *@
+                                &#93;
+                            </pan>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MeasuredUnit.Name)
+                        </td>
+                        <td>
+                            &#36;  @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("AddProductEntryEdit","DocumentEntryDetails",new { id=item.DocumentEntryDetailId})" class="btn btn-sm btn-warning dialog-window" id="btn-Option" data-Option="Edit" data-title="Editar Producto" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                            <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.DocumentEntryDetailId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+
+    </div>
+
+    <div class="col-lg-12 F-Limit">
+        <div class="F-Footer">
+            <div class="F-Iva">
+                <table class="table tableTwoBtn tb-especial">
+                    <tr>
+                        <th>Descripci&oacute;n </th>
+                        <th>Importe</th>
+                    </tr>
+                    <tr>
+                        <td><b>Importe Neto Gravado</b></td>
+                        <td><b>&#36;&nbsp;@Html.DisplayFor(Model => Model.P_Total)</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Iva: @Html.DisplayFor(Model => Model.Iva)</b></td>
+                        <td><b>&#36;&nbsp; @Html.DisplayFor(Model => Model.IvaTotal)</b></td>
+                    </tr>
+
+
+                </table>
+            </div>
+            <div class="F-Total">
+                <table class="table tableTwoBtn tb-especial F-tableTotal">
+                    <tr>
+                        <th>SubTotal </th>
+                        <th style="text-align:right; font:100;"><b>&#36;&nbsp;</b>@Html.DisplayFor(Model => Model.P_Total)</th>
+                    </tr>
+                    <tr>
+                        <td><b>Total</b></td>
+                        <td><b>&#36;&nbsp;@Html.DisplayFor(Model => Model.P_Total_Iva)</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a href="@Url.Action("Entry","Navs")" class="btn btn-sm btn-success" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+                            @if (Model.save == false)
+                            {
+                                <a class="btn btn-sm btn-primary" id="SaveDocumentEntry" data-Id="@Html.DisplayFor(Model => Model.DocumentEntryId)" title="Guardar"><span class="glyphicon glyphicon-save" aria-hidden="true"></span>&nbsp;Guardar</a>
+                                <a class="btn btn-sm btn-danger" title="Cancelar" id="DocumentEntryDetailCancel" data-Id="@Html.DisplayFor(Model => Model.DocumentEntryId)"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Cancelar</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-sm btn-primary" disabled title="Guardar"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;Guardar</a>
+                                <a class="btn btn-sm btn-danger" disabled title="Cancelar"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>&nbsp;Cancelar</a>
+                            }
+                            <a href="" class="btn btn-sm btn-info" title="Imprimir"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>&nbsp;Imprimir</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="WindowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="ModalTitle">
+                <button type="button" class="Closed" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h2 class="modal-title"></h2>
+            </div>
+            <div class="modal-body"><div class="te">Please wait...</div></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@model PPSale.Models.Complement.ProductClassification
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductClassification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Classification.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Classification.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MeasuredUnit.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MeasuredUnit.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodeBar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodeBar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductClassificationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

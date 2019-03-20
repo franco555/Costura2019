@@ -1,0 +1,111 @@
+﻿.file-object {
+    margin: 0 0 -5px 0;
+    padding: 0;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        text-align: right;
+        opacity: 0;
+        background: none repeat scroll 0 0 transparent;
+        cursor: inherit;
+        display: block;
+        width:50px;
+    }
+
+.file-caption-name {
+    display: inline-block;
+    word-break: break-all;
+    display: inline-block;
+    height: auto;
+}
+
+.file-caption {
+    width:35px !important;
+}
+
+.input-group-btn {
+    margin-left: -4px !important;
+}
+
+.btn-file {
+    border-radius:0px 5px 5px 0px;
+}
+
+.input-group-lg .file-caption-name {
+    height: auto;
+}
+
+.fileImg {
+    display:block !important;
+    width:100%;
+}
+
+.fileImg div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.file-caption-disabled {
+    background-color: #EEEEEE;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.file-actions, .file-other-error {
+    text-align: left;
+}
+
+.file-icon-lg {
+    font-size: 1.2em;
+}
+
+.file-icon-2x {
+    font-size: 2.4em;
+}
+
+.file-icon-4x {
+    font-size: 4.8em;
+}
+
+.file-input-new .file-preview, .file-input-new .close, .file-input-new .glyphicon-file,
+.file-input-new .fileinput-remove-button, .file-input-new .fileinput-upload-button,
+.file-input-ajax-new .fileinput-remove-button, .file-input-ajax-new .fileinput-upload-button {
+    display: none;
+}
+
+.file-actions {
+    margin-top: 15px;
+}
+
+.highlighted {
+    border: 2px dashed #999 !important;
+    background-color: #f0f0f0;
+}
+#filesImg {
+    display:block;
+    text-align:left;
+    margin-bottom:10px;
+}
+
+img#files {
+    border: 2px solid #0b45a1;
+    padding: 1px;
+    min-height:100px;
+    height: 100px;
+    width: auto;
+    min-width:50px;
+}
+#files:before {
+    text-align: center;
+    content: "Imagen de la Empresa";
+}

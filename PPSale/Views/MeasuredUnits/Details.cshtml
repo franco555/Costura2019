@@ -1,0 +1,50 @@
+﻿@model PPSale.Models.Complement.MeasuredUnit
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MeasuredUnit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Company.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Abrev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Abrev)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equivalent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equivalent)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MeasuredUnitId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

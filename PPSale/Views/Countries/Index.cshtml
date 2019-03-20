@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PPSale.Models.Globals.Country>
+
+@{
+    var Pagina = "País";
+    var Controler = "Country";
+    var Controlers = "Countries";
+    ViewBag.Title = Pagina;
+}
+
+<h2 class="header-title">Nueva  @Pagina</h2>
+
+<div class="col-lg-12">
+    <p class="btn-new" style="display:inline-flex">
+        <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+    </p>
+    <p class="btn-new" style="display:inline-flex">
+        <a class="btn btn-info" href="@Url.Action("Additional","Navs" )" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+    </p>
+    <p class="btn-new" style="display:inline-flex">
+        <a class="btn btn-primary" href="@Url.Action("Create",Controlers )" title="Nuevo"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
+    </p>
+</div>
+
+
+
+@if (TempData["Error"] != null && TempData.Count != 0)
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Alerta!</strong>&nbsp;&nbsp;@TempData["Error"]
+    </div>
+}
+
+<table class="table tableTwoBtn">
+
+    <tr>
+        <th colspan="1">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>Acci&oacute;n</th>
+    </tr>
+    @if (Model == null || Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="2">
+                No hay Elementos...
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td colspan="0" class="data-@Html.DisplayFor(modelItem => item.CountryId)">
+                    @Html.DisplayFor(modelItem => item.Name) &nbsp;
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit",new { id=item.CountryId })" class="btn btn-sm btn-warning" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.CountryId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+        }
+    }
+</table>

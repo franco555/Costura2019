@@ -1,0 +1,155 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@if (User.IsInRole("0Admin"))
+{<p>
+        Administrador
+    </p>
+}
+
+<div class="jumbotron">
+    @if (Request.IsAuthenticated)
+    {
+        <div class="card card-button">
+            <a href="@Url.Action("Entry","Navs")">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-shopping-cart" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Entradas</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="card card-button">
+            <a href="@Url.Action("Departure","Navs")">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-send" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Salidas</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="card card-button">
+            <a href="@Url.Action("Warehouse","Navs")">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-equalizer" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Almac&eacute;n</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="card card-button">
+            <a href="@Url.Action("Graphic","Navs")">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-picture" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Gr&aacute;fico</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="card card-button">
+            <a href="@Url.Action("Report","Navs")">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-list-alt" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Reportes</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="card card-button">
+            <a href="@Url.Action("Saving","Navs")">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-piggy-bank" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Ahorros</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="card card-button">
+            <a href="@Url.Action("Additional","Navs")">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-question-sign" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Adicionales</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="card card-button">
+            <a href="@Url.Action("Configuration","Navs")">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-cog" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Configuraci&oacute;n</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+
+
+
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+        }
+        <div class="card card-button return">
+            <a href="javascript:document.getElementById('logoutForm').submit()">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-off" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Cerrar Sessi&oacute;n</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="card card-button Logg">
+
+            <a href="@Url.Action("Login","Account")" id="loginLink">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top glyphicon glyphicon-user" style="font-size:80px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Inicicar Sessi&oacute;n</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Diseño</h2>
+        <p>
+            Cuenta con diversos diseños, todos los diseños tiene un trabajo de nitidez y prolijidad en su fabricación,
+            facilidad de producción.
+        </p>
+        <p><a class="btn btn-default" href="">Leer M&aacute;s &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Novedades</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="">Leer M&aacute;s &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Productos</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="">Leer M&aacute;s &raquo;</a></p>
+    </div>
+</div>

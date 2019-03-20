@@ -1,0 +1,66 @@
+﻿@model PPSale.Models.Entry.DocumentEntryDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DocumentEntryDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Classification.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Classification.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DocumentEntry.NumberDoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DocumentEntry.NumberDoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MeasuredUnit.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MeasuredUnit.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DocumentEntryDetailId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

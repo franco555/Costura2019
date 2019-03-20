@@ -1,0 +1,215 @@
+﻿body {
+    padding:0;
+    margin:0;
+}
+/*Menu principal*/
+.Conten-Menu {
+    font-family:Arial, Helvetica, sans-serif;
+    display:block;
+    border-bottom:1px solid red;
+    position:absolute;
+    margin-top:-80px;
+    display:block;
+    margin-bottom:15px;
+    width:100%;
+}
+
+.Ec-Menu {
+    background: #3d3d3d;
+    color: #ffffff;
+    padding: 5px 0px;
+    text-align: center;
+    width: 100%;
+}
+.LogoName{
+    display:block;
+    padding:5px 0px;
+}
+
+    .LogoName .imgCompany,
+    .LogoName .nameCompany {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    .logo-company .imgCompany {
+        height:55px;
+    }
+        .logo-company .imgCompany img {
+            width:auto;
+            height:45px;
+        }
+
+        .logo-company .nameCompany {
+            text-decoration:none;
+            color:#e5e5e5;
+        }
+        .logo-company .nameCompany:hover {
+            text-decoration:underline;
+        }
+/*Boton del menu*/
+.Ec-btn-Menu {
+    display:block;
+    color:#e2e2e2;
+    float: right;
+    background: #3498DB;
+    margin-right: 10px;
+    margin-top: -60px;
+    text-align:center;
+    padding-top:10px;
+    width: 40px;
+}
+
+.Ec-btn-Menu:hover {
+    background: #0d629b;
+}
+
+.Ec-btn-Menu .Ec-btn-line {
+    display:block;
+    background:#ffffff;
+    border-radius:3px;
+    box-shadow:1px 1px #3d3d3d inset;
+    height:5px;
+    margin-bottom:5px;
+    width:25px;
+}
+
+/*Contenedor defs menu*/
+.Ec-ContentMenu {
+    display:none;
+    background: #9d9d9d;
+    border-top: 1px solid red;
+    float: left;
+    position: relative;
+    z-index: 9999;
+    width: 100%;
+}
+
+.columMenu {
+    display:inline-block;
+    vertical-align:middle;
+    width:24%;
+    padding-left:1%;
+}
+
+.RowColumnMenu {
+    padding:0px;
+    color:#e2e2e2;
+}
+
+.RowColumnMenu li{
+    display:block;
+    padding-left:10px;
+    margin-bottom:1px;
+    width:100%;
+}
+
+    .RowColumnMenu li:hover:not(#especial) {
+        background: #808080;
+        cursor: pointer;
+    }
+
+.RowColumnMenu li:first-child {
+    color:#0d629b;
+    font-weight:bold;
+    border-bottom:1px solid ;
+    padding:5px;
+    text-transform:uppercase;
+}
+
+    .RowColumnMenu li a {
+        display:block;
+        text-decoration: none;
+        color: #e2e2e2;
+        width:100%;
+    }
+
+/*Contenido*/
+.Ec-Container {
+    position: relative;
+    margin-top: 80px;
+    margin-left:2.5%;
+    padding-top:15px;
+    align-content: center;
+    width: 95%;
+}
+
+.btn-new {
+    position: relative;
+}
+
+a > span {
+    color: #ffffff;
+}
+
+form {
+    /*background: rgba(65, 137, 55, 0.10);
+    border: 1px solid rgba(157, 157, 157, 0.53);*/
+    border-radius: 1rem;
+    padding: 1rem;
+}
+form.form-control {
+    background: rgba(255, 255, 255,0.05);
+}
+.row{
+    margin-bottom:10px;
+}
+
+/*Contido*/
+.col-two{
+    display:inline-block;
+    vertical-align:top;
+    margin-left:4%;
+    width:45%;
+}
+
+.col-two  div label{
+    text-align:right;
+}
+
+.box-btn{
+    text-align:center;
+}
+
+/* Para 960px */
+@media only screen and (max-width: 980px) {
+    .col-two div label, .col-two div div input{
+    }
+}
+
+/* Para 800px */
+@media only screen and (max-width: 820px){
+    .col-two div label {
+    }
+    .col-two {
+        display:block;
+        margin-left: 4%;
+        width: 90%;
+    }
+}
+
+/* Para 760 */
+@media only screen and (max-width: 768px) {
+    .col-two div label {
+        text-align:left;
+    }
+}
+
+/* Para 600px */
+@media only screen and (max-width: 620px) {
+    .col-two div label {
+        text-align:left;
+    }
+}
+
+/* Para 480px */
+@media only screen and (max-width: 500px) {
+    .col-two div label {
+    }
+}
+
+/* Para 320px */
+@media only screen and (max-width: 340px)  { /*and (min-width: 5px)*/
+    .col-two div label {
+    }
+}
