@@ -1,16 +1,24 @@
-﻿using System.IO;
-using System.Web;
-
-namespace PPSale.Classes
+﻿namespace PPSale.Classes
 {
+    using Models.Other;
+    using System.IO;
+    using System.Web;
+
     public class FilesHelpers
     {
-        public static bool UploadPhoto(HttpPostedFileBase file, string folder, string NewName)
+        public static Response UploadPhoto(HttpPostedFileBase file, string folder, string NewName)
         {
+            var response = new Response();
+
             if (file == null || string.IsNullOrEmpty(folder) || string.IsNullOrEmpty(NewName))
             {
-                return false;
+                response.Succeded = false;
+                response.Message = $"Nombre de Folder: {folder} - Nombre de Archivo: {NewName}";
+                response.Objet = file;
+
+                return response;
             }
+
             try
             {
                 string ruta = string.Empty;
@@ -25,10 +33,19 @@ namespace PPSale.Classes
                         byte[] array = ms.GetBuffer();
                     }
                 }
-                return true;
+                else
+                {
+                    response.Succeded = false;
+                    response.Message = $"El archivo esta vacío: {file}";
+                }
+
+                
+
+                return response;
             }
             catch
             {
+
                 return false;
             }
 

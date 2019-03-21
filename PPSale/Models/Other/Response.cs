@@ -5,5 +5,7 @@
         public bool Succeded { get; set; }
 
         public string Message { get; set; }
+
+        public object  Objet{ get; set; }
     }
 }

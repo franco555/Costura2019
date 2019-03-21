@@ -1,21 +1,22 @@
-﻿using PPSale.Models.Conexion;
-using PPSale.Models.Other;
-using System;
-
-namespace PPSale.Classes
+﻿namespace PPSale.Classes
 {
+    using System;
+    using Models.Conexion;
+    using Models.Other;
+
     public class DBHelpers
     {
         public static Response SaveChage(ConexionContext db)
         {
             //Response es un modelo que tiene dos campos el succeded y Message
-            var response = String.Empty;
+            var response = new Response();
+
             try
             {
                 db.SaveChanges();
 
-                var responses = new Response { Succeded = true,};
-                return responses;
+                response.Succeded = true;
+                return response;
             }
             catch (Exception Ex)
             {
@@ -24,35 +25,29 @@ namespace PPSale.Classes
                     Ex.InnerException.InnerException.Message.Contains("_Index"))
                 {
 
-                    var responses = new Response
-                    {
-                        Succeded = false,
-                        Message = "El Registro ya existe!",
-                    };
+                    response.Succeded = false;
+                    response.Message = "El Registro ya existe!";
 
-                    return responses;
+                    return response;
                 }
                 else if (Ex.InnerException != null &&
                     Ex.InnerException.InnerException != null &&
                     Ex.InnerException.InnerException.Message.Contains("REFERENCE"))
                 {
-                    var responses = new Response
-                    {
-                        Succeded = false,
-                        Message = "Te Recuerdo que no puedes borrar!. Por que Existe en otras tablas y esta siendo usado.",
-                    };
 
-                    return responses;
+                    response.Succeded = false;
+                    response.Message = "Te Recuerdo que no puedes borrar!. Por que Existe en otras tablas y esta siendo usado.";
+
+
+                    return response;
                 }
                 else
                 {
-                    var responses = new Response
-                    {
-                        Succeded = false,
-                        Message = Ex.Message,
-                    };
 
-                    return responses;
+                    response.Succeded = false;
+                    response.Message = Ex.Message;
+
+                    return response;
                 }
             }
 
