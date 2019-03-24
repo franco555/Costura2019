@@ -7,10 +7,10 @@
     font-family:Arial, Helvetica, sans-serif;
     display:block;
     border-bottom:1px solid red;
-    position:absolute;
-    margin-top:-80px;
+    position:relative;
+    margin-top:0px;
     display:block;
-    margin-bottom:15px;
+    margin-bottom:0px;
     width:100%;
 }
 
@@ -84,12 +84,20 @@
     z-index: 9999;
     width: 100%;
 }
-
+.Ec-Controls p{
+    margin:0px;
+    padding:0px;
+}
+.Ec-Controls p a span{
+    display:block;
+    padding:5px;
+    width:100%;
+}
 .columMenu {
-    display:inline-block;
-    vertical-align:middle;
-    width:24%;
-    padding-left:1%;
+    display: inline-block;
+    vertical-align: middle;
+    width: 24%;
+    padding-left: 1%;
 }
 
 .RowColumnMenu {
@@ -127,16 +135,13 @@
 /*Contenido*/
 .Ec-Container {
     position: relative;
-    margin-top: 80px;
+    margin-top: 0px;
     margin-left:2.5%;
-    padding-top:15px;
     align-content: center;
     width: 95%;
 }
 
-.btn-new {
-    position: relative;
-}
+
 
 a > span {
     color: #ffffff;

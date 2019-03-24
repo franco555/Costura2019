@@ -1,26 +1,23 @@
-﻿@model PPSale.Models.Globals.Country
+﻿@model PPSale.Models.Globals.Province
 
 @{
-    var Pagina = "País";
+    var Pagina = "Provincias";
     var Controlers = "Countries";
+
     ViewBag.Title = Pagina;
 }
 
-@*h5 class="f-title f-titleCreate">
-    <span class="title_CreateEdit f-blue">
-        Registrar Nuevo:
-    </span> @Pagina
-</h5> *@
-
-@using (Html.BeginForm("Create", @Controlers, FormMethod.Post, new { @class = "form"}))
+@using (Html.BeginForm("EditProvince", @Controlers, FormMethod.Post, new { @class = "form" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
- 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-Create">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CountryId)
+        @Html.HiddenFor(model => model.ProvinceId)
+
+        <div class="form-Normal">
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-4" })
                 <div class="col-md-8">
@@ -29,15 +26,11 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group">
                 <div class="btn-rigth">
-                    <input type="submit" value="Guardar" class="btn btn-primary" />
-                   </div>
+                    <input type="submit" value="Actualizar" class="btn btn-primary" />
+                </div>
             </div>
         </div>
     </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

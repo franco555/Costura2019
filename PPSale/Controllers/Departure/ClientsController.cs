@@ -99,7 +99,7 @@ namespace PPSale.Controllers.Departure
                         var folder = "~/Content/Logos/Client";
                         var Name = string.Format("{0}.jpg", client.ClientId);
                         var Succ = FilesHelpers.UploadPhoto(client.LogoFile, folder, Name);
-                        if (Succ)
+                        if (Succ.Succeded)
                         {
                             var pic = string.Format("{0}/{1}", folder, Name);
                             client.Logo = pic;
@@ -167,7 +167,7 @@ namespace PPSale.Controllers.Departure
                         var folder = "~/Content/Logos/Client";
                         var Name = string.Format("{0}.jpg", client.ClientId);
                         var Succ = FilesHelpers.UploadPhoto(client.LogoFile, folder, Name);
-                        if (Succ)
+                        if (Succ.Succeded)
                         {
                             var pic = string.Format("{0}/{1}", folder, Name);
                             client.Logo = pic;

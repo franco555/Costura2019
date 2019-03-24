@@ -16,9 +16,10 @@
 }
 
     /*Formto de tabla*/
-table.table tr:first-child {
+table.table thead tr:first-child {
     /*background: rgba(3, 171, 217, 0.91) !important;*/
     background: #61b12a;
+    height:45px;
     color: #ffffff !important;
 }
 
@@ -41,8 +42,27 @@ table.table tr:first-child {
 }
 
 .table tr:nth-child(2n+1) {
-    background: #cffeb0;
+    background: #eaffdc;
     border-bottom: 1px solid #61b12a !important;
+}
+
+tbody tr td{
+    height:15px;
+}
+
+tfoot tr {
+    text-align:center;
+    background: #93e25d !important;
+}
+
+.table caption {
+    color:#ffffff;
+    background: #61b12a;
+    font-size:20px;
+    padding:5px 10px;
+    width:250px;
+    border-radius:15px 15px 0px 0px;
+    border-bottom:3px solid #3b6d19;
 }
 
 .f-block {
@@ -154,11 +174,38 @@ table.table tr:first-child {
 /*titulo de la pagina*/
 .header-title {
     color: #61b12a;
-    border-bottom: 1px solid #61b12a;
-    text-align:right;
-    padding-left:10px;
+    padding: 0px;
+    margin: 0px;
+    margin-top:10px;
+    margin-bottom: 15px;
 }
 
+    .header-title > div p > span {
+        display:block;
+        color:#fff;
+        background: #61b12a;
+        padding:13px 15px;
+        font-size:23px;
+        text-align:center;
+        margin-left:0px;
+        Min-width:200px;
+        margin-bottom:0px;
+        
+    }
+
+    .header-title > div > p > span, .Ec-Controls{
+        display:inline-block;
+        vertical-align:middle;
+    }
+.btn-new {
+    position: relative;
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.btn-first > a{
+    border-radius: 30px 0px 0px 30px;
+}
 /*Ventana modal*/
 #WindowModal {
     background: rgba(29, 78, 137,0.5);
@@ -357,21 +404,27 @@ form {
 .form{
     text-align:center;
 }
-.form-Create, .form-Edit {
+.form-Create, .form-Edit,.form-Normal {
     background: #ffffff;
     text-align: left;
     padding: 15px;
-    border-radius: 10px;
     min-width: 450px;
+}
+
+.form-Create, .form-Edit {
+    border-radius: 10px;
     box-shadow: 0px 0px 5px #000000;
 }
-.form-Create {
-    border: 1px solid #3f8fff;
-    
-}
+    .form-Create {
+        border: 1px solid #3f8fff;
+    }
 
 .form-Edit {
     border: 1px solid #DF7401;
+}
+
+.form-Normal {
+    border: 1px solid #bebebe;
 }
 
 .f-title {
@@ -391,6 +444,12 @@ form {
     border-radius: 10px 0px 0px 0px;
     display: inline-block;
     padding: 10px 15px;
+}
+
+.btn-rigth{
+    display:block;
+    text-align:right;
+    padding-right:15px;
 }
 
 .f-red {

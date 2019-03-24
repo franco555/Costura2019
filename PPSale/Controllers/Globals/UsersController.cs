@@ -74,7 +74,7 @@ namespace PPSale.Controllers.Globals
                         var folder = "~/Content/Logos/User";
                         var Name = string.Format("{0}.jpg", user.UserId);
                         var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, Name);
-                        if (Succ)
+                        if (Succ.Succeded)
                         {
                             var pic = string.Format("{0}/{1}", folder, Name);
                             user.Logo = pic;
@@ -142,7 +142,7 @@ namespace PPSale.Controllers.Globals
                         var folder = "~/Content/Logos/User/";
                         var Name = string.Format("{0}.jpg", user.UserId);
                         var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, Name);
-                        if (Succ)
+                        if (Succ.Succeded)
                         {
                             var pic = string.Format("{0}/{1}", folder, Name);
                             user.Logo = pic;

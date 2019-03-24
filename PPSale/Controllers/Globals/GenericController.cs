@@ -17,11 +17,16 @@ namespace PPSale.Controllers.Global
         //DELETE----------------------------------------------------------------------------
 
         //DeleteCountry
-        public JsonResult DeleteCountry(int Id)
+        public JsonResult DeleteCountry(int? Id)
         {
             db.Configuration.ProxyCreationEnabled = false;
 
+            if (Id==null){return Json("Id Incorrecto!!!");}
+
             var country = db.Countries.Find(Id);
+
+            if (country == null) { return Json("El Registro no existe!!!"); }
+
             db.Countries.Remove(country);
 
             var response = DBHelpers.SaveChage(db);
@@ -35,11 +40,16 @@ namespace PPSale.Controllers.Global
         }
 
         //DeleteProvince
-        public JsonResult DeleteProvince(int Id)
+        public JsonResult DeleteProvince(int? Id)
         {
             db.Configuration.ProxyCreationEnabled = false;
 
+            if (Id == null) { return Json("Id Incorrecto!!!"); }
+
             var province = db.Provinces.Find(Id);
+
+            if (province == null) { return Json("El Registro no existe!!!"); }
+
             db.Provinces.Remove(province);
 
             var response = DBHelpers.SaveChage(db);
@@ -53,11 +63,16 @@ namespace PPSale.Controllers.Global
         }
 
         //DeleteCity
-        public JsonResult DeleteCity(int Id)
+        public JsonResult DeleteCity(int? Id)
         {
             db.Configuration.ProxyCreationEnabled = false;
 
+            if (Id == null) { return Json("Id Incorrecto!!!"); }
+
             var city = db.Cities.Find(Id);
+
+            if (city == null) { return Json("El Registro no existe!!!"); }
+
             db.Cities.Remove(city);
 
             var response = DBHelpers.SaveChage(db);

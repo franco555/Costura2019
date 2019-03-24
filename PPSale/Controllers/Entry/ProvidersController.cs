@@ -93,11 +93,12 @@ namespace PPSale.Controllers.Entry
                     if (provider.LogoFile != null)
                     {
                         var folder = "~/Content/Logos/Provider";
-                        var Name = string.Format("{0}.jpg", provider.ProviderId);
+                        var guid = Guid.NewGuid().ToString();
+                        var Name = $"{guid}.jpg";
                         var Succ = FilesHelpers.UploadPhoto(provider.LogoFile, folder, Name);
-                        if (Succ)
+                        if (Succ.Succeded)
                         {
-                            var pic = string.Format("{0}/{1}", folder, Name);
+                            var pic =$"{folder}/{Name}";
                             provider.Logo = pic;
 
                             db.Entry(provider).State = EntityState.Modified;
@@ -153,6 +154,9 @@ namespace PPSale.Controllers.Entry
         {
             if (ModelState.IsValid)
             {
+                
+
+               
                 db.Entry(provider).State = EntityState.Modified;
 
                 var response = DBHelpers.SaveChage(db);
@@ -160,10 +164,10 @@ namespace PPSale.Controllers.Entry
                 {
                     if (provider.LogoFile != null)
                     {
+                        var Name = provider.Logo.Substring(provider.Logo.LastIndexOf('/') + 1);
                         var folder = "~/Content/Logos/Provider";
-                        var Name = string.Format("{0}.jpg", provider.ProviderId);
                         var Succ = FilesHelpers.UploadPhoto(provider.LogoFile, folder, Name);
-                        if (Succ)
+                        if (Succ.Succeded)
                         {
                             var pic = string.Format("{0}/{1}", folder, Name);
                             provider.Logo = pic;

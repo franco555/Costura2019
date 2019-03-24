@@ -28,8 +28,6 @@ namespace PPSale.Models.Globals
         [Index("City_Name_CountryId_ProvinceId_Index", 2, IsUnique = true)]
         public int ProvinceId { get; set; }
 
-        //public string FullName { get { return string.Format("{0} {1} {2} {3} {4}", Country.Name, " - ", Province.Name, " - ", Name); } }
-
 
         //RELACIONES ENTRE TABLAS
 

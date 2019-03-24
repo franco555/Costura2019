@@ -219,12 +219,10 @@
     <Compile Include="Controllers\Entry\ProvidersController.cs" />
     <Compile Include="Controllers\Globals\AsingRolAndUsersController.cs" />
     <Compile Include="Controllers\Globals\CategoryDocumentsController.cs" />
-    <Compile Include="Controllers\Globals\CitiesController.cs" />
     <Compile Include="Controllers\Globals\CompaniesController.cs" />
     <Compile Include="Controllers\Globals\CountriesController.cs" />
     <Compile Include="Controllers\Globals\GenericController.cs" />
     <Compile Include="Controllers\Globals\IvaConditionsController.cs" />
-    <Compile Include="Controllers\Globals\ProvincesController.cs" />
     <Compile Include="Controllers\Globals\RolsController.cs" />
     <Compile Include="Controllers\Globals\TypeDocumentsController.cs" />
     <Compile Include="Controllers\Globals\TypePaymentsController.cs" />
@@ -247,7 +245,9 @@
     <Compile Include="Models\Globals\CategoryDocument.cs" />
     <Compile Include="Models\Globals\TypeDocument.cs" />
     <Compile Include="Models\Globals\TypePayment.cs" />
+    <Compile Include="Models\View\CountryWithProvincesViewModel.cs" />
     <Compile Include="Models\View\notViewDocumentEntry.cs" />
+    <Compile Include="Models\View\ProvinceWithCititesViewModel.cs" />
     <Compile Include="Models\View\ViewMoneyMonth.cs" />
     <Compile Include="Models\View\ViewNavEntry.cs" />
     <Compile Include="Models\View\ViewPrice.cs" />
@@ -396,16 +396,6 @@
     <Content Include="Views\Rols\Details.cshtml" />
     <Content Include="Views\Rols\Edit.cshtml" />
     <Content Include="Views\Rols\Index.cshtml" />
-    <Content Include="Views\Provinces\Create.cshtml" />
-    <Content Include="Views\Provinces\Delete.cshtml" />
-    <Content Include="Views\Provinces\Details.cshtml" />
-    <Content Include="Views\Provinces\Edit.cshtml" />
-    <Content Include="Views\Provinces\Index.cshtml" />
-    <Content Include="Views\Cities\Create.cshtml" />
-    <Content Include="Views\Cities\Delete.cshtml" />
-    <Content Include="Views\Cities\Details.cshtml" />
-    <Content Include="Views\Cities\Edit.cshtml" />
-    <Content Include="Views\Cities\Index.cshtml" />
     <Content Include="Views\IvaConditions\Create.cshtml" />
     <Content Include="Views\IvaConditions\Delete.cshtml" />
     <Content Include="Views\IvaConditions\Details.cshtml" />
@@ -511,6 +501,12 @@
     <Content Include="Views\UnitBases\Details.cshtml" />
     <Content Include="Views\UnitBases\Edit.cshtml" />
     <Content Include="Views\UnitBases\Index.cshtml" />
+    <Content Include="Views\Countries\CountryWithProvinces.cshtml" />
+    <Content Include="Views\Countries\AddProvince.cshtml" />
+    <Content Include="Views\Countries\EditProvince.cshtml" />
+    <Content Include="Views\Countries\ProvinceWithCities.cshtml" />
+    <Content Include="Views\Countries\AddCity.cshtml" />
+    <Content Include="Views\Countries\EditCity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

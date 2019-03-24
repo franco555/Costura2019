@@ -119,7 +119,7 @@
                             }
                             else
                             {
-                                    <span class="save save-true" title="Guardado!"></span>
+                                <span class="save save-true" title="Guardado!"></span>
                             }
                             C&oacute;digo
                         </td>
@@ -132,23 +132,23 @@
                             <pan style="font-size:10px; color:#ff6a00;">
                                 &#91;
                                 @*
-                                @if (item.OtherTable == true)
-                                {
-                                    @Html.DisplayFor(modelItem => item.OtherProduct) @(" - ");
-                                    @Html.DisplayFor(modelItem => item.alt_Quantity)
-                                }
-                                else
-                                {
-                                    if (item.Edit == true)
+                                    @if (item.OtherTable == true)
                                     {
-                                        <span>@Html.DisplayFor(modelItem => item.alt_Quantity)</span>
+                                        @Html.DisplayFor(modelItem => item.OtherProduct) @(" - ");
+                                        @Html.DisplayFor(modelItem => item.alt_Quantity)
                                     }
                                     else
                                     {
-                                        <span>No Editado</span>
-                                    }
+                                        if (item.Edit == true)
+                                        {
+                                            <span>@Html.DisplayFor(modelItem => item.alt_Quantity)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>No Editado</span>
+                                        }
 
-                                }
+                                    }
                                 *@
                                 &#93;
                             </pan>
@@ -228,15 +228,16 @@
 </div>
 
 
-
-<div class="modal fade" id="WindowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" id="ModalTitle">
-                <button type="button" class="Closed" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"></h2>
+@*
+    <div class="modal fade" id="WindowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" id="ModalTitle">
+                    <button type="button" class="Closed" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title"></h2>
+                </div>
+                <div class="modal-body"><div class="te">Please wait...</div></div>
             </div>
-            <div class="modal-body"><div class="te">Please wait...</div></div>
         </div>
     </div>
-</div>
+*@

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace PPSale.Models.Globals
+﻿namespace PPSale.Models.Globals
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Province
     {
         [Key]
@@ -16,16 +16,18 @@ namespace PPSale.Models.Globals
         [Index("Province_Name_CountryId_Index", 2, IsUnique = true)]
         public string Name { get; set; }
 
+        [NotMapped]
+        [Display(Name = "# Ciudades")]
+        public int NumberCities { get { return Cities == null ? 0 : Cities.Count; } }
 
+        //Ids TABLAS
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
         [Display(Name = "Pais")]
         [Index("Province_Name_CountryId_Index", 1, IsUnique = true)]
         public int CountryId { get; set; }
-
-        //public string FullName { get { return string.Concat(Country.Name," - " ,Name); } }
-
-        //RELACIONES ENTRE TABLAS
+        
+        //Relacion
         public virtual Country Country { get; set; }
 
         //Relaciones

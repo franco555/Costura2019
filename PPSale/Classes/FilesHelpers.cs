@@ -1,6 +1,7 @@
 ﻿namespace PPSale.Classes
 {
     using Models.Other;
+    using System;
     using System.IO;
     using System.Web;
 
@@ -27,11 +28,14 @@
                 {
                     ruta = Path.Combine(HttpContext.Current.Server.MapPath(folder), NewName);
                     file.SaveAs(ruta);
+
                     using (MemoryStream ms = new MemoryStream())
                     {
                         file.InputStream.CopyTo(ms);
                         byte[] array = ms.GetBuffer();
                     }
+
+                    response.Succeded = true;
                 }
                 else
                 {
@@ -43,10 +47,12 @@
 
                 return response;
             }
-            catch
+            catch (Exception ex)
             {
+                response.Succeded = false;
+                response.Message = ex.Message;
 
-                return false;
+                return response;
             }
 
 

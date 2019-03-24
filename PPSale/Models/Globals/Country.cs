@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
-
-namespace PPSale.Models.Globals
+﻿namespace PPSale.Models.Globals
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Country
     {
         [Key]
@@ -17,6 +14,10 @@ namespace PPSale.Models.Globals
         [Display(Name = "Pais")]
         [Index("Country_Name_Index", IsUnique = true)]
         public string Name { get; set; }
+
+        [NotMapped]
+        [Display(Name = "# Provincias")]
+        public int NumberProvinces { get { return Provinces == null ? 0 : Provinces.Count; } }
 
         //Relaciones
         public virtual ICollection<Province> Provinces { get; set; }
