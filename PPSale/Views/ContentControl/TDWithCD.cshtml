@@ -1,0 +1,97 @@
+﻿@model PPSale.Models.View.TDWithCDViewModel
+
+@{
+    var Pagina = "Categria de Documento";
+    var Controler = "CategoryDocument";
+    var Controlers = "ContentControl";
+    ViewBag.Title = Pagina;
+}
+
+
+<div class="header-title">
+    <div class="Ec-Controls">
+        <p class="btn-new btn-first">
+            <a class="btn btn-success" href="@Url.Action("Index")" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+        </p>
+        <p class="btn-new">
+            <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Inicio</a>
+        </p>
+        <p class="btn-new">
+            <a class="btn btn-success" href="@Url.Action("Additional","Navs" )" title="Volver"><span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;Men&uacute;</a>
+        </p>
+        <p class="btn-new"><span>@Pagina</span></p>
+        <p class="btn-new">
+            <a class="btn btn-primary dialog-window" href="@Url.Action("AddCatDoc",Controlers,new { Id=Model.TypeDocumentId})" title="Nuevo" id="btn-Option" data-Option="Create" data-title="nueva Cat. de documento"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
+        </p>
+    </div>
+</div>
+
+@if (TempData["Action"] != null && TempData.Count != 0)
+{
+
+    if (TempData["Action"].Equals("Error"))
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+    else if (TempData["Action"].ToString() == "Succes")
+    {
+        <div class="alert alert-info alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Felicitaciones!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Alerta!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+
+}
+
+
+
+
+<table class="table tableTwoBtn">
+    <caption>@Url.Content(Model.Name)</caption>
+    <thead>
+        <tr>
+            <th >
+                Categorias de Documento
+            </th>
+            <th>Acci&oacute;n</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.categoryDocuments == null || Model.categoryDocuments.Count() == 0)
+        {
+            <tr>
+                <td colspan="2">
+                    No hay Elementos...
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model.categoryDocuments)
+            {
+                <tr>
+                    <td class="data-@Html.DisplayFor(modelItem => item.CategoryDocumentId)">
+                        @Html.DisplayFor(modelItem => item.Name) &nbsp;
+                    </td>
+                    <td>
+                        <a href="@Url.Action("EditCatDoc",new {Idt=item.TypeDocumentId , Idc=item.CategoryDocumentId })" class="btn btn-sm btn-warning dialog-window" title="Editar" data-Option="Edit" data-title="Editar Cat. Documento"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                       <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.CategoryDocumentId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr><td colspan="2">pie de tabla</td></tr>
+    </tfoot>
+</table>

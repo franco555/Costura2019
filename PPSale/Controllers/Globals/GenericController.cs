@@ -86,12 +86,81 @@ namespace PPSale.Controllers.Global
         }
 
         //DeleteIva
-        public JsonResult DeleteIvaCondition(int Id)
+        public JsonResult DeleteIvaCondition(int? Id)
         {
             db.Configuration.ProxyCreationEnabled = false;
 
+            if (Id == null) { return Json("Id Incorrecto!!!"); }
+
             var iva = db.IvaConditions.Find(Id);
+
+            if (iva == null) { return Json("El Registro no existe!!!"); }
+
             db.IvaConditions.Remove(iva);
+
+            var response = DBHelpers.SaveChage(db);
+
+            if (response.Succeded)
+            {
+                return Json("OK");
+            }
+
+            return Json(response.Message);
+        }
+
+        //DeleteTypePayment
+        public JsonResult DeleteTypePayment(int? Id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+
+            if (Id == null) { return Json("Id Incorrecto!!!"); }
+
+            var payment = db.TypePayments.Find(Id);
+
+            if (payment == null) { return Json("El Registro no existe!!!"); }
+
+            db.TypePayments.Remove(payment);
+
+            var response = DBHelpers.SaveChage(db);
+
+            if (response.Succeded)
+            {
+                return Json("OK");
+            }
+
+            return Json(response.Message);
+        }
+
+        //Delete Unidad de medida
+        public JsonResult DeleteTypeDocument(int? Id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            if (Id == null) { return Json("Id Incorrecto!!!"); }
+
+            var n = db.TypeDocuments.Find(Id);
+            if (n == null) { return Json("El Registro no existe!!!"); }
+            db.TypeDocuments.Remove(n);
+
+            var response = DBHelpers.SaveChage(db);
+
+            if (response.Succeded)
+            {
+                return Json("OK");
+            }
+
+            return Json(response.Message);
+        }
+
+        //Delete Unidad de medida
+        public JsonResult DeleteCategoryDocument(int? Id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            if (Id == null) { return Json("Id Incorrecto!!!"); }
+
+            var n = db.CategoryDocuments.Find(Id);
+            if (n == null) { return Json("El Registro no existe!!!"); }
+
+            db.CategoryDocuments.Remove(n);
 
             var response = DBHelpers.SaveChage(db);
 
@@ -236,42 +305,6 @@ namespace PPSale.Controllers.Global
 
             var n = db.MeasuredUnits.Find(Id);
             db.MeasuredUnits.Remove(n);
-
-            var response = DBHelpers.SaveChage(db);
-
-            if (response.Succeded)
-            {
-                return Json("OK");
-            }
-
-            return Json(response.Message);
-        }
-
-        //Delete Unidad de medida
-        public JsonResult DeleteTypeDocument(int Id)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-
-            var n = db.TypeDocuments.Find(Id);
-            db.TypeDocuments.Remove(n);
-
-            var response = DBHelpers.SaveChage(db);
-
-            if (response.Succeded)
-            {
-                return Json("OK");
-            }
-
-            return Json(response.Message);
-        }
-
-        //Delete Unidad de medida
-        public JsonResult DeleteCategoryDocument(int Id)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-
-            var n = db.CategoryDocuments.Find(Id);
-            db.CategoryDocuments.Remove(n);
 
             var response = DBHelpers.SaveChage(db);
 
@@ -542,8 +575,6 @@ namespace PPSale.Controllers.Global
         }
 
         /*
-         Cancelar
-             *//*
         public JsonResult DocumetEntryDetailCancel(int Id)
         {
             db.Configuration.ProxyCreationEnabled = false;

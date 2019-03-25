@@ -1,7 +1,7 @@
 ﻿
 jQuery(document).on('click', '.mega-dropdown', function (e) {
-    e.stopPropagation()
-})
+    e.stopPropagation();
+});
 
 
 $(document).ready(function () {
@@ -298,7 +298,7 @@ function Validate_Frm(frm) {
         }
     });
     //alert(itemsHidden + "-" + itemsOk);
-    if ((count - itemsHidden) === itemsOk && check === true) {
+    if (count - itemsHidden === itemsOk && check === true) {
 
         $("." + frm).submit();
         $("." + frm)[0].reset();
@@ -306,7 +306,7 @@ function Validate_Frm(frm) {
 }
 
 //validar datos vacios
-function validateDate(value) { return n = (value === "") ? false : true; }
+function validateDate(value) { return value === "" ? false : true; }
 
 //validar select
 function validateSelect(name, i) {
@@ -348,7 +348,7 @@ function validateNumber(name, value) {
 //validar telefono
 function validateTel(name, value) {
     var check;
-    check = (validateNumber(name, value)) ? true : false;
+    check = validateNumber(name, value)? true : false;
     return check;
 }
 //validaar email
@@ -476,7 +476,7 @@ function DeleteConfirm(msg, id, controller) {
                     } else {
                         MsgError("Error!.", "No hay Id de: ", msg, "no");
                     }
-                },
+                }
             },
             cancel: {
                 btnClass: 'btn-red',

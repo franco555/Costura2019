@@ -1,0 +1,190 @@
+﻿@model PPSale.Models.View.ContentControlViewModel
+
+@{
+    var Pagina = "Controles";
+    var Controler1 = "IvaCondition";
+    var Controler2 = "TypePayment";
+    var Controler3 = "TypeDocument";
+    var Controlers = "ContentControl";
+    ViewBag.Title = Pagina;
+}
+
+
+<div class="header-title">
+    <div class="Ec-Controls">
+        <p class="btn-new btn-first">
+            <a class="btn btn-success" href="@Url.Action("Index","Countries" )" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+        </p>
+        <p class="btn-new">
+            <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Inicio</a>
+        </p>
+        <p class="btn-new">
+            <a class="btn btn-success" href="@Url.Action("Additional","Navs" )" title="Volver"><span class="glyphicon glyphicon glyphicon-th-large" aria-hidden="true"></span>&nbsp;Men&uacute;</a>
+        </p>
+        <p class="btn-new"><span>@Pagina</span></p>
+
+    </div>
+</div>
+
+
+@if (TempData["Action"] != null && TempData.Count != 0)
+{
+
+    if (TempData["Action"].Equals("Error"))
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+    else if (TempData["Action"].ToString() == "Succes")
+    {
+        <div class="alert alert-info alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Felicitaciones!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Alerta!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+
+}
+
+<div class="col-sm-4">
+    <p class="btn-new">
+        <a class="btn btn-primary dialog-window" href="@Url.Action("AddIvaCondition",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Condición de Iva"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
+    </p>
+    <table class="table tableTwoBtn">
+        <thead>
+            <tr>
+                <th>
+                    Condicion de Iva
+                </th>
+                <th>Acci&oacute;n</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.ivaConditions == null || Model.ivaConditions.Count() == 0)
+            {
+                <tr>
+                    <td colspan="2">
+                        No hay Elementos...
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.ivaConditions)
+                {
+                    <tr>
+                        <td class="data-@Html.DisplayFor(modelItem => item.IvaConditionId)">
+                            @Html.DisplayFor(modelItem => item.Name) &nbsp;
+                        </td>
+                        <td>
+                            <a href="@Url.Action("EditIvaCondition",new { id=item.IvaConditionId})" class="btn btn-sm btn-warning dialog-window" title="Editar" data-Option="Edit" data-title="Editar Condicion de Iva"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                            <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.IvaConditionId)" data-controller="@Controler1"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr><td colspan="2">pie de tabla</td></tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="col-sm-4">
+    <p class="btn-new">
+        <a class="btn btn-primary dialog-window" href="@Url.Action("AddTypePayment",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Tipo de Pago"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
+    </p>
+    <table class="table tableTwoBtn">
+        <thead>
+            <tr>
+                <th>
+                    Tipo de Pago
+                </th>
+                <th>Acci&oacute;n</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.typePayments == null || Model.typePayments.Count() == 0)
+            {
+                <tr>
+                    <td colspan="2">
+                        No hay Elementos...
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.typePayments)
+                {
+                    <tr>
+                        <td class="data-@Html.DisplayFor(modelItem => item.TypePaymentId)">
+                            @Html.DisplayFor(modelItem => item.Name) &nbsp;
+                        </td>
+                        <td>
+                            <a href="@Url.Action("EditTypePayment",new { id=item.TypePaymentId})" class="btn btn-sm btn-warning dialog-window" title="Editar" data-Option="Edit" data-title="Editar Tipo de Pago"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                            <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.TypePaymentId)" data-controller="@Controler2"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr><td colspan="2">pie de tabla</td></tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="col-sm-4">
+    <p class="btn-new">
+        <a class="btn btn-primary dialog-window" href="@Url.Action("AddTypeDocument",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Tipo de documento"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
+    </p>
+    <table class="table tablethree">
+        <thead>
+            <tr>
+                <th>
+                    Tipo de Documento
+                </th>
+                <th>Acci&oacute;n</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.typeDocuments == null || Model.typeDocuments.Count() == 0)
+            {
+                <tr>
+                    <td colspan="2">
+                        No hay Elementos...
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model.typeDocuments)
+                {
+                    <tr>
+                        <td class="data-@Html.DisplayFor(modelItem => item.TypeDocumentId)">
+                            @Html.DisplayFor(modelItem => item.Name) &nbsp;
+                        </td>
+                        <td>
+                            <a href="@Url.Action("EditTypeDocument",new { id=item.TypeDocumentId})" class="btn btn-sm btn-warning dialog-window" title="Editar" data-Option="Edit" data-title="Editar Tipo de documento"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                            <a href="@Url.Action("TDWithCD",new {id=item.TypeDocumentId })" class="btn btn-sm btn-info" title="Editar"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
+                            <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.TypeDocumentId)" data-controller="@Controler3"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr><td colspan="2">pie de tabla</td></tr>
+        </tfoot>
+    </table>
+</div>
+
+
