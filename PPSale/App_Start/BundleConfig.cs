@@ -26,6 +26,7 @@ namespace PPSale
                       "~/Scripts/fa-jquery-confirm.js",
                       "~/Scripts/fa-bootstrap-datetimepicker.js",
                       "~/Scripts/fa-fileUpload.js",
+                      "~/Scripts/fa-NavBar.js",
                       "~/Scripts/fa-ECommerce.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -36,6 +37,7 @@ namespace PPSale
                       "~/Content/fa-fileUpload.css",
                       "~/Content/fa-ECommerceMenu.css",
                       "~/Content/fa-ECommerce.css",
+                      "~/Content/fa-NavBar.css",
                       "~/Content/fa-FormularioEntradaSalida.css"));
         }
     }
