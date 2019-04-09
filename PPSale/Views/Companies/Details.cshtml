@@ -1,106 +1,110 @@
-﻿@model PPSale.Models.Globals.Company
+﻿@model PPSale.Models.View.CompanyWithUsersViewModel
 
 @{
-    ViewBag.Title = "Details";
+    var Pagina = "Compañías";
+    var Controler = "Company";
+    var Controlers = "Companies";
+    ViewBag.Title = Pagina;
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Company</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.City.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.City.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Country.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Country.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IvaCondition.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IvaCondition.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Province.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Province.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cuit)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cuit)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Web)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Web)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Logo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Logo)
-        </dd>
-
-    </dl>
+<div class="header-title">
+    <div class="Ec-Controls">
+        <p class="btn-new btn-first">
+            <a class="btn btn-success" href="@Url.Action("Index","Companies" )" title="Volver"><span class="glyphicon glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+        </p>
+        <p class="btn-new">
+            <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Inicio</a>
+        </p>
+        <p class="btn-new"><span>@Pagina</span></p>
+        <p class="btn-new" style="display:inline-flex">
+            <a class="btn btn-primary dialog-window" href="@Url.Action("AddUsers",Controlers,new { Id=Model.CompanyId })" title="Nuevo Usuario" id="btn-Option" data-Option="Create" data-title="Agregar Usuario"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo Usuario</a>
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CompanyId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+@if (TempData["Action"] != null && TempData.Count != 0)
+{
+    if (TempData["Action"].Equals("Error"))
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+    else if (TempData["Action"].ToString() == "Succes")
+    {
+        <div class="alert alert-info alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Felicitaciones!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Alerta!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+}
+
+<div class="col-sm-12">
+    <div class="col-sm-3 form-alter">
+        <div class="col-sm-12" style="text-align:center;">
+            @if (!string.IsNullOrEmpty(Model.Logo))
+            {
+                <img src="@Url.Content(Model.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" />
+            }
+            else
+            {
+                <div style="background:#808080; display:block; width:100px;height:100px; padding:0px; margin:0px;"> </div>
+            }
+        </div>
+
+        <div class="col-sm-12 form-control top3">
+            <b> @Html.DisplayNameFor(model => model.Name) &nbsp;&#58;</b> @Html.DisplayFor(model => model.Name)
+        </div>
+
+        <div class="col-sm-12 form-control top3">
+            <b>@Html.DisplayNameFor(model => model.Address)</b>&nbsp;&#58;@Html.DisplayFor(model => model.Address)
+        </div>
+        <div class="col-sm-12" style="margin-top:15px; padding:0px; text-align:center; ">
+            <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Companies", new { id = Model.CompanyId })" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+
+        </div>
+    </div>
+
+    <div class="col-sm-9">
+
+        @if (Model.Users == null || Model.Users.Count() == 0)
+        {
+            
+        <div class="alert alert-danger alert-dismissible">
+            <strong>Bienvenido!!!</strong>&nbsp;&nbsp;No hay Items
+        </div>
+              
+        }
+        else
+        {
+            foreach (var item in Model.Users)
+            {
+        <div class="col-sm-4">
+            <div class="col-sm-12" style="text-align:center;">
+                @if (!string.IsNullOrEmpty(item.Logo))
+                {
+                    <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" />
+                }
+                else
+                {
+                    <div style="background:#808080; display:block; width:100px;height:100px; padding:0px; margin:0px;"> </div>
+                }
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">@Url.Content(item.FirstName)</div>
+                <div class="col-sm-6">@Url.Content(item.LastName)</div>
+            </div>
+        </div>
+        }
+    }
+        </div>
+</div>

@@ -1,121 +1,145 @@
 ﻿@model IEnumerable<PPSale.Models.Globals.Company>
 
 @{
-    var Pagina = "Compañía";
+    var Pagina = "Compañías";
     var Controler = "Company";
     var Controlers = "Companies";
     ViewBag.Title = Pagina;
 }
 
-<h2 class="header-title">Nueva  @Pagina</h2>
-
-<div class="col-lg-12">
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
-    </p>
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-info" href="@Url.Action("Additional","Navs" )" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
-    </p>
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-primary" href="@Url.Action("Create",Controlers )" title="Nuevo"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
-    </p>
+<div class="header-title">
+    <div class="Ec-Controls">
+        <p class="btn-new btn-first">
+            <a class="btn btn-success" href="@Url.Action("Additional","Navs" )" title="Volver"><span class="glyphicon glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+        </p>
+        <p class="btn-new">
+            <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Inicio</a>
+        </p>
+        <p class="btn-new"><span>@Pagina</span></p>
+        <p class="btn-new" style="display:inline-flex">
+            <a class="btn btn-primary dialog-window" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar Compañia"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
+        </p>
+    </div>
 </div>
 
 
-@if (TempData["Error"] != null && TempData.Count != 0)
+@if (TempData["Action"] != null && TempData.Count != 0)
 {
-    <div class="alert alert-danger" role="alert">
-        <strong>Alerta!</strong>&nbsp;&nbsp;@TempData["Error"]
-    </div>
-}
-
-<table class="table table-responsive tableTwoBtn ">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Logo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country.Name)&nbsp;
-            @Html.DisplayNameFor(model => model.Province.Name)&nbsp;
-            @Html.DisplayNameFor(model => model.City.Name)&nbsp;
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IvaCondition.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cuit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Web)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstDate)
-        </th>
-
-        <th>Acci&oacute;n</th>
-    </tr>
-    @if (Model == null || Model.Count() == 0)
+    if (TempData["Action"].Equals("Error"))
     {
-        <tr>
-            <td colspan="4">
-                No hay Elementos...
-            </td>
-        </tr>
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+    else if (TempData["Action"].ToString() == "Succes")
+    {
+        <div class="alert alert-info alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Felicitaciones!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
     }
     else
     {
-        foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.Logo))
-                    {
-                        <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:25px; padding:0px; margin:0px;" />
-                    }
-                </td>
-                <td class="data-@Html.DisplayFor(modelItem => item.CompanyId)">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Country.Name)&nbsp;
-                    @Html.DisplayFor(modelItem => item.Province.Name)&nbsp;
-                    @Html.DisplayFor(modelItem => item.City.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IvaCondition.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cuit)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Web)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstDate)
-                </td>
-
-                <td>
-                    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit","Companies",new { id=item.CompanyId})" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                    <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.CompanyId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
-                </td>
-            </tr>
-        }
+        <div class="alert alert-warning alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Alerta!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
     }
+}
 
+@if (Model == null || Model.Count() == 0)
+{
+    <tr>
+        <td colspan="4">
+            No hay Elementos...
+        </td>
+    </tr>
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <div class="col-lg-6">
 
-</table>
+            <div class="f-border-skyblue f-background-skyblue-l col-sm-12" style="padding:20px; margin:15px auto;">
+
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <div class="data-@Html.DisplayFor(modelItem => item.CompanyId)">
+                            <h1>
+                                <b>@Html.DisplayNameFor(model => model.Name) &#58;&nbsp;</b>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </h1>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <div class="col-sm-12" style="text-align:center;">
+                                @if (!string.IsNullOrEmpty(item.Logo))
+                                {
+                                    <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" />
+                                }
+                                else
+                                {
+                                    <div style="background:#808080; display:block; width:100px;height:100px; padding:0px; margin:0px;"> </div>
+                                }
+                            </div>
+                            <div class="col-sm-12" style="margin-top:15px; padding:0px; text-align:center; ">
+                                <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Companies", new { id = item.CompanyId })" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.CompanyId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", Controlers, new { id = item.CompanyId })" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Nuevo Usuario" style="margin-top:10px;"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Usuario</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="col-sm-12">
+
+                                <div class="col-sm-12 form-control top3">
+                                    <b>@Html.DisplayNameFor(model => model.Cuit)&#58;&nbsp;</b>
+                                    @Html.DisplayFor(modelItem => item.Cuit)
+                                </div>
+                                <div class="col-sm-12 form-control top3">
+                                    <b>@Html.DisplayNameFor(model => model.FirstDate)&#58;&nbsp;</b>
+                                    @Html.DisplayFor(modelItem => item.FirstDate)
+                                </div>
+                                <div class="col-sm-12 form-control top3">
+                                    <b>@Html.DisplayNameFor(model => model.IvaConditionId)&#58;&nbsp;</b>
+                                    @Html.DisplayFor(modelItem => item.IvaCondition.Name)
+                                </div>
+
+                                <div class="col-sm-12 form-control top3">
+                                    <b>@Html.DisplayNameFor(model => model.Email)&#58;&nbsp;</b>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </div>
+                                <div class="col-sm-12 form-control top3">
+                                    <b>@Html.DisplayNameFor(model => model.Web)&#58;&nbsp;</b>
+                                    @Html.DisplayFor(modelItem => item.Web)
+                                </div>
+                                <div class="col-sm-12 form-control top3">
+                                    <b>@Html.DisplayNameFor(model => model.CountryId)&#58;&nbsp;</b>
+                                    @Html.DisplayFor(modelItem => item.Country.Name)
+                                </div>
+
+                                <div class="col-sm-12 form-control top3">
+                                    <b>@Html.DisplayNameFor(model => model.ProvinceId)&#58;&nbsp;</b>
+                                    @Html.DisplayFor(modelItem => item.Province.Name)
+                                </div>
+                                <div class="col-sm-12 form-control top3">
+                                    <b>@Html.DisplayNameFor(model => model.CityId)&#58;&nbsp;</b>
+                                    @Html.DisplayFor(modelItem => item.City.Name)
+                                </div>
+                                <div class="col-sm-12 form-control top3">
+                                    <b>@Html.DisplayNameFor(model => model.Address)&#58;&nbsp;</b>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+}
+

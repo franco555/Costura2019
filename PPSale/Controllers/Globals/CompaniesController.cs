@@ -1,13 +1,16 @@
-﻿using PPSale.Classes;
-using PPSale.Models.Conexion;
-using PPSale.Models.Globals;
-using System;
-using System.Data.Entity;
-using System.Linq;
-using System.Web.Mvc;
-
+﻿
 namespace PPSale.Controllers.Globals
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.Mvc;
+    using Classes;
+    using Models.Conexion;
+    using Models.Globals;
+    using PPSale.Models.View;
+
     [Authorize(Roles = "Admin")]
 
     public class CompaniesController : Controller
@@ -32,16 +35,46 @@ namespace PPSale.Controllers.Globals
         {
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "No se envión ID...";
+
                 return RedirectToAction("Index");
             }
-            Company company = db.Companies.Find(id);
+            var company = db.Companies.Find(id);
             if (company == null)
             {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "No existe regitro con este ID...";
+
                 return RedirectToAction("Index");
             }
-            return View(company);
+
+            var users= (from u in db.Users
+                                   join a in db.AsingRolAndUsers on u.UserId equals a.UserId
+                                   join c in db.Companies on a.CompanyId equals c.CompanyId
+                                   where c.CompanyId == company.CompanyId
+
+                                   select new {u }
+                                   ).ToList();
+
+            var user = new List<User>();
+            foreach (var item in users)
+            {
+                user.Add(new User() {
+                    UserId = item.u.UserId,
+                    FirstName = item.u.FirstName,
+                    LastName = item.u.LastName,
+                });
+            }
+
+            var companyWithUsers = new CompanyWithUsersViewModel() {
+                CompanyId=company.CompanyId,
+                Name=company.Name,
+                Logo=company.Logo,
+                Address=company.Address,
+                Users=user
+            };
+            return View(companyWithUsers);
         }
 
         // GET: Companies/Create
@@ -55,7 +88,7 @@ namespace PPSale.Controllers.Globals
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name");
             ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name");
             ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(0), "ProvinceId", "Name");
-            return View(company);
+            return PartialView(company);
         }
 
         // POST: Companies/Create
@@ -109,7 +142,8 @@ namespace PPSale.Controllers.Globals
                 TempData["Error"] = "No se envión ID...";
                 return RedirectToAction("Index");
             }
-            Company company = db.Companies.Find(id);
+
+            var company = db.Companies.Find(id);
             if (company == null)
             {
                 TempData["Error"] = "No existe regitro con este ID...";
@@ -117,6 +151,8 @@ namespace PPSale.Controllers.Globals
             }
 
             company.URL = company.Logo;
+            company.Logo= company.Logo;
+
 
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(company.CountryId, company.ProvinceId), "CityId", "Name", company.CityId);
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", company.CountryId);
@@ -193,6 +229,61 @@ namespace PPSale.Controllers.Globals
             db.Companies.Remove(company);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Users/Create
+        public ActionResult AddUsers(int? Id)
+        {
+            var user = new User
+            {
+                URL = "~/Content/Logos/User/otro.png",
+                companyId = Id.Value,
+            };
+            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(0, 0), "CityId", "Name");
+            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name");
+            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(0), "ProvinceId", "Name");
+
+            return PartialView(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddUsers(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                user.Logo = "~/Content/Logos/User/otro.png";
+                db.Users.Add(user);
+
+                var response = DBHelpers.SaveChage(db);
+                if (response.Succeded)
+                {
+                    if (user.LogoFile != null)
+                    {
+                        var folder = "~/Content/Logos/User";
+                        var Name = string.Format("{0}.jpg", user.UserId);
+                        var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, Name);
+                        if (Succ.Succeded)
+                        {
+                            var pic = string.Format("{0}/{1}", folder, Name);
+                            user.Logo = pic;
+
+                            db.Entry(user).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+                    TempData["Action"] = "Succes";
+                    TempData["Message"] = "Guardado Correctamente!!";
+                    return RedirectToAction($"Details/{user.companyId}");
+                }
+                ModelState.AddModelError(string.Empty, response.Message);
+            }
+
+            TempData["Action"] = "Error";
+            TempData["Message"] = "Modelo No válido";
+
+
+            return RedirectToAction($"Details/{user.companyId}");
         }
 
         protected override void Dispose(bool disposing)

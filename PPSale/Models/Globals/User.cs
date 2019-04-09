@@ -46,6 +46,8 @@ namespace PPSale.Models.Globals
         [NotMapped]
         public string URL { get; set; }
 
+        [NotMapped]
+        public int companyId { get; set; }
 
         //Propiedad lectura
         [Display(Name = "Usuario")]

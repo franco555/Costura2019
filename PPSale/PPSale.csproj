@@ -242,6 +242,7 @@
     <Compile Include="Models\Globals\CategoryDocument.cs" />
     <Compile Include="Models\Globals\TypeDocument.cs" />
     <Compile Include="Models\Globals\TypePayment.cs" />
+    <Compile Include="Models\View\CompanyWithUsersViewModel.cs" />
     <Compile Include="Models\View\ContentControlViewModel.cs" />
     <Compile Include="Models\View\CountryWithProvincesViewModel.cs" />
     <Compile Include="Models\View\notViewDocumentEntry.cs" />
@@ -283,6 +284,7 @@
     <Content Include="Content\fa-fileUpload.css" />
     <Content Include="Content\fa-FormularioEntradaSalida.css" />
     <Content Include="Content\fa-jquery-confirm.css" />
+    <Content Include="Content\fa-NavBar.css" />
     <Content Include="Content\Logos\Empresa\Logo.png" />
     <Content Include="Content\Logos\Empresa\Logopdp.png" />
     <Content Include="Content\Logos\Empresa\Logopdp0.png" />
@@ -404,7 +406,6 @@
     <Content Include="Views\Companies\Delete.cshtml" />
     <Content Include="Views\Companies\Details.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
-    <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\AsingRolAndUsers\Create.cshtml" />
     <Content Include="Views\AsingRolAndUsers\Delete.cshtml" />
     <Content Include="Views\AsingRolAndUsers\Details.cshtml" />
@@ -496,6 +497,8 @@
     <Content Include="Views\ContentControl\TDWithCD.cshtml" />
     <Content Include="Views\ContentControl\EditCatDoc.cshtml" />
     <Content Include="Views\ContentControl\AddCatDoc.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Companies\AddUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

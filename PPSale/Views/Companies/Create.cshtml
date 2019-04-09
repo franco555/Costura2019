@@ -6,12 +6,6 @@
     ViewBag.Title = Pagina;
 }
 
-<h5 class="f-title f-titleCreate">
-    <span class="title_CreateEdit f-blue">
-        Registrar Nuevo:
-    </span> @Pagina
-</h5>
-
 @using (Html.BeginForm("Create", @Controlers, FormMethod.Post, new { @class = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()

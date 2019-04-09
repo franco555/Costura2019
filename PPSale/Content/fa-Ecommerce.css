@@ -14,7 +14,16 @@
     transform: scale(.5);
     opacity: 0.25;
 }
-
+.Ec-btn-rigthTop {
+    display: block;
+    color: #e2e2e2;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    text-align: center;
+    padding-top: 10px;
+    width: 95px;
+}
     /*Formto de tabla*/
 table.table thead tr:first-child {
     /*background: rgba(3, 171, 217, 0.91) !important;*/
@@ -410,8 +419,12 @@ form {
     padding: 15px;
     min-width: 450px;
 }
-
-.form-Create, .form-Edit {
+.form-alter {
+    background: #ffffff;
+    text-align: left;
+    padding: 15px;
+}
+.form-Create, .form-Edit, .form-alter {
     border-radius: 10px;
     box-shadow: 0px 0px 5px #000000;
 }
@@ -425,6 +438,10 @@ form {
 
 .form-Normal {
     border: 1px solid #bebebe;
+}
+
+.top3{
+    margin-top:3px;
 }
 
 .f-title {
