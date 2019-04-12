@@ -253,9 +253,9 @@ body {
         }
 
     .sidebar-wrapper .sidebar-menu .sidebar-dropdown > a:after {
-        font-family: "Font Awesome 5 Free";
+        font-family: "FontAwesome";
         font-weight: 900;
-        content: "\f105";
+        content: "\f0da";
         font-style: normal;
         display: inline-block;
         font-style: normal;
@@ -280,8 +280,8 @@ body {
     }
 
         .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
-            content: "\f111";
-            font-family: "Font Awesome 5 Free";
+            content: "\f10c";
+            font-family: "FontAwesome";
             font-weight: 400;
             font-style: normal;
             display: inline-block;

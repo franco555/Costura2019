@@ -14,6 +14,7 @@
     transform: scale(.5);
     opacity: 0.25;
 }
+
 .Ec-btn-rigthTop {
     display: block;
     color: #e2e2e2;
@@ -24,13 +25,8 @@
     padding-top: 10px;
     width: 95px;
 }
-    /*Formto de tabla*/
-table.table thead tr:first-child {
-    /*background: rgba(3, 171, 217, 0.91) !important;*/
-    background: #61b12a;
-    height:45px;
-    color: #ffffff !important;
-}
+/*Formto de tabla*/
+
 
 .tablethree tr th:last-child,
 .tableFourBtn tr th:last-child,
@@ -42,36 +38,23 @@ table.table thead tr:first-child {
     width: 150px;
 }
 
-.tableTwoBtn tr th:last-child{
-    width:100px;
+.tableTwoBtn tr th:last-child {
+    width: 100px;
 }
 
 .tableFourBtn tr th:last-child {
     width: 165px;
 }
 
-.table tr:nth-child(2n+1) {
-    background: #eaffdc;
-    border-bottom: 1px solid #61b12a !important;
-}
-
-tbody tr td{
-    height:15px;
-}
-
-tfoot tr {
-    text-align:center;
-    background: #93e25d !important;
-}
 
 .table caption {
-    color:#ffffff;
+    color: #ffffff;
     background: #61b12a;
-    font-size:20px;
-    padding:5px 10px;
-    width:250px;
-    border-radius:15px 15px 0px 0px;
-    border-bottom:3px solid #3b6d19;
+    font-size: 20px;
+    padding: 5px 10px;
+    width: 250px;
+    border-radius: 15px 15px 0px 0px;
+    border-bottom: 3px solid #3b6d19;
 }
 
 .f-block {
@@ -85,7 +68,7 @@ tfoot tr {
     display: inline-block !important;
     width: 100%;
     padding: 15px 0px;
-    opacity:.5;
+    opacity: .5;
 }
 
 .f-background-orange {
@@ -128,7 +111,7 @@ tfoot tr {
     border: 1px solid rgb(29, 78, 137) !important;
 }
 
-.save{
+.save {
     color: #ffffff;
     display: inline-block;
     min-height: 11px;
@@ -158,7 +141,7 @@ tfoot tr {
 
 .content-btn {
     position: relative;
-    margin-bottom:60px;
+    margin-bottom: 60px;
 }
 
 .content-btn2 {
@@ -175,9 +158,9 @@ tfoot tr {
 .icon-float {
     color: #ffffff;
     position: absolute;
-    margin-right:10px;
-    left:10px;
-    top:10px;
+    margin-right: 10px;
+    left: 10px;
+    top: 10px;
     z-index: 1;
 }
 /*titulo de la pagina*/
@@ -185,34 +168,34 @@ tfoot tr {
     color: #61b12a;
     padding: 0px;
     margin: 0px;
-    margin-top:10px;
+    margin-top: 10px;
     margin-bottom: 15px;
 }
 
     .header-title > div p > span {
-        display:block;
-        color:#fff;
+        display: block;
+        color: #fff;
         background: #61b12a;
-        padding:13px 15px;
-        font-size:23px;
-        text-align:center;
-        margin-left:0px;
-        Min-width:200px;
-        margin-bottom:0px;
-        
+        padding: 13px 15px;
+        font-size: 23px;
+        text-align: center;
+        margin-left: 0px;
+        Min-width: 200px;
+        margin-bottom: 0px;
     }
 
-    .header-title > div > p > span, .Ec-Controls{
-        display:inline-block;
-        vertical-align:middle;
+    .header-title > div > p > span, .Ec-Controls {
+        display: inline-block;
+        vertical-align: middle;
     }
+
 .btn-new {
     position: relative;
-    display:inline-block;
-    vertical-align:middle;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-.btn-first > a{
+.btn-first > a {
     border-radius: 30px 0px 0px 30px;
 }
 /*Ventana modal*/
@@ -221,11 +204,10 @@ tfoot tr {
 }
 
 .modal-title {
-    padding-left:10px;
+    padding-left: 10px;
 }
 
 #ModalTitle {
-    
     /*background: rgba(3, 171, 217, 0.91);
     color: #ffffff;*/
 }
@@ -249,6 +231,7 @@ tfoot tr {
     background-color: rgba(206, 34, 10, 0.91);
     padding: 5px;
 }
+
 .Closed {
     float: right;
     font-size: 21px;
@@ -261,7 +244,7 @@ tfoot tr {
     opacity: .6;
 }
 
-.Closed:focus, .Closed:hover {
+    .Closed:focus, .Closed:hover {
         color: #fff;
         text-decoration: none;
         cursor: pointer;
@@ -303,15 +286,15 @@ button.Closed {
         top: 5px;
     }
 
-    /*Contenido de html*/
+/*Contenido de html*/
 .navbar {
-    background:#414141;
-    color:#ffffff !important;
+    background: #414141;
+    color: #ffffff !important;
     border-bottom: 1px solid rgb(29, 78, 137);
 }
 
-.navbar-header a div{
-    color:#cacaca;
+.navbar-header a div {
+    color: #cacaca;
 }
 
 .foot {
@@ -324,22 +307,23 @@ button.Closed {
     width: 100%;
 }
 
-.foot p{
-    font-size:10px;
-    margin:0px;
-    padding: 5px;
-}
+    .foot p {
+        font-size: 10px;
+        margin: 0px;
+        padding: 5px;
+    }
 
 .validation-summary-errors {
-    background:#9b2222;
-    color:#eaeaea;
+    background: #9b2222;
+    color: #eaeaea;
 }
 
 /*Botones de incio*/
 .jumbotron {
-    background:#d0feb2;
-    text-align:center;
+    background: #d0feb2;
+    text-align: center;
 }
+
 .card-button {
     background: #61993b;
     color: #e9e9e9;
@@ -352,42 +336,47 @@ button.Closed {
     padding-bottom: 0px;
 }
 
-.card-button a{
-    text-decoration:none;
-    color:#afdb92;
-}
+    .card-button a {
+        text-decoration: none;
+        color: #afdb92;
+    }
+
 .card-title {
     border-top: 1px solid #ffffff;
     background: #548037;
     padding: 1em 0em;
-    margin-bottom:0px;
+    margin-bottom: 0px;
 }
-.card-button:hover .card-title{
-    background:#3b6d19;
+
+.card-button:hover .card-title {
+    background: #3b6d19;
 }
 
 .card-button:active {
     background: #3b6d19;
 }
+
 .return {
     background: #f3872f !important;
     border: 1px solid #f3872f !important;
 }
+
     .return .card-title {
         background: #d16710;
     }
+
     .return:hover .card-title {
         background: #c26214 !important;
     }
 
-.return:active {
-    background: #d16710 !important;
-}
+    .return:active {
+        background: #d16710 !important;
+    }
 
 .Logg {
     background: #045FB4 !important;
     border: 1px solid #045FB4 !important;
-    color:#6db9ff !important;
+    color: #6db9ff !important;
 }
 
     .Logg .card-title {
@@ -404,44 +393,49 @@ button.Closed {
 /*Formulario */
 form {
     padding: 2px;
-    margin-top:15px;
+    margin-top: 15px;
 }
+
     form .form-horizontal {
         display: inline-flex;
-        
     }
-.form{
-    text-align:center;
+
+.form {
+    text-align: center;
 }
-.form-Create, .form-Edit,.form-Normal {
+
+.form-Create, .form-Edit, .form-Normal {
     background: #ffffff;
     text-align: left;
     padding: 15px;
     min-width: 450px;
 }
+
 .form-alter {
     background: #ffffff;
     text-align: left;
     padding: 15px;
 }
+
 .form-Create, .form-Edit, .form-alter {
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px #000000;
+    /*border-radius: 10px;
+    box-shadow: 0px 0px 5px #000000;*/
 }
-    .form-Create {
-        border: 1px solid #3f8fff;
-    }
+
+.form-Create {
+    border: 1px solid #236de1;
+}
 
 .form-Edit {
-    border: 1px solid #DF7401;
+    border: 1px solid #f3872f;
 }
 
 .form-Normal {
     border: 1px solid #bebebe;
 }
 
-.top3{
-    margin-top:3px;
+.top3 {
+    margin-top: 3px;
 }
 
 .f-title {
@@ -463,10 +457,10 @@ form {
     padding: 10px 15px;
 }
 
-.btn-rigth{
-    display:block;
-    text-align:right;
-    padding-right:15px;
+.btn-rigth {
+    display: block;
+    text-align: right;
+    padding: 15px 15px 0px 0px;
 }
 
 .f-red {
@@ -500,13 +494,10 @@ form {
 }
 
 @media only screen and (max-width: 768px) {
-  
 }
 
 @media only screen and (min-width: 991px) {
-
 }
 
 @media only screen and (min-width: 1200px) {
-
 }

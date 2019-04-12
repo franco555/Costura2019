@@ -1,0 +1,21 @@
+﻿table.table thead tr:first-child {
+    /*background: rgba(3, 171, 217, 0.91) !important;*/
+    background: #61b12a;
+    height: 45px;
+    color: #ffffff !important;
+}
+
+
+.table tr:nth-child(2n+1) {
+    background: #eaffdc;
+    border-bottom: 1px solid #61b12a !important;
+}
+
+tbody tr td {
+    height: 15px;
+}
+
+tfoot tr {
+    text-align: center;
+    background: #93e25d !important;
+}
