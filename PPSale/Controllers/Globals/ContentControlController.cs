@@ -41,7 +41,7 @@
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Guardado Exitosamente!!!";
 
                     return RedirectToAction("index");
@@ -52,7 +52,7 @@
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Formulario con campos vacios!!";
             }
 
@@ -90,7 +90,7 @@
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Actualizado Exitosamente!!!";
 
                     return RedirectToAction("Index");
@@ -101,7 +101,7 @@
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Campos vacíos!!!";
             }
             return View(Generic);
@@ -124,7 +124,7 @@
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Guardado Exitosamente!!!";
 
                     return RedirectToAction("index");
@@ -135,7 +135,7 @@
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Formulario con campos vacios!!";
             }
 
@@ -173,7 +173,7 @@
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Actualizado Exitosamente!!!";
 
                     return RedirectToAction("Index");
@@ -184,7 +184,7 @@
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Campos vacíos!!!";
             }
             return View(Generic);
@@ -207,7 +207,7 @@
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Guardado Exitosamente!!!";
 
                     return RedirectToAction("index");
@@ -218,7 +218,7 @@
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Formulario con campos vacios!!";
             }
 
@@ -256,7 +256,7 @@
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Actualizado Exitosamente!!!";
 
                     return RedirectToAction("Index");
@@ -267,7 +267,7 @@
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Campos vacíos!!!";
             }
             return View(Generic);
@@ -314,7 +314,7 @@
             var n = db.TypeDocuments.Find(Id);
             if (n == null)
             {
-                TempData["Action"] = "Alert";
+                TempData["Action"] = "Error";
                 TempData["Message"] = "No existe regitro con este ID...";
 
                 return RedirectToAction("TDWithCD", "ContentControl", new { id = Id });
@@ -337,7 +337,7 @@
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Guardado Exitosamente!!!";
 
                     return RedirectToAction("TDWithCD", "ContentControl", new { id = generic.TypeDocumentId });
@@ -348,7 +348,7 @@
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Formulario con campos vacios!!";
             }
 
@@ -386,7 +386,7 @@
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Actualizado Exitosamente!!!";
 
                     return RedirectToAction("TDWithCD", "ContentControl", new { id = Generic.TypeDocumentId });
@@ -397,7 +397,7 @@
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Campos vacíos!!!";
             }
             return View(Generic);
