@@ -1,0 +1,140 @@
+﻿body:after {
+    content: url("Logos/Empresa/Logopdp.png");
+    z-index: -9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    user-select: none;
+    transform: scale(.5);
+    opacity: 0.25;
+}
+
+/*Ventana modal*/
+#WindowModal {
+    background: rgba(29, 78, 137,0.5);
+}
+
+.modal-title {
+    padding-left: 10px;
+}
+
+.titleModalCreate {
+    background: rgb(29, 78, 137) !important;
+    color: #ffffff;
+}
+
+.titleModalEdit {
+    background: #f3872f !important;
+    color: #ffffff;
+}
+
+.titleModalDetail {
+    background: rgba(2, 193, 245, 0.99) !important;
+    color: #ffffff;
+}
+
+#ModalTitle .Closed {
+    background-color: rgba(206, 34, 10, 0.91);
+    padding: 5px;
+}
+
+.Closed {
+    float: right;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 1px 0 #000;
+    filter: alpha(opacity=80);
+    width: 30px;
+    opacity: .6;
+}
+
+    .Closed:focus, .Closed:hover {
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+        filter: alpha(opacity=50);
+        opacity: .8
+    }
+
+button.Closed {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+}
+
+/*TABLA*/
+/*Formto de tabla*/
+
+.tablethree tr th:last-child,
+.tableFourBtn tr th:last-child,
+.tableTwoBtn tr th:last-child {
+    text-align: center;
+}
+
+.tablethree tr th:last-child {
+    width: 150px;
+}
+
+.tableTwoBtn tr th:last-child {
+    width: 120px;
+}
+
+.tableFourBtn tr th:last-child {
+    width: 165px;
+}
+
+/*MENU DE Volver inicio y nuevo*/
+.btn-volver:before, .btn-inicio:before, .btn-nuevo:before, .btn-menu:before {
+    font-family: "FontAwesome";
+    font-weight: 400;
+    font-style: normal;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-right: 5px;
+    font-size: 18px;
+}
+.btn-volver:before {
+    content: "\f100";
+}
+.btn-inicio:before {
+    content: "\f015";
+}
+.btn-nuevo:before {
+    content: "\f15c";
+}
+.btn-menu:before {
+    content: "\f1a5";
+}
+
+.btn-group-line div{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+/*TITULO Principal*/
+.color-title-blue {
+    color: #e4e4e4;
+    background-color: #0377A5;
+    border-radius: 25px 0px 0px 25px !important;
+    margin-bottom: 5px;
+}
+
+/*Botones de formulario modales*/
+.btn-rigth {
+    display: block;
+    text-align: right;
+    padding: 15px 15px 0px 0px;
+}

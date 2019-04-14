@@ -7,23 +7,24 @@
     ViewBag.Title = Pagina;
 }
 
-<div class="header-title">
-
-
-    <div class="Ec-Controls">
-        <p class="btn-new btn-first">
-            <a class="btn btn-success" href="@Url.Action("Additional","Navs" )" title="Volver"><span class="fa fa-chevron-left" aria-hidden="true"></span>&nbsp;Volver</a>
-        </p>
-        <p class="btn-new">
-            <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="fa fa-home" aria-hidden="true"></span>&nbsp;Inicio</a>
-        </p>
-        <p class="btn-new"><span>@Pagina</span></p>
-        <p class="btn-new" style="display:inline-flex">
-            <a class="btn btn-primary dialog-window" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Nuevo País"><span class="fa fa-file" aria-hidden="true"></span> Nuevo</a>
-        </p>
+<div class="col-sm-12">
+    <div class="col-sm-12">
+        <h4 class="list-group-item color-title-blue">
+            @Pagina
+        </h4>
+        <div class="col-sm-6 btn-group-line">
+            <div>
+                <a class="btn  btn-success btn-volver" href="@Url.Action("Additional","Navs" )" title="Volver">Volver</a>
+            </div>
+            <div>
+                <a class="btn  btn-success  btn-inicio" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+            </div>
+            <div>
+                <a class="btn btn-primary dialog-window  btn-nuevo" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar País">Nuevo</a>
+            </div>
+        </div>
     </div>
 </div>
-
 @if (TempData["Action"] != null && TempData.Count != 0)
 {
 
@@ -34,7 +35,7 @@
             <strong>Error!!!</strong>&nbsp;&nbsp;@TempData["Message"]
         </div>
     }
-    else if (TempData["Action"].ToString() == "Succes")
+    else if (TempData["Action"].ToString() == "Success")
     {
         <div class="alert alert-info alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -52,9 +53,8 @@
 
 }
 
-
-<table class="table tablethree table-striped table-bordered" id="example" style="width:100%"">
-    <thead class="table-dark" >
+<table class="table tablethree table-striped table-bordered" id="example">
+    <thead class="table-dark">
         <tr>
             <th colspan="1">
                 @Html.DisplayNameFor(model => model.Name)

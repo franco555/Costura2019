@@ -96,7 +96,7 @@ body {
 
 @media screen and (min-width: 768px) {
     .page-wrapper.toggled .page-content {
-        padding-left: 300px;
+        padding-left: 280px;
     }
 }
 /*----------------show sidebar button----------------*/
@@ -107,6 +107,7 @@ body {
     border-radius: 0 4px 4px 0px;
     width: 35px;
     transition-delay: 0.3s;
+    z-index:9999;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -321,13 +322,14 @@ body {
     position: absolute;
     width: 100%;
     bottom: 0;
+    padding-top:10px;
     display: flex;
 }
 
     .sidebar-footer > a {
         flex-grow: 1;
         text-align: center;
-        height: 30px;
+        height: 40px;
         line-height: 30px;
         position: relative;
     }
@@ -350,7 +352,7 @@ body {
     .badge-sonar:after {
         content: "";
         position: absolute;
-        top: 0;
+        top: 0px;
         left: 0;
         border: 2px solid #980303;
         opacity: 0;
@@ -366,11 +368,11 @@ body {
     display: inline-block;
     width: 100%;
     padding-left: 0px;
-    padding-top: 20px;
+    padding-top: 0px;
 }
 
     .page-wrapper .page-content > div {
-        padding: 20px 40px;
+        padding: 20px 10px;
     }
 
 .page-wrapper .page-content {
@@ -390,17 +392,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #525965;
+    background: #005677; /*Color de scrollbar*/
     border: 0px none #ffffff;
     border-radius: 0px;
 }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: #525965;
+        background: #0695ce;
     }
 
     ::-webkit-scrollbar-thumb:active {
-        background: #525965;
+        background: #16c7ff;
     }
 
 ::-webkit-scrollbar-track {
@@ -425,13 +427,13 @@ body {
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-    background: #31353D;
+    background: #0377A5; /*Fonde de menu*/
 }
 
     .chiller-theme .sidebar-wrapper .sidebar-header,
     .chiller-theme .sidebar-wrapper .sidebar-search,
     .chiller-theme .sidebar-wrapper .sidebar-menu {
-        border-top: 1px solid #3a3f48;
+        border-top: 1px solid #5ad7ff;
     }
 
         .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
@@ -447,7 +449,7 @@ body {
         .chiller-theme .sidebar-wrapper .sidebar-brand > a,
         .chiller-theme .sidebar-wrapper .sidebar-menu ul li a,
         .chiller-theme .sidebar-footer > a {
-            color: #818896;
+            color: #e8e8e8; /*Color de letar de administrador y iconos de los menus*/
         }
 
             .chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover > a,
@@ -455,7 +457,7 @@ body {
             .chiller-theme .sidebar-wrapper .sidebar-header .user-info,
             .chiller-theme .sidebar-wrapper .sidebar-brand > a:hover,
             .chiller-theme .sidebar-footer > a:hover i {
-                color: #b8bfce;
+                color: #5ad7ff; /*Nombre administrador y icono de mas menu*/
             }
 
 .page-wrapper.chiller-theme.toggled #close-sidebar {
@@ -478,17 +480,17 @@ body {
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown div,
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
 .chiller-theme .sidebar-wrapper .sidebar-search .input-group-text {
-    background: #3a3f48;
+    background: #02445e; /*Colo de fondo de los iconos de menu*/
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu .header-menu span {
-    color: #6c7b88;
+    color: #16c7ff; /*color de tilulos de menu*/
 }
 
 .chiller-theme .sidebar-footer {
-    background: #3a3f48;
-    box-shadow: 0px -1px 5px #282c33;
-    border-top: 1px solid #464a52;
+    background: #02445e; /*fondo de pie de menu*/
+    box-shadow: 0px -1px 5px #16c7ff;
+    border-top: 1px solid #16c7ff;
 }
 
     .chiller-theme .sidebar-footer > a:first-child {

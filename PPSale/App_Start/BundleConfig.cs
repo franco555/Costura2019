@@ -25,7 +25,7 @@ namespace PPSale
                       "~/Scripts/moment.js",
                       "~/Scripts/fa-jquery-confirm.js",
                       "~/Scripts/fa-jquery.dataTables.min.js",
-                      "~/Scripts/fa-dataTables.bootstrap4.min.jss",
+                      "~/Scripts/fa-dataTables.bootstrap4.min.js",
                       "~/Scripts/fa-bootstrap-datetimepicker.js",
                       "~/Scripts/fa-FunctionBase.js",
                       "~/Scripts/fa-fileUpload.js",
@@ -41,7 +41,7 @@ namespace PPSale
                       "~/Content/fa-bootstrap-datetimepicker.css",
                       "~/Content/fa-fileUpload.css",
                       "~/Content/fa-ECommerceMenu.css",
-                      "~/Content/fa-ECommerce.css",
+                      "~/Content/fa-Estilos.css",
                       "~/Content/fa-NavBar.css",
                       "~/Content/fa-FormularioEntradaSalida.css"));
         }

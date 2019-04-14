@@ -60,22 +60,22 @@ namespace PPSale.Controllers.Globals
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Guardado Exitosamente!!!";
 
                     return RedirectToAction("Index");
                 }
 
-                TempData["Action"] = "Succes";
-                TempData["Message"] = response.Message;
+                TempData["Action"] = "Error";
+                TempData["Message"] =$"{country.Name }: {response.Message}";
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Campos vacíos!!!";
             }
 
-            return View(country);
+            return RedirectToAction("Index");
         }
 
         // GET: Countries/Edit/5
@@ -111,21 +111,21 @@ namespace PPSale.Controllers.Globals
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Actualizado Exitosamente!!!";
 
                     return RedirectToAction("Index");
                 }
 
                 TempData["Action"] = "Error";
-                TempData["Message"] = response.Message;
+                TempData["Message"] =$"{country.Name}: {response.Message}";
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Campos vacíos!!!";
             }
-            return View(country);
+            return RedirectToAction("Index");
         }
 
         /**************************************/
@@ -147,7 +147,7 @@ namespace PPSale.Controllers.Globals
             var country = db.Countries.Include(c=>c.Provinces).Where(c=>c.CountryId==id).FirstOrDefault();
             if (country == null)
             {
-                TempData["Action"] = "Alert";
+                TempData["Action"] = "Error";
                 TempData["Message"] = "No existe regitro con este ID...";
 
                 return RedirectToAction("Index");
@@ -176,7 +176,7 @@ namespace PPSale.Controllers.Globals
             var country = db.Countries.Find(Id);
             if (country == null)
             {
-                TempData["Action"] = "Alert";
+                TempData["Action"] = "Error";
                 TempData["Message"] = "No existe regitro con este ID...";
 
                 return RedirectToAction("CountryWithProvinces", "Countries", new {id=country.CountryId });
@@ -201,7 +201,7 @@ namespace PPSale.Controllers.Globals
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Guardado Exitosamente!!!";
 
                     return RedirectToAction("CountryWithProvinces", "Countries", new { id = province.CountryId });
@@ -212,7 +212,7 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Formulario con campos vacios!!";
             }
 
@@ -232,7 +232,7 @@ namespace PPSale.Controllers.Globals
             var province = db.Provinces.Find(Idp);
             if (province == null)
             {
-                TempData["Action"] = "Alert";
+                TempData["Action"] = "Error";
                 TempData["Message"] = "No existe regitro con este ID...";
 
                 return RedirectToAction("CountryWithProvinces", "Countries", new { id = Idc });
@@ -262,7 +262,7 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Formulario con campos vacios!!";
             }
 
@@ -288,7 +288,7 @@ namespace PPSale.Controllers.Globals
             var province = db.Provinces.Include(c => c.Cities).Where(c => c.ProvinceId ==Idp).FirstOrDefault();
             if (province == null)
             {
-                TempData["Action"] = "Alert";
+                TempData["Action"] = "Error";
                 TempData["Message"] = "No existe regitro con este ID...";
 
                 return RedirectToAction("CountryWithProvinces", new { id = Idc });
@@ -318,7 +318,7 @@ namespace PPSale.Controllers.Globals
             var province = db.Provinces.Find(idp);
             if (province == null)
             {
-                TempData["Action"] = "Alert";
+                TempData["Action"] = "Error";
                 TempData["Message"] = "No existe regitro con este ID...";
 
                 return RedirectToAction("ProvinceWithCities", "Countries", new { Idc = idc, Idp = idp });
@@ -344,7 +344,7 @@ namespace PPSale.Controllers.Globals
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Guardado Exitosamente!!!";
 
                     return RedirectToAction("ProvinceWithCities", "Countries", new {Idc=city.CountryId ,Idp = city.ProvinceId });
@@ -355,7 +355,7 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Formulario con campos vacios!!";
             }
 
@@ -375,7 +375,7 @@ namespace PPSale.Controllers.Globals
             var city = db.Cities.Find(idci);
             if (city == null)
             {
-                TempData["Action"] = "Alert";
+                TempData["Action"] = "Error";
                 TempData["Message"] = "No existe regitro con este ID...";
 
                 return RedirectToAction("ProvinceWithCities", "Countries", new { Idc = idc, Idp = idp });
@@ -405,7 +405,7 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Error";
+                TempData["Action"] = "Warning";
                 TempData["Message"] = "Formulario con campos vacios!!";
             }
 

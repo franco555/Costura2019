@@ -46,17 +46,6 @@
     width: 165px;
 }
 
-
-.table caption {
-    color: #ffffff;
-    background: #61b12a;
-    font-size: 20px;
-    padding: 5px 10px;
-    width: 250px;
-    border-radius: 15px 15px 0px 0px;
-    border-bottom: 3px solid #3b6d19;
-}
-
 .f-block {
     color: #ffffff;
     text-align: center;
@@ -168,8 +157,6 @@
     color: #61b12a;
     padding: 0px;
     margin: 0px;
-    margin-top: 10px;
-    margin-bottom: 15px;
 }
 
     .header-title > div p > span {
@@ -196,7 +183,11 @@
 }
 
 .btn-first > a {
-    border-radius: 30px 0px 0px 30px;
+    /*border-radius: 30px 0px 0px 30px;*/
+}
+.inline{
+    display:inline-block;
+    vertical-align:middle;
 }
 /*Ventana modal*/
 #WindowModal {

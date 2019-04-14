@@ -284,6 +284,7 @@
     <Content Include="Content\fa-bootstrap-datetimepicker.css" />
     <Content Include="Content\fa-Ecommerce.css" />
     <Content Include="Content\fa-EcommerceMenu.css" />
+    <Content Include="Content\fa-Estilos.css" />
     <Content Include="Content\fa-fileUpload.css" />
     <Content Include="Content\fa-FormularioEntradaSalida.css" />
     <Content Include="Content\fa-jquery-confirm.css" />
@@ -291,6 +292,7 @@
     <Content Include="Content\fa-Table.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fa-jquery.dataTables.min.css" />
     <Content Include="Content\Logos\Empresa\Logo.png" />
     <Content Include="Content\Logos\Empresa\Logopdp.png" />
     <Content Include="Content\Logos\Empresa\Logopdp0.png" />
