@@ -7,21 +7,24 @@
     ViewBag.Title = Pagina;
 }
 
-<div class="header-title">
-    <div class="Ec-Controls">
-        <p class="btn-new btn-first">
-            <a class="btn btn-success" href="@Url.Action("Additional","Navs" )" title="Volver"><span class="glyphicon glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
-        </p>
-        <p class="btn-new">
-            <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Inicio</a>
-        </p>
-        <p class="btn-new"><span>@Pagina</span></p>
-        <p class="btn-new" style="display:inline-flex">
-            <a class="btn btn-primary dialog-window" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar Compañia"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
-        </p>
+<div class="col-sm-12">
+    <div class="col-sm-12">
+        <h4 class="list-group-item color-title-blue">
+            @Pagina
+        </h4>
+        <div class="col-sm-6 btn-group-line">
+            <div>
+                <a class="btn  btn-success btn-volver" href="@Url.Action("Additional","Navs" )" title="Volver">Volver</a>
+            </div>
+            <div>
+                <a class="btn  btn-success  btn-inicio" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+            </div>
+            <div>
+                <a class="btn btn-primary dialog-window  btn-nuevo" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar Compañia">Nuevo</a>
+            </div>
+        </div>
     </div>
 </div>
-
 
 @if (TempData["Action"] != null && TempData.Count != 0)
 {
@@ -32,7 +35,7 @@
             <strong>Error!!!</strong>&nbsp;&nbsp;@TempData["Message"]
         </div>
     }
-    else if (TempData["Action"].ToString() == "Succes")
+    else if (TempData["Action"].ToString() == "Success")
     {
         <div class="alert alert-info alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -47,99 +50,95 @@
         </div>
     }
 }
+ 
 
-@if (Model == null || Model.Count() == 0)
-{
-    <tr>
-        <td colspan="4">
-            No hay Elementos...
-        </td>
-    </tr>
-}
-else
-{
-    foreach (var item in Model)
+<div class="row">
+    @if (Model == null || Model.Count() == 0)
     {
-        <div class="col-lg-6">
+        <div class="alert alert-danger">No hay Elementos...</div>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="col-lg-6">
 
-            <div class="f-border-skyblue f-background-skyblue-l col-sm-12" style="padding:20px; margin:15px auto;">
+                <div class="f-border-skyblue f-background-skyblue-l col-sm-12" style="padding:20px; margin:15px auto;">
 
-                <div class="col-sm-12">
                     <div class="col-sm-12">
-                        <div class="data-@Html.DisplayFor(modelItem => item.CompanyId)">
-                            <h1>
-                                <b>@Html.DisplayNameFor(model => model.Name) &#58;&nbsp;</b>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </h1>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="col-sm-12">
-                        <div class="col-sm-3">
-                            <div class="col-sm-12" style="text-align:center;">
+                        <div class="row">
+                            <div class="">
                                 @if (!string.IsNullOrEmpty(item.Logo))
                                 {
-                                    <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" />
+                                    <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:35px; padding:0px; margin:0px;" />
                                 }
                                 else
                                 {
-                                    <div style="background:#808080; display:block; width:100px;height:100px; padding:0px; margin:0px;"> </div>
+                                    <div style="background:#808080; display:block; width:35px;height:35px; padding:0px; margin:0px;"> </div>
                                 }
                             </div>
-                            <div class="col-sm-12" style="margin-top:15px; padding:0px; text-align:center; ">
-                                <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Companies", new { id = item.CompanyId })" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                                <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.CompanyId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
-                                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", Controlers, new { id = item.CompanyId })" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Nuevo Usuario" style="margin-top:10px;"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Usuario</a>
+                            <div class="data-@Html.DisplayFor(modelItem => item.CompanyId)">
+                                <h4>
+                                    &nbsp; @Html.DisplayFor(modelItem => item.Name)
+                                </h4>
                             </div>
                         </div>
-                        <div class="col-sm-9">
-                            <div class="col-sm-12">
+                        <hr />
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <a class="btn btn-primary btn-Usuario" href="@Url.Action("Details", Controlers, new { id = item.CompanyId })" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Nuevo Usuario">Usuarios</a>
+                                <a class="btn btn-warning dialog-window  btn-editar" href="@Url.Action("Edit", "Companies", new { id = item.CompanyId })" title="Editar" id="btn-Option" data-Option="Edit" data-title="Editar Compañia" style="color:#ffffff;">Editar</a>
+                                <a class="btn btn-danger Delete-reg btn-eliminar" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.CompanyId)" data-controller="@Controler" style="color:#ffffff;">Eliminar</a>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
 
-                                <div class="col-sm-12 form-control top3">
-                                    <b>@Html.DisplayNameFor(model => model.Cuit)&#58;&nbsp;</b>
-                                    @Html.DisplayFor(modelItem => item.Cuit)
-                                </div>
-                                <div class="col-sm-12 form-control top3">
-                                    <b>@Html.DisplayNameFor(model => model.FirstDate)&#58;&nbsp;</b>
-                                    @Html.DisplayFor(modelItem => item.FirstDate)
-                                </div>
-                                <div class="col-sm-12 form-control top3">
-                                    <b>@Html.DisplayNameFor(model => model.IvaConditionId)&#58;&nbsp;</b>
-                                    @Html.DisplayFor(modelItem => item.IvaCondition.Name)
-                                </div>
+                                    <div class="col-sm-12 form-control top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Cuit)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Cuit)
+                                    </div>
+                                    <div class="col-sm-12 form-control top-3">
+                                        <b>@Html.DisplayNameFor(model => model.FirstDate)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.FirstDate)
+                                    </div>
+                                    <div class="col-sm-12 form-control top-3">
+                                        <b>@Html.DisplayNameFor(model => model.IvaConditionId)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.IvaCondition.Name)
+                                    </div>
 
-                                <div class="col-sm-12 form-control top3">
-                                    <b>@Html.DisplayNameFor(model => model.Email)&#58;&nbsp;</b>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </div>
-                                <div class="col-sm-12 form-control top3">
-                                    <b>@Html.DisplayNameFor(model => model.Web)&#58;&nbsp;</b>
-                                    @Html.DisplayFor(modelItem => item.Web)
-                                </div>
-                                <div class="col-sm-12 form-control top3">
-                                    <b>@Html.DisplayNameFor(model => model.CountryId)&#58;&nbsp;</b>
-                                    @Html.DisplayFor(modelItem => item.Country.Name)
-                                </div>
+                                    <div class="col-sm-12 form-control top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Email)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </div>
+                                    <div class="col-sm-12 form-control top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Web)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Web)
+                                    </div>
+                                    <div class="col-sm-12 form-control top-3">
+                                        <b>@Html.DisplayNameFor(model => model.CountryId)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Country.Name)
+                                    </div>
 
-                                <div class="col-sm-12 form-control top3">
-                                    <b>@Html.DisplayNameFor(model => model.ProvinceId)&#58;&nbsp;</b>
-                                    @Html.DisplayFor(modelItem => item.Province.Name)
-                                </div>
-                                <div class="col-sm-12 form-control top3">
-                                    <b>@Html.DisplayNameFor(model => model.CityId)&#58;&nbsp;</b>
-                                    @Html.DisplayFor(modelItem => item.City.Name)
-                                </div>
-                                <div class="col-sm-12 form-control top3">
-                                    <b>@Html.DisplayNameFor(model => model.Address)&#58;&nbsp;</b>
-                                    @Html.DisplayFor(modelItem => item.Address)
+                                    <div class="col-sm-12 form-control top-3">
+                                        <b>@Html.DisplayNameFor(model => model.ProvinceId)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Province.Name)
+                                    </div>
+                                    <div class="col-sm-12 form-control top-3">
+                                        <b>@Html.DisplayNameFor(model => model.CityId)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.City.Name)
+                                    </div>
+                                    <div class="col-sm-12 form-control top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Address)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
-        </div>
+        }
     }
-}
 
+</div>

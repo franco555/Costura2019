@@ -360,16 +360,16 @@
   line-height: 1.8em !important;
 }
 .input-group.date .input-group-addon {
-   /* background: #808080;
+    background: #337ab7;
     color:#eeeeee;
     line-height: 35px;
-    padding: 0 20px;
-    border-radius: 0px 5px 5px 0px;*/
+    padding: 0px 10px 0px 15px;
+    border-radius: 0px 5px 5px 0px;
     cursor: pointer;
 }
 
 .input-group.date .input-group-addon:hover {
-    background: #aaaaaa;
+    background: #0a5594;
     transition:ease-in-out;
 }
 

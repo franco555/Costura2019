@@ -1,92 +1,41 @@
 ﻿<!--Adicional-->
 @model IEnumerable<PPSale.Controllers.Nav.NavsController>
 @{
-    ViewBag.Title = "Adicional";
+    var Pagina = "Adicional";
+    ViewBag.Title = Pagina;
 }
 
-<h2>Otras Configuraciones</h2>
-
-<h4>Ubicacion</h4>
-<div class="col-lg-12">
-    <div class="card card-button return">
-        <a href="@Url.Action("Index","Home")">
-            <div class="card" style="width: 100px;">
-                <div class="card-img-top glyphicon glyphicon-arrow-left" style="font-size:20px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Volver</h5>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","Countries")">
-            <div class="card" style="width: 100px;">
-                <div class="card-img-top glyphicon glyphicon-globe" style="font-size:20px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Ubicaci&oacute;n</h5>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","ContentControl")">
-            <div class="card" style="width:100px;">
-                <div class="card-img-top glyphicon glyphicon-tasks" style="font-size:20px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Documentos</h5>
-                </div>
-            </div>
-        </a>
+<div class="col-sm-12">
+    <div class="col-sm-12">
+        <h4 class="list-group-item color-title-blue">
+            @Pagina
+        </h4>
     </div>
 </div>
 
-<h4>Compa&ntilde;&iacute;a</h4>
 
-<div class="col-lg-12">
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","Companies")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-home" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Compa&ntilde;&iacute;a</h5>
-                </div>
+<div class="col-md-12">
+    <div class="row">
+        <div class="card text-white bg-info mb-3 col-sm card-margin" >
+            <div class="card-header"><h4>Ubicaci&oacute;n</h4></div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href="@Url.Action("Index","Countries")" class="btn btn-warning btn-lg btn-block">Ubicaci&oacute;n</a>
+                    <a href="@Url.Action("Index","ContentControl")" class="btn btn-warning btn-lg btn-block">Documentos</a>
+                </p>
             </div>
-        </a>
-    </div>
+        </div>
 
-    <div class="card card-button">
-        <a href="@Url.Action("Index","Users")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-user" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Usuario</h5>
-                </div>
+        <div class="card text-white bg-info mb-3  col-sm  card-margin"">
+            <div class="card-header"><h4>Compa&ntilde;&iacute;a</h4></div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href="@Url.Action("Index","Companies")" class="btn btn-warning btn-lg btn-block">Compa&ntilde;ia</a>
+                    <a href="@Url.Action("Index","Users")" class="btn btn-warning btn-lg btn-block">Usuario</a>
+                    <a href="@Url.Action("Index","Rols")" class="btn btn-warning btn-lg btn-block">Roles</a>
+                    <a href="@Url.Action("Index","AsingRolAndUsers")" class="btn btn-warning btn-lg btn-block">Asing. Roles</a>
+                </p>
             </div>
-        </a>
-    </div>
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","Rols")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-bullhorn" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Roles</h5>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","AsingRolAndUsers")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-random" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Rel. Rol, Usuario y Comp.</h5>
-                </div>
-            </div>
-        </a>
+        </div>
     </div>
 </div>

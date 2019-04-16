@@ -30,7 +30,8 @@
 }
 
 .file-caption {
-    width:35px !important;
+    width:100px;
+    border-radius:5px 0px 0px 5px;
 }
 
 .input-group-btn {

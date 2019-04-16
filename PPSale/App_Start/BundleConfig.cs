@@ -22,7 +22,7 @@ namespace PPSale
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js",
-                      "~/Scripts/moment.js",
+                      "~/Scripts/moment.js", 
                       "~/Scripts/fa-jquery-confirm.js",
                       "~/Scripts/fa-jquery.dataTables.min.js",
                       "~/Scripts/fa-dataTables.bootstrap4.min.js",

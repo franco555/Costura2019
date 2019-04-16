@@ -7,10 +7,13 @@ jQuery(document).on('click', '.mega-dropdown', function (e) {
 $(document).ready(function () {
 
     var boolens = false;
-
+    
     if ($("#datepicker").length > 0) { //if ( $("#undiv")[0] )
         loadFormatDatePickers();
+        alert("d");
     }
+
+    //$('#datepicker').datepicker();
 
     //Menu slider
     $(".Ec-btn-Menu").click(function () { $(".Ec-ContentMenu").slideToggle("slow"); return false; });
@@ -259,6 +262,9 @@ $(document).ready(function () {
         return false;
     });
 
+    //Cerrar Session
+    $(document).on('click', '.btn-Salir-more', function (event) {document.getElementById('logoutForm').submit();});
+    
 });
 
 
@@ -405,7 +411,9 @@ function ignoreFiels(name) {
 }
 
 function loadFormatDatePickers() {
-    $('#datepicker').datetimepicker({ format: 'YYYY/MM/DD' });
+    $('#datepicker').datetimepicker({
+        format: 'YYYY/MM/DD',
+    });
     $('#datepicker2').datetimepicker({ format: 'YYYY/MM/DD' });
 }
 
@@ -530,6 +538,7 @@ function WindowsModals(title, url, class_attr) {
         $.get(url, function (data) {
             $('#WindowModal .te').html(data);
             $('#WindowModal').modal();
+            if ($("#datepicker").length > 0) { loadFormatDatePickers();}
         }).done(function () {
             $('input:text:visible:first').focus();
         });

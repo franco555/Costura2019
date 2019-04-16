@@ -18,7 +18,7 @@ function handleFileSelect(e) {
             reader.readAsDataURL(f);
             $("#NombreArchivo").empty();
             $("#NombreArchivo").attr("title", f.name);
-            $("#NombreArchivo").append("<span class='glyphicon glyphicon-file kv-caption-icon' style='display:inline-block'></span>");
+            $("#NombreArchivo").append("<span class='fa fa-file'><i> " + f.name.substr(0, 6) + "...</i></span>");
         }
         else {
             alert(f.name + ' Formato no permitido.');

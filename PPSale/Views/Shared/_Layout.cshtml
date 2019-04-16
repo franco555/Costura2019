@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -6,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
     <title>Sidebar template</title>
-    
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -25,180 +27,213 @@
                 </div>
                 <div class="sidebar-header">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+                        <img class="img-responsive img-rounded" src="~/Content/Logos/User/otro.png"
                              alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name">
-                            Jhon
-                            <strong>Smith</strong>
-                        </span>
-                        <span class="user-role">Administrator</span>
-                        <span class="user-status">
-                            <i class="fa fa-circle"></i>
-                            <span>En Línea</span>
-                        </span>
+
+                        @if (Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <span class="user-name">
+                                    @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                    <strong>Smith</strong>
+                                </span>
+
+                                <span class="user-role">Administrator</span>
+                                <span class="user-status">
+                                    <i class="fa fa-circle"></i>
+                                    <span>En Línea</span>
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            <hr />
+                            <div class="row">
+                                @Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-warning" })
+                                @Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn btn-primary left-3" })
+                            </div>
+                        }
+
+
+
+
                     </div>
                 </div>
 
                 <!-- sidebar-search  -->
-                <div class="sidebar-menu">
-                    <ul>
-                        <li class="header-menu">
-                            <span>General</span>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-tachometer"></i>
-                                <span>Dashboard</span>
-                                <span class="badge badge-pill badge-warning">New</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            Dashboard 1
-                                            <span class="badge badge-pill badge-success">Pro</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dashboard 2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dashboard 3</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>E-commerce</span>
-                                <span class="badge badge-pill badge-danger">3</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            Products
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="sidebar-menu">
+                        <ul>
+                            <li class="header-menu">
+                                <span>General</span>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-tachometer"></i>
+                                    <span>Dashboard</span>
+                                    <span class="badge badge-pill badge-warning">New</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                Dashboard 1
+                                                <span class="badge badge-pill badge-success">Pro</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Dashboard 2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Dashboard 3</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>E-commerce</span>
+                                    <span class="badge badge-pill badge-danger">3</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                Products
 
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Credit cart</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-diamond"></i>
-                                <span>Components</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">General</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Panels</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tables</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Icons</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Forms</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-line-chart"></i>
-                                <span>Charts</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Pie chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Line chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Bar chart</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Histogram</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="sidebar-dropdown">
-                            <a href="#">
-                                <i class="fa fa-globe"></i>
-                                <span>Maps</span>
-                            </a>
-                            <div class="sidebar-submenu">
-                                <ul>
-                                    <li>
-                                        <a href="#">Google maps</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Open street map</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="header-menu">
-                            <span>Extra</span>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-book"></i>
-                                <span>Documentation</span>
-                                <span class="badge badge-pill badge-primary">Beta</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-calendar"></i>
-                                <span>Calendar</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-folder"></i>
-                                <span>Examples</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Orders</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Credit cart</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-diamond"></i>
+                                    <span>Components</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">General</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Panels</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Tables</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Icons</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Forms</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-line-chart"></i>
+                                    <span>Charts</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">Pie chart</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Line chart</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Bar chart</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Histogram</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="sidebar-dropdown">
+                                <a href="#">
+                                    <i class="fa fa-globe"></i>
+                                    <span>Maps</span>
+                                </a>
+                                <div class="sidebar-submenu">
+                                    <ul>
+                                        <li>
+                                            <a href="#">Google maps</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Open street map</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="header-menu">
+                                <span>Extra</span>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-book"></i>
+                                    <span>Documentation</span>
+                                    <span class="badge badge-pill badge-primary">Beta</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-calendar"></i>
+                                    <span>Calendar</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-folder"></i>
+                                    <span>Examples</span>
+                                </a>
+                            </li>
+                            <li class="Closed-Session" data-toggle="modal" data-target=".bd-example-modal-sm">
+                                <a>
+                                    <i class="fa fa-power-off"></i>
+                                    <span>Cerrar Sessión</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                }
                 <!-- sidebar-menu  -->
             </div>
             <!-- sidebar-content  -->
             <div class="sidebar-footer">
-                <a href="#">
-                    <i class="fa fa-bell"></i>
-                    <span class="badge badge-pill badge-warning notification">3</span>
-                </a>
-                <a href="#">
-                    <i class="fa fa-envelope"></i>
-                    <span class="badge badge-pill badge-success notification">7</span>
-                </a>
-                <a href="#">
-                    <i class="fa fa-cog"></i>
-                    <span class="badge-sonar"></span>
-                </a>
-                <a href="#">
-                    <i class="fa fa-power-off"></i>
-                </a>
+                @if (Request.IsAuthenticated)
+                {
+                    <a href="#" title="Salir" >
+                        <i class="fa fa-power-off"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge badge-pill badge-warning notification">3</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-envelope"></i>
+                        <span class="badge badge-pill badge-success notification">7</span>
+                    </a>
+                    <a href="#">
+                        <i class="fa fa-cog"></i>
+                        <span class="badge-sonar"></span>
+                    </a>
+                }
             </div>
         </nav>
         <!-- sidebar-wrapper  -->
@@ -222,6 +257,23 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body"><div class="te">Please wait...</div></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background:#BF3945;">
+            <div class="card text-white bg-danger mb-3" style="max-width: 19rem;">
+                <div class="card-header">Cerrar Session</div>
+                <div class="card-body">
+                    <h5 class="card-title">¿Estas seguro que deseas salir?</h5>
+                    <div class="row">
+                        <div class="btn btn-danger btn-Salir btn-Salir-more col-sm-6">Salir</div>
+                        <div class="btn btn-danger btn-volver btn-volver-more col-sm-6" data-dismiss="modal" aria-label="Close">Cancelar</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

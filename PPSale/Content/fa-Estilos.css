@@ -94,7 +94,19 @@ button.Closed {
 }
 
 /*MENU DE Volver inicio y nuevo*/
-.btn-volver:before, .btn-inicio:before, .btn-nuevo:before, .btn-menu:before {
+.btn-volver:before,
+.btn-inicio:before,
+.btn-nuevo:before,
+.btn-menu:before,
+.btn-Usuario:before,
+.btn-eliminar:before,
+.btn-detalle:before,
+.btn-editar:before,
+.btn-Password:before,
+.btn-Compania:before,
+.btn-Salir:before,
+.btn-Calendario:before,
+.btn-Archivo:before {
     font-family: "FontAwesome";
     font-weight: 400;
     font-style: normal;
@@ -115,13 +127,39 @@ button.Closed {
 .btn-nuevo:before {
     content: "\f15c";
 }
+.btn-editar:before {
+    content: "\f044";
+}
+.btn-detalle:before {
+    content: "\f0cb";
+}
+.btn-eliminar:before {
+    content: "\f12d";
+}
 .btn-menu:before {
     content: "\f1a5";
 }
-
-.btn-group-line div{
-    display:inline-block;
-    vertical-align:middle;
+.btn-Usuario:before {
+    content: "\f2bc";
+}
+.btn-Password:before {
+    content: "\f13e";
+}
+.btn-Compania:before {
+    content: "\f19c"
+}
+.btn-Salir:before {
+    content: "\f011";
+}
+.btn-Calendario:before {
+    content: "\f073";
+}
+.btn-Archivo:before {
+    content: "\f15b";
+}
+.btn-group-line div {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /*TITULO Principal*/
@@ -137,4 +175,83 @@ button.Closed {
     display: block;
     text-align: right;
     padding: 15px 15px 0px 0px;
+}
+
+/*Margen de CARD*/
+.card-margin {
+    max-width: 18rem;
+    margin-left: 20px;
+}
+
+/*Margen de separacion en la compañia*/
+.top-3{
+    margin-top:3px;
+}
+.left-3 {
+    margin-left: 5px;
+}
+
+/*LOGIN*/
+.Login {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+    .form-signin .checkbox {
+        font-weight: 400;
+    }
+
+    .form-signin .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    /*BOTON CERRAR SESION*/
+.Closed-Session {
+    background: #BA1E16;
+}
+.Closed-Session:hover {
+    cursor:pointer;
+}
+.Closed-Session a i{
+    background:red !important;
+}
+.btn-Salir-more:before, .btn-volver-more:before {
+    font-size: 20px;
+    text-align: center;
 }

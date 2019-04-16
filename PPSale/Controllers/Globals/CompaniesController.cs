@@ -108,17 +108,19 @@ namespace PPSale.Controllers.Globals
                 {
                     if (company.LogoFile != null)
                     {
-                        var folder = "~/Content/Logos/Empresa";
-                        var Name = string.Format("{0}.jpg", company.CompanyId);
+                        var folder = "~/Content/Logos/Provider";
+                        var guid = Guid.NewGuid().ToString();
+                        var Name = $"{guid}.jpg";
                         var Succ = FilesHelpers.UploadPhoto(company.LogoFile, folder, Name);
                         if (Succ.Succeded)
                         {
-                            var pic = string.Format("{0}/{1}", folder, Name);
+                            var pic = $"{folder}/{Name}";
                             company.Logo = pic;
 
                             db.Entry(company).State = EntityState.Modified;
                             db.SaveChanges();
                         }
+                       
                     }
                     return RedirectToAction("Index", company);
                 }
@@ -150,15 +152,19 @@ namespace PPSale.Controllers.Globals
                 return RedirectToAction("Index");
             }
 
+            if (company.Logo==null)
+            {
+                company.Logo = "~/Content/Logos/Empresa/otro.png";
+            }
             company.URL = company.Logo;
-            company.Logo= company.Logo;
 
 
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(company.CountryId, company.ProvinceId), "CityId", "Name", company.CityId);
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", company.CountryId);
             ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name", company.IvaConditionId);
             ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(company.CountryId), "ProvinceId", "Name", company.ProvinceId);
-            return View(company);
+
+            return PartialView(company);
         }
 
         // POST: Companies/Edit/5

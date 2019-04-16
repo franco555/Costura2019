@@ -6,13 +6,6 @@
     ViewBag.Title = Pagina;
 }
 
-<h5 class="f-title f-titleEdit">
-    <span class="title_CreateEdit f-orange">
-        Editar:
-    </span> @Pagina
-</h5>
-
-
 @using (Html.BeginForm("Edit", @Controlers, FormMethod.Post, new { @class = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -68,15 +61,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FirstDate, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                <div class='input-group date' id='datepicker' style="width:250px">
-                    @Html.EditorFor(model => model.FirstDate, new { htmlAttributes = new { @class = "form-control col-sm-12" } })
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
+                <div class='input-group date' id='datepicker' style="">
+                    @Html.EditorFor(model => model.FirstDate, new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="input-group-text">
+                        <span class="fa-calendar fa input-group-addon"></span>
                     </span>
                 </div>
                 @Html.ValidationMessageFor(model => model.FirstDate, "", new { @class = "text-danger" })
             </div>
         </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.IvaConditionId, htmlAttributes: new { @class = "control-label col-md-3" })
@@ -134,10 +128,10 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-md-offset-2 col-md-9">
-                <input type="submit" value="Guardar" class="btn btn-warning" />
-                <a href="@Url.Action("Index")" class="btn btn-success" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+        <div class="col-md-12">
+            <div class="btn-rigth">
+                <input type="submit" value="Actulizar" class="btn btn-primary" />
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
             </div>
         </div>
     </div>
