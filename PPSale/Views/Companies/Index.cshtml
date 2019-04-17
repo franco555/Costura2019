@@ -61,13 +61,13 @@
     {
         foreach (var item in Model)
         {
-            <div class="col-lg-6">
+            <div class="col-lg-6 ">
 
-                <div class="f-border-skyblue f-background-skyblue-l col-sm-12" style="padding:20px; margin:15px auto;">
+                <div class="col-sm-12 f-background-blue-l" style="padding:20px; margin:15px auto;">
 
                     <div class="col-sm-12">
-                        <div class="row">
-                            <div class="">
+                        <div class="row Ec-title-Company">
+                            <div class="f-border-skyblue">
                                 @if (!string.IsNullOrEmpty(item.Logo))
                                 {
                                     <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:35px; padding:0px; margin:0px;" />

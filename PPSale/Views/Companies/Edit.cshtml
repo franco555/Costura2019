@@ -18,119 +18,130 @@
     @Html.HiddenFor(model => model.Logo)
 
     <div class="form-Edit">
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-12" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cuit, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.EditorFor(model => model.Cuit, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Cuit, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Cuit, new { htmlAttributes = new { @class = "form-control col-md-12" } })
                 @Html.ValidationMessageFor(model => model.Cuit, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control col-md-12" } })
                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control col-md-12" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Web, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.EditorFor(model => model.Web, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.Web, htmlAttributes: new { @class = "control-label col-md-12" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Web, new { htmlAttributes = new { @class = "form-control col-md-12" } })
                 @Html.ValidationMessageFor(model => model.Web, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstDate, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                <div class='input-group date' id='datepicker' style="">
-                    @Html.EditorFor(model => model.FirstDate, new { htmlAttributes = new { @class = "form-control" } })
-                    <span class="input-group-text">
-                        <span class="fa-calendar fa input-group-addon"></span>
-                    </span>
-                </div>
-                @Html.ValidationMessageFor(model => model.FirstDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IvaConditionId, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.DropDownList("IvaConditionId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IvaConditionId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row ">
-            @Html.LabelFor(model => model.LogoFile, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class=" col-md-9">
-                <div class="file-input-new">
-                    <div id="filesImg">
-                        <img id="files" src="@Url.Content(Model.URL)" />
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.FirstDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        <div class='input-group date' id='datepicker' style="width:180px">
+                            @Html.EditorFor(model => model.FirstDate, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                            <span class="input-group-addon">
+                                <span class="btn-Calendario"></span>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.FirstDate, "", new { @class = "text-danger" })
                     </div>
-                    <div class="input-group" style="width:100px">
-                        <div tabindex="500" class=" form-control col-sm-12 file-caption">
-                            <div class="file-caption-name" id="NombreArchivo">
-                            </div>
-                        </div>
-                        <div class="input-group-btn" style="height:auto">
-                            <div tabindex="500" class="btn btn-primary btn-file">
-                                <i class="glyphicon glyphicon-folder-open"></i>
-                                Imagen...
-                                @Html.TextBoxFor(modelo => modelo.LogoFile, new { type = "file", id = "files" })
-                            </div>
-                        </div>
+                </div>
+
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.IvaConditionId, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownList("IvaConditionId", null, htmlAttributes: new { @class = "form-control col-md-12 col-md-12" })
+                        @Html.ValidationMessageFor(model => model.IvaConditionId, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CountryId, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.DropDownList("CountryId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="col-md-12">
+            <div class="row">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.DropDownList("ProvinceId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProvinceId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.LogoFile, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class=" col-md-12">
+                        <div class="file-input-new">
+                            <div id="filesImg">
+                                <img id="files" src="@Url.Content(Model.URL)" style="max-width:140px;" />
+                            </div>
+                            <div class="input-group" style="width:140px;">
+                                <div class="row">
+                                    <div tabindex="500" class="form-control file-caption">
+                                        <div class="file-caption-name" id="NombreArchivo">
+                                        </div>
+                                    </div>
+                                    <div style="height:auto">
+                                        <div tabindex="500" class="btn btn-primary btn-file">
+                                            <i class="fa fa-folder-open"></i>
+                                            @Html.TextBoxFor(modelo => modelo.LogoFile, new { type = "file", id = "files" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-3" })
-            <div class="col-md-9">
-                @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                <div class="col-md-8">
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.CountryId, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownList("CountryId", null, htmlAttributes: new { @class = "form-control col-md-12 col-md-12" })
+                            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.ProvinceId, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownList("ProvinceId", null, htmlAttributes: new { @class = "form-control col-md-12 col-md-12" })
+                            @Html.ValidationMessageFor(model => model.ProvinceId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control col-md-12 col-md-12" })
+                            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="col-md-12">
             <div class="btn-rigth">
-                <input type="submit" value="Actulizar" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
                 <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
             </div>
         </div>

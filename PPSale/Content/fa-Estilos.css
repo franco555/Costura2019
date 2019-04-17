@@ -255,3 +255,54 @@ button.Closed {
     font-size: 20px;
     text-align: center;
 }
+
+/*TITULOS DE COMMPAÑIA*/
+.Ec-title-Company{
+    background:rgb(29, 78, 137);
+    color:#ffffff;
+    padding:15px 20px;
+}
+
+/*COLORES*/
+
+.f-background-orange {
+    background: #f3872f !important;
+}
+
+.f-background-red {
+    background: rgba(206, 34, 10, 0.91) !important;
+}
+
+.f-background-skyblue {
+    background: rgba(3, 171, 217, 0.91) !important;
+}
+
+.f-background-blue {
+    background: #045FB4 !important;
+}
+
+.f-background-orange-l {
+    border: 1px solid rgba(243, 135, 47, 0.30);
+    background: rgba(254, 172, 105, 0.36) !important;
+}
+
+.f-background-red-l {
+    border: 1px solid rgba(206, 34, 10, 0.15);
+    background: rgba(252, 79, 55, 0.20) !important;
+}
+
+.f-background-skyblue-l {
+    border: 1px solid rgba(3, 171, 217, 0.50);
+    background: rgba(15, 194, 243, 0.20) !important;
+}
+
+.f-background-blue-l {
+    border: 1px solid rgba(29, 78, 137, 0.30);
+    background: rgba(62, 126, 203, 0.30) !important;
+}
+
+.f-border-skyblue {
+    border: 1px solid rgba(2, 193, 245, 0.99) !important;
+    padding:2px;
+    box-shadow: 0px 0px 3px 0px rgba(2, 193, 245, 0.99);
+}

@@ -9,6 +9,7 @@ namespace PPSale.Controllers.Globals
     using Classes;
     using Models.Conexion;
     using Models.Globals;
+    using Newtonsoft.Json;
     using PPSale.Models.View;
 
     [Authorize(Roles = "Admin")]
@@ -25,7 +26,7 @@ namespace PPSale.Controllers.Globals
                 Include(c => c.Country).
                 Include(c => c.IvaCondition).
                 Include(c => c.Province).
-                OrderBy(c=>c.Name).
+                OrderBy(c => c.Name).
                 ToList();
             return View(companies);
         }
@@ -49,30 +50,32 @@ namespace PPSale.Controllers.Globals
                 return RedirectToAction("Index");
             }
 
-            var users= (from u in db.Users
-                                   join a in db.AsingRolAndUsers on u.UserId equals a.UserId
-                                   join c in db.Companies on a.CompanyId equals c.CompanyId
-                                   where c.CompanyId == company.CompanyId
+            var users = (from u in db.Users
+                         join a in db.AsingRolAndUsers on u.UserId equals a.UserId
+                         join c in db.Companies on a.CompanyId equals c.CompanyId
+                         where c.CompanyId == company.CompanyId
 
-                                   select new {u }
+                         select new { u }
                                    ).ToList();
 
             var user = new List<User>();
             foreach (var item in users)
             {
-                user.Add(new User() {
+                user.Add(new User()
+                {
                     UserId = item.u.UserId,
                     FirstName = item.u.FirstName,
                     LastName = item.u.LastName,
                 });
             }
 
-            var companyWithUsers = new CompanyWithUsersViewModel() {
-                CompanyId=company.CompanyId,
-                Name=company.Name,
-                Logo=company.Logo,
-                Address=company.Address,
-                Users=user
+            var companyWithUsers = new CompanyWithUsersViewModel()
+            {
+                CompanyId = company.CompanyId,
+                Name = company.Name,
+                Logo = company.Logo,
+                Address = company.Address,
+                Users = user
             };
             return View(companyWithUsers);
         }
@@ -80,11 +83,12 @@ namespace PPSale.Controllers.Globals
         // GET: Companies/Create
         public ActionResult Create()
         {
-            var company = new Company {
+            var company = new Company
+            {
                 FirstDate = DateTime.Now,
                 URL = "~/Content/Logos/Empresa/otro.png",
             };
-            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(0,0), "CityId", "Name");
+            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(0, 0), "CityId", "Name");
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name");
             ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name");
             ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(0), "ProvinceId", "Name");
@@ -108,7 +112,7 @@ namespace PPSale.Controllers.Globals
                 {
                     if (company.LogoFile != null)
                     {
-                        var folder = "~/Content/Logos/Provider";
+                        var folder = "~/Content/Logos/Empresa";
                         var guid = Guid.NewGuid().ToString();
                         var Name = $"{guid}.jpg";
                         var Succ = FilesHelpers.UploadPhoto(company.LogoFile, folder, Name);
@@ -120,14 +124,18 @@ namespace PPSale.Controllers.Globals
                             db.Entry(company).State = EntityState.Modified;
                             db.SaveChanges();
                         }
-                       
+
                     }
-                    return RedirectToAction("Index", company);
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = "Guardado Exitosamente!!!";
+
+                    return RedirectToAction("Index");
                 }
                 ModelState.AddModelError(string.Empty, response.Message);
             }
 
-            TempData["Error"] = "Modelo no válido";
+            TempData["Action"] = "Warning";
+            TempData["Message"] = "Campos vacíos!!!";
 
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(company.CountryId, company.ProvinceId), "CityId", "Name", company.CityId);
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", company.CountryId);
@@ -152,7 +160,7 @@ namespace PPSale.Controllers.Globals
                 return RedirectToAction("Index");
             }
 
-            if (company.Logo==null)
+            if (company.Logo == null)
             {
                 company.Logo = "~/Content/Logos/Empresa/otro.png";
             }
@@ -184,29 +192,35 @@ namespace PPSale.Controllers.Globals
                     if (company.LogoFile != null)
                     {
                         var folder = "~/Content/Logos/Empresa";
-                        var Name = string.Format("{0}.jpg", company.CompanyId);
+                        var guid = Guid.NewGuid().ToString();
+                        var Name = $"{guid}.jpg";
                         var Succ = FilesHelpers.UploadPhoto(company.LogoFile, folder, Name);
                         if (Succ.Succeded)
                         {
-                            var pic = string.Format("{0}/{1}", folder, Name);
+                            var pic = $"{folder}/{Name}";
                             company.Logo = pic;
 
                             db.Entry(company).State = EntityState.Modified;
                             db.SaveChanges();
                         }
                     }
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = "Actualizado Exitosamente!!!";
+
                     return RedirectToAction("Index", company);
                 }
                 ModelState.AddModelError(string.Empty, response.Message);
             }
 
-            TempData["Error"] = "Modelo no válido";
+            TempData["Action"] = "Warning";
+            TempData["Message"] = "Campos vacíos!!!";
 
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(company.CountryId, company.ProvinceId), "CityId", "Name", company.CityId);
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", company.CountryId);
             ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name", company.IvaConditionId);
             ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(company.CountryId), "ProvinceId", "Name", company.ProvinceId);
-            return View(company);
+
+            return PartialView(company);
         }
 
         // GET: Companies/Delete/5
@@ -249,6 +263,8 @@ namespace PPSale.Controllers.Globals
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name");
             ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(0), "ProvinceId", "Name");
 
+            ViewBag.rolId = new SelectList(CombosHelpers.GetRols(), "RolId", "Name");
+
             return PartialView(user);
         }
 
@@ -278,16 +294,22 @@ namespace PPSale.Controllers.Globals
                             db.SaveChanges();
                         }
                     }
-                    TempData["Action"] = "Succes";
+                    TempData["Action"] = "Success";
                     TempData["Message"] = "Guardado Correctamente!!";
                     return RedirectToAction($"Details/{user.companyId}");
                 }
-                ModelState.AddModelError(string.Empty, response.Message);
+
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
             }
+            else
+            {
+                //string messages = string.Join(";", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
 
-            TempData["Action"] = "Error";
-            TempData["Message"] = "Modelo No válido";
-
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
+            }
 
             return RedirectToAction($"Details/{user.companyId}");
         }

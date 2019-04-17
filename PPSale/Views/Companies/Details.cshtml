@@ -1,24 +1,38 @@
 ﻿@model PPSale.Models.View.CompanyWithUsersViewModel
+@using Newtonsoft.Json;
 
 @{
-    var Pagina = "Compañías";
+
+    var Pagina = "Usuarios de Compañia";
     var Controler = "Company";
     var Controlers = "Companies";
     ViewBag.Title = Pagina;
+    dynamic jsonObj = "";
+
+    if (TempData["Action"]!=null && TempData["Action"].Equals("Object")) { 
+        if (TempData["Message"] != null) { jsonObj = JsonConvert.DeserializeObject(TempData["Message"].ToString()); }
+    }
 }
 
-<div class="header-title">
-    <div class="Ec-Controls">
-        <p class="btn-new btn-first">
-            <a class="btn btn-success" href="@Url.Action("Index","Companies" )" title="Volver"><span class="glyphicon glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
-        </p>
-        <p class="btn-new">
-            <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;Inicio</a>
-        </p>
-        <p class="btn-new"><span>@Pagina</span></p>
-        <p class="btn-new" style="display:inline-flex">
-            <a class="btn btn-primary dialog-window" href="@Url.Action("AddUsers",Controlers,new { Id=Model.CompanyId })" title="Nuevo Usuario" id="btn-Option" data-Option="Create" data-title="Agregar Usuario"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo Usuario</a>
-        </p>
+<div class="col-sm-12">
+    <div class="col-sm-12">
+        <h4 class="list-group-item color-title-blue">
+            @Pagina
+        </h4>
+        <div class="col-sm-6 btn-group-line">
+            <div>
+                <a class="btn  btn-success btn-volver" href="@Url.Action("index" )" title="Volver">Volver</a>
+            </div>
+            <div>
+                <a class="btn  btn-success btn-menu" href="@Url.Action("Additional","Navs" )" title="Menú">Menu</a>
+            </div>
+            <div>
+                <a class="btn  btn-success  btn-inicio" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+            </div>
+            <div>
+                <a class="btn btn-primary dialog-window  btn-nuevo" href="@Url.Action("AddUsers",Controlers,new { Id=Model.CompanyId })" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar Compañia">Nuevo</a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -30,13 +44,22 @@
         <div class="alert alert-danger alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Error!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+            <br />
         </div>
     }
-    else if (TempData["Action"].ToString() == "Succes")
+    else if (TempData["Action"].ToString() == "Success")
     {
         <div class="alert alert-info alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Felicitaciones!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+    else if (TempData["Action"].ToString() == "Object")
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Los Siguientes campos estan vacío y son requeridos!!!</strong> <br />
+            <ul> @foreach (var obj in jsonObj){<li>@obj</li> }</ul>
         </div>
     }
     else
@@ -47,9 +70,11 @@
         </div>
     }
 }
-
-<div class="col-sm-12">
-    <div class="col-sm-3 form-alter">
+<h1>
+    @ViewBag.nombreCompleto
+</h1>
+<div class="row">
+    <div class="col-sm-3 f-border-skyblue" style="padding:25px;">
         <div class="col-sm-12" style="text-align:center;">
             @if (!string.IsNullOrEmpty(Model.Logo))
             {
@@ -61,16 +86,12 @@
             }
         </div>
 
-        <div class="col-sm-12 form-control top3">
+        <div class="col-sm-12 form-control top-3">
             <b> @Html.DisplayNameFor(model => model.Name) &nbsp;&#58;</b> @Html.DisplayFor(model => model.Name)
         </div>
 
-        <div class="col-sm-12 form-control top3">
+        <div class="col-sm-12 form-control top-3">
             <b>@Html.DisplayNameFor(model => model.Address)</b>&nbsp;&#58;@Html.DisplayFor(model => model.Address)
-        </div>
-        <div class="col-sm-12" style="margin-top:15px; padding:0px; text-align:center; ">
-            <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Companies", new { id = Model.CompanyId })" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-
         </div>
     </div>
 
@@ -78,33 +99,33 @@
 
         @if (Model.Users == null || Model.Users.Count() == 0)
         {
-            
-        <div class="alert alert-danger alert-dismissible">
-            <strong>Bienvenido!!!</strong>&nbsp;&nbsp;No hay Items
-        </div>
-              
+
+            <div class="alert alert-danger alert-dismissible">
+                <strong>Bienvenido!!!</strong>&nbsp;&nbsp;No hay Items
+            </div>
+
         }
         else
         {
             foreach (var item in Model.Users)
             {
-        <div class="col-sm-4">
-            <div class="col-sm-12" style="text-align:center;">
-                @if (!string.IsNullOrEmpty(item.Logo))
-                {
-                    <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" />
-                }
-                else
-                {
-                    <div style="background:#808080; display:block; width:100px;height:100px; padding:0px; margin:0px;"> </div>
-                }
-            </div>
-            <div class="col-sm-12">
-                <div class="col-sm-6">@Url.Content(item.FirstName)</div>
-                <div class="col-sm-6">@Url.Content(item.LastName)</div>
-            </div>
-        </div>
+                <div class="col-sm-4">
+                    <div class="col-sm-12" style="text-align:center;">
+                        @if (!string.IsNullOrEmpty(item.Logo))
+                        {
+                            <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" />
+                        }
+                        else
+                        {
+                            <div style="background:#808080; display:block; width:100px;height:100px; padding:0px; margin:0px;"> </div>
+                        }
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">@Url.Content(item.FirstName)</div>
+                        <div class="col-sm-6">@Url.Content(item.LastName)</div>
+                    </div>
+                </div>
+            }
         }
-    }
-        </div>
+    </div>
 </div>

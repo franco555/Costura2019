@@ -10,7 +10,6 @@ $(document).ready(function () {
     
     if ($("#datepicker").length > 0) { //if ( $("#undiv")[0] )
         loadFormatDatePickers();
-        alert("d");
     }
 
     //$('#datepicker').datepicker();
@@ -411,9 +410,7 @@ function ignoreFiels(name) {
 }
 
 function loadFormatDatePickers() {
-    $('#datepicker').datetimepicker({
-        format: 'YYYY/MM/DD',
-    });
+    $('#datepicker').datetimepicker({format: 'YYYY/MM/DD'});
     $('#datepicker2').datetimepicker({ format: 'YYYY/MM/DD' });
 }
 
@@ -423,7 +420,7 @@ function loadSelect() {
 
 function ReloadSelect(id) {
     $("Select#" + id).empty();
-    $("Select#" + id).append('<option value=0>[Seleccione...]</option>');
+    $("Select#" + id).append('<option value=0>[Seleccionar...]</option>');
 }
 
 function MsgError(title, msg, ex, act) {

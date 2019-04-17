@@ -49,6 +49,11 @@ namespace PPSale.Models.Globals
         [NotMapped]
         public int companyId { get; set; }
 
+        [Required]
+        [Display(Name = "Rol")]
+        [NotMapped]
+        public int rolId { get; set; }
+
         //Propiedad lectura
         [Display(Name = "Usuario")]
         public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
