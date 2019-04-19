@@ -242,6 +242,7 @@
     <Compile Include="Models\Globals\CategoryDocument.cs" />
     <Compile Include="Models\Globals\TypeDocument.cs" />
     <Compile Include="Models\Globals\TypePayment.cs" />
+    <Compile Include="Models\View\ChangeRolViewModel.cs" />
     <Compile Include="Models\View\CompanyWithUsersViewModel.cs" />
     <Compile Include="Models\View\ContentControlViewModel.cs" />
     <Compile Include="Models\View\CountryWithProvincesViewModel.cs" />
@@ -300,6 +301,9 @@
     <Content Include="Content\Logos\Empresa\thumb02.jpg" />
     <Content Include="Content\Logos\Empresa\thumb03.jpg" />
     <Content Include="Content\Logos\Empresa\otro.png" />
+    <Content Include="Content\Logos\NotCompany.jpg" />
+    <Content Include="Content\Logos\NotImage.jpg" />
+    <Content Include="Content\Logos\NotUser.jpg" />
     <Content Include="Content\Logos\User\1.jpg" />
     <Content Include="Content\Logos\User\2.jpg" />
     <Content Include="Content\Logos\User\3.jpg" />
@@ -522,6 +526,7 @@
     <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\Companies\AddUsers.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Companies\ChangeRol.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

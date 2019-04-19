@@ -74,28 +74,30 @@
     @ViewBag.nombreCompleto
 </h1>
 <div class="row">
-    <div class="col-sm-3 f-border-skyblue" style="padding:25px;">
-        <div class="col-sm-12" style="text-align:center;">
-            @if (!string.IsNullOrEmpty(Model.Logo))
-            {
-                <img src="@Url.Content(Model.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" />
-            }
-            else
-            {
-                <div style="background:#808080; display:block; width:100px;height:100px; padding:0px; margin:0px;"> </div>
-            }
-        </div>
+    <div class="col-sm-4 ">
+        <div class="f-border-skyblue" style="padding:10px;">
+            <div class="col-sm-12" style="text-align:center;">
+                @if (!string.IsNullOrEmpty(Model.Logo))
+                {
+                    <img src="@Url.Content(Model.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" />
+                }
+                else
+                {
+                    <div style="background:#808080; display:block; width:100px;height:100px; padding:0px; margin:0px;"> </div>
+                }
+            </div>
 
-        <div class="col-sm-12 form-control top-3">
-            <b> @Html.DisplayNameFor(model => model.Name) &nbsp;&#58;</b> @Html.DisplayFor(model => model.Name)
-        </div>
+            <div class="col-sm-12 form-control top-3">
+                <b> @Html.DisplayNameFor(model => model.Name) &nbsp;&#58;</b> @Html.DisplayFor(model => model.Name)
+            </div>
 
-        <div class="col-sm-12 form-control top-3">
-            <b>@Html.DisplayNameFor(model => model.Address)</b>&nbsp;&#58;@Html.DisplayFor(model => model.Address)
+            <div class="col-sm-12 form-control top-3">
+                <b>@Html.DisplayNameFor(model => model.Address)</b>&nbsp;&#58;@Html.DisplayFor(model => model.Address)
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-8">
 
         @if (Model.Users == null || Model.Users.Count() == 0)
         {
@@ -109,20 +111,20 @@
         {
             foreach (var item in Model.Users)
             {
-                <div class="col-sm-4">
-                    <div class="col-sm-12" style="text-align:center;">
+                <div class="row col-sm-12 f-background-blue" style="padding:15px 0px !important;">
+                    <div class="col-sm-3">
                         @if (!string.IsNullOrEmpty(item.Logo))
                         {
-                            <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" />
+                            <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:100px; padding:0px; margin:0px;" class="f-border-skyblue" />
                         }
                         else
                         {
                             <div style="background:#808080; display:block; width:100px;height:100px; padding:0px; margin:0px;"> </div>
                         }
                     </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-6">@Url.Content(item.FirstName)</div>
-                        <div class="col-sm-6">@Url.Content(item.LastName)</div>
+                    <div class="col-sm-9">
+                        <div class="form-control top-3">@Url.Content(item.FirstName)&nbsp;@Url.Content(item.LastName)</div>
+                        <a class="btn btn-info dialog-window  btn-nuevo top-3" href="@Url.Action("ChangeRol", "Companies", new {IdCompany = Model.CompanyId ,IdUser = item.UserId })" title="Editar" id="btn-Option" data-Option="Edit" data-title="Cambiar Rol" style="color:#ffffff;">Cambiar: @Url.Content(item.URL)</a>
                     </div>
                 </div>
             }

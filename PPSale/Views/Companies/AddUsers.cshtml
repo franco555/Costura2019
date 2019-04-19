@@ -131,7 +131,8 @@
 
         <div class="col-md-12">
             <div class="btn-rigth">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" id="btn-submitUser" style="display:none;" />
+                <button class="btn btn-primary" disabled id="btn-NotSubmitUser">Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
             </div>
         </div>
@@ -143,4 +144,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        
+    }
+    </script>
 }

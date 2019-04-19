@@ -71,13 +71,12 @@ namespace PPSale.Controllers.Globals
                 {
                     if (user.LogoFile != null)
                     {
-                        var folder = "~/Content/Logos/User";
+                        var folder = "User";
                         var Name = string.Format("{0}.jpg", user.UserId);
-                        var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, Name);
+                        var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, "",true);
                         if (Succ.Succeded)
                         {
-                            var pic = string.Format("{0}/{1}", folder, Name);
-                            user.Logo = pic;
+                            user.Logo = Succ.Message;
 
                             db.Entry(user).State = EntityState.Modified;
                             db.SaveChanges();
@@ -139,13 +138,11 @@ namespace PPSale.Controllers.Globals
                 {
                     if (user.LogoFile != null)
                     {
-                        var folder = "~/Content/Logos/User/";
-                        var Name = string.Format("{0}.jpg", user.UserId);
-                        var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, Name);
+                        var folder = "User";
+                        var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, user.Logo,false);
                         if (Succ.Succeded)
                         {
-                            var pic = string.Format("{0}/{1}", folder, Name);
-                            user.Logo = pic;
+                            user.Logo = Succ.Message;
 
                             db.Entry(user).State = EntityState.Modified;
                             db.SaveChanges();

@@ -7,26 +7,29 @@
 
     public class FilesHelpers
     {
-        public static Response UploadPhoto(HttpPostedFileBase file, string folder, string NewName)
+        public static Response UploadPhoto(HttpPostedFileBase file, string folder, string NewName, bool IsNew)
         {
             var response = new Response();
-
-            if (file == null || string.IsNullOrEmpty(folder) || string.IsNullOrEmpty(NewName))
-            {
-                response.Succeded = false;
-                response.Message = $"Nombre de Folder: {folder} - Nombre de Archivo: {NewName}";
-                response.Objet = file;
-
-                return response;
-            }
+            var newFolder = string.Empty;
 
             try
             {
                 string ruta = string.Empty;
+                newFolder = $"~/Content/Logos/{folder}";
+
+                if (IsNew)
+                {
+                    var guid = Guid.NewGuid().ToString();
+                    NewName = $"{guid}.jpg";
+                }
+                else
+                {
+                    NewName = NewName.Substring(NewName.LastIndexOf('/') + 1);
+                }
 
                 if (file != null)
                 {
-                    ruta = Path.Combine(HttpContext.Current.Server.MapPath(folder), NewName);
+                    ruta = Path.Combine(HttpContext.Current.Server.MapPath(newFolder), NewName);
                     file.SaveAs(ruta);
 
                     using (MemoryStream ms = new MemoryStream())
@@ -36,6 +39,7 @@
                     }
 
                     response.Succeded = true;
+                    response.Message = $"{newFolder}/{NewName}";
                 }
                 else
                 {
@@ -43,7 +47,7 @@
                     response.Message = $"El archivo esta vacío: {file}";
                 }
 
-                
+
 
                 return response;
             }

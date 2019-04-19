@@ -263,7 +263,9 @@ $(document).ready(function () {
 
     //Cerrar Session
     $(document).on('click', '.btn-Salir-more', function (event) {document.getElementById('logoutForm').submit();});
-    
+
+    //Activar boton submit de User
+    $(document).on('change', 'select[name="rolId"]', function (event) {if ($("Select[name='rolId']").val() > 0) {$("#btn-submitUser").show();$("#btn-NotSubmitUser").hide();} else {$("#btn-submitUser").hide();$("#btn-NotSubmitUser").show();}return false;}); //if ($(this).attr("name")) { }
 });
 
 

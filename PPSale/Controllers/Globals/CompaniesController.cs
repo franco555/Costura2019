@@ -53,9 +53,10 @@ namespace PPSale.Controllers.Globals
             var users = (from u in db.Users
                          join a in db.AsingRolAndUsers on u.UserId equals a.UserId
                          join c in db.Companies on a.CompanyId equals c.CompanyId
+                         join r in db.Rols on a.RolId equals r.RolId
                          where c.CompanyId == company.CompanyId
 
-                         select new { u }
+                         select new { u,r }
                                    ).ToList();
 
             var user = new List<User>();
@@ -64,6 +65,9 @@ namespace PPSale.Controllers.Globals
                 user.Add(new User()
                 {
                     UserId = item.u.UserId,
+                    companyId=item.u.companyId,
+                    URL=item.r.Name,
+                    Logo=item.u.Logo,
                     FirstName = item.u.FirstName,
                     LastName = item.u.LastName,
                 });
@@ -86,7 +90,7 @@ namespace PPSale.Controllers.Globals
             var company = new Company
             {
                 FirstDate = DateTime.Now,
-                URL = "~/Content/Logos/Empresa/otro.png",
+                URL = "~/Content/Logos/NotCompany.jpg",
             };
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(0, 0), "CityId", "Name");
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name");
@@ -104,7 +108,7 @@ namespace PPSale.Controllers.Globals
         {
             if (ModelState.IsValid)
             {
-                company.Logo = "~/Content/Logos/Empresa/otro.png";
+                company.Logo = "~/Content/Logos/NotCompany.jpg";
                 db.Companies.Add(company);
 
                 var response = DBHelpers.SaveChage(db);
@@ -112,14 +116,11 @@ namespace PPSale.Controllers.Globals
                 {
                     if (company.LogoFile != null)
                     {
-                        var folder = "~/Content/Logos/Empresa";
-                        var guid = Guid.NewGuid().ToString();
-                        var Name = $"{guid}.jpg";
-                        var Succ = FilesHelpers.UploadPhoto(company.LogoFile, folder, Name);
+                        var folder = "Empresa";
+                        var Succ = FilesHelpers.UploadPhoto(company.LogoFile, folder, "", true); //True si es nuevo, false si es editado
                         if (Succ.Succeded)
                         {
-                            var pic = $"{folder}/{Name}";
-                            company.Logo = pic;
+                            company.Logo = Succ.Message;
 
                             db.Entry(company).State = EntityState.Modified;
                             db.SaveChanges();
@@ -162,7 +163,7 @@ namespace PPSale.Controllers.Globals
 
             if (company.Logo == null)
             {
-                company.Logo = "~/Content/Logos/Empresa/otro.png";
+                company.Logo = "~/Content/Logos/NotCompany.jpg";
             }
             company.URL = company.Logo;
 
@@ -191,14 +192,11 @@ namespace PPSale.Controllers.Globals
                 {
                     if (company.LogoFile != null)
                     {
-                        var folder = "~/Content/Logos/Empresa";
-                        var guid = Guid.NewGuid().ToString();
-                        var Name = $"{guid}.jpg";
-                        var Succ = FilesHelpers.UploadPhoto(company.LogoFile, folder, Name);
+                        var folder = "Empresa";
+                        var Succ = FilesHelpers.UploadPhoto(company.LogoFile, folder, company.Logo, false);
                         if (Succ.Succeded)
                         {
-                            var pic = $"{folder}/{Name}";
-                            company.Logo = pic;
+                            company.Logo = Succ.Message;
 
                             db.Entry(company).State = EntityState.Modified;
                             db.SaveChanges();
@@ -254,9 +252,15 @@ namespace PPSale.Controllers.Globals
         // GET: Users/Create
         public ActionResult AddUsers(int? Id)
         {
+            if (Id == null)
+            {
+                TempData["Error"] = "No se envión ID de Useuario...";
+                return RedirectToAction($"Details/{Id}");
+            }
+
             var user = new User
             {
-                URL = "~/Content/Logos/User/otro.png",
+                URL = "~/Content/Logos/NotUser.jpg",
                 companyId = Id.Value,
             };
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(0, 0), "CityId", "Name");
@@ -274,7 +278,7 @@ namespace PPSale.Controllers.Globals
         {
             if (ModelState.IsValid)
             {
-                user.Logo = "~/Content/Logos/User/otro.png";
+                user.Logo = "~/Content/Logos/NotUser.jpg";
                 db.Users.Add(user);
 
                 var response = DBHelpers.SaveChage(db);
@@ -282,20 +286,46 @@ namespace PPSale.Controllers.Globals
                 {
                     if (user.LogoFile != null)
                     {
-                        var folder = "~/Content/Logos/User";
-                        var Name = string.Format("{0}.jpg", user.UserId);
-                        var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, Name);
+                        var folder = "User";
+                        var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, "", true);
                         if (Succ.Succeded)
                         {
-                            var pic = string.Format("{0}/{1}", folder, Name);
-                            user.Logo = pic;
+                            user.Logo = Succ.Message;
 
                             db.Entry(user).State = EntityState.Modified;
                             db.SaveChanges();
                         }
+                        else
+                        {
+                            TempData["Message"] = $"Guardado Correctamente!!. Error en AsingAndRol: { Succ.Message}";
+                        }
                     }
+
+                    var asingRolAndUser = new AsingRolAndUser()
+                    {
+                        CompanyId = user.companyId,
+                        UserId = user.UserId,
+                        RolId = user.rolId,
+                        Email = user.UserName,
+                        Lock = false
+                    };
+
+                    db.AsingRolAndUsers.Add(asingRolAndUser);
+
+                    var rol = db.Rols.Find(user.rolId);
+                    var Succ2 = DBHelpers.SaveChage(db);
+
+                    if (Succ2.Succeded)
+                    {
+                        UsersHelper.CreateUserASP($"{user.companyId}{user.UserName}", rol.Name, user.UserName);
+                    }
+                    else
+                    {
+                        TempData["Message"] = $"Guardado Correctamente!!. Error en UserASP: { Succ2.Message}";
+                    }
+
+
                     TempData["Action"] = "Success";
-                    TempData["Message"] = "Guardado Correctamente!!";
                     return RedirectToAction($"Details/{user.companyId}");
                 }
 
@@ -312,6 +342,54 @@ namespace PPSale.Controllers.Globals
             }
 
             return RedirectToAction($"Details/{user.companyId}");
+        }
+
+        public ActionResult ChangeRol(int? IdCompany, int? IdUser)
+        {
+            if (IdCompany==null || IdUser==null)
+            {
+                TempData["Action"] = "Error";
+                TempData["Message"] = $"No existe regitro con este IDs: compañiaId={IdCompany}. UsuarioId{ IdUser}";
+
+                return RedirectToAction($"Details/{IdCompany}");
+            }
+
+            var us = new ChangeRolViewModel {
+                CompanyId = IdCompany.Value,
+                UserId=IdUser.Value,
+            };
+
+            var aar = db.AsingRolAndUsers.Where(d => d.UserId == IdUser && d.CompanyId == IdCompany).FirstOrDefault();
+            ViewBag.RolId = new SelectList(CombosHelpers.GetRols(), "RolId", "Name", aar.RolId);
+            return PartialView(us);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeRol(ChangeRolViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var asing = db.AsingRolAndUsers.Where(r=>r.CompanyId==model.CompanyId && r.UserId==model.UserId).FirstOrDefault();
+                var newROl = db.Rols.Find(model.RolId);
+
+                asing.RolId = newROl.RolId;
+                db.Entry(asing).State = EntityState.Modified;
+
+                var response = DBHelpers.SaveChage(db);
+                if (response.Succeded)
+                {
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = "Actualizado Exitosamente!!!";
+                }
+
+                var OldROl = db.Rols.Find(asing.RolId);
+
+                UsersHelper.RemoveRol(asing.Email, OldROl.Name);
+                UsersHelper.CreateUserASP(asing.Email, newROl.Name, asing.Email);
+            }
+
+            return RedirectToAction($"Details/{model.CompanyId}");
         }
 
         protected override void Dispose(bool disposing)
