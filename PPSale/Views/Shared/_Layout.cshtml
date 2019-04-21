@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,11 @@
 
                         @if (Request.IsAuthenticated)
                         {
+                            //private static ApplicationDbContext userContext = new ApplicationDbContext();
+                            //var manager = new UserManager<ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<ApplicationUser>(new ApplicationDbContext()));
+                            //var currentUser = manager.FindById(User.Identity.GetUserId());
+                            
+
                             using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                             {
                                 @Html.AntiForgeryToken()
@@ -218,7 +224,7 @@
             <div class="sidebar-footer">
                 @if (Request.IsAuthenticated)
                 {
-                    <a href="#" title="Salir" >
+                    <a href="#" title="Salir">
                         <i class="fa fa-power-off"></i>
                     </a>
                     <a href="#">

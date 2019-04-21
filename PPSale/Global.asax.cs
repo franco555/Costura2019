@@ -26,10 +26,10 @@ namespace PPSale
 
         private void CheckRolesAndSuperUser()
         {
-            UsersHelper.CheckRole("Admin", true);
-            UsersHelper.CheckRole("User", true);
-            UsersHelper.CheckRole("Provider", true);
-            UsersHelper.CheckRole("Client", true);
+            UsersHelper.CheckRole("Admin");
+            UsersHelper.CheckRole("Usuario");
+            UsersHelper.CheckRole("Proveedor");
+            UsersHelper.CheckRole("Cliente");
 
             UsersHelper.CheckSuperUser();
             AdminHelpers.IngresarDatosAdmin();

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Logging;
-using WebGrease;
 
 namespace PPSale.Models
 {
@@ -27,11 +25,47 @@ namespace PPSale.Models
             return userIdentity;
         }
 
+        //add custom properties here -
+
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [MaxLength(50, ErrorMessage = "El Campo {0} no puede tener más de {1} caracteres.")]
+        [Display(Name = "Nombres")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Apellidos")]
+        public string LastName { get; set; }
+
+        [Display(Name = "CUIT/CUIL")]
+        public string Cuit { get; set; }
+
+        [Display(Name = "Teléfono")]
+        [DataType(DataType.PhoneNumber)]
+        public string Phone { get; set; }
+
+        [Display(Name = "Direccion")]
+        public string Address { get; set; }
+
+        [Display(Name = "Foto")]
+        public string Logo { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Fecha de Inicio")]
+        public DateTime FirstDate { get; set; }
+
+        //RELACION
+        
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
+        [Display(Name = "Ciudad")]
+        public int CityId { get; set; }
+   
+
     }
 
     
-    /*
-    public class ApplicationRolUser : IdentityUserRole
+    
+    /*public class ApplicationRolUser : IdentityUserRole
     {
         public int CompanyId { get; set; }
     }*/

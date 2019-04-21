@@ -60,35 +60,20 @@ namespace PPSale.Classes
             return response.Succeeded;
         }
 
-        public static void CheckRole(string roleName, bool locked)
+        // Verefica se esxiste rol, if not create it
+        public static void CheckRole(string roleName)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(userContext));
 
-            // Verefica se esxiste rol, if not create it
+
             if (!roleManager.RoleExists(roleName))
             {
                 roleManager.Create(new IdentityRole(roleName));
-
-                //var rol = db.Rols.Where(r => r.Name == roleName).ToList();
-                //var response = CrateRol(roleName, locked);
-
             }
         }
 
-        //Crear Rol en Alternativo
-        public static Response CrateRol(string roleName, bool locked)
-        {
-
-            var rols = new Rol { RolId = 0, Name = roleName, Lock = locked, };
-            db.Rols.Add(rols);
-
-            var response = DBHelpers.SaveChage(db);
-
-            return response;
-        }
-
         //Modificar Rol
-        public static  void UpdateRole(string oldNamerRol, string roleName)
+        public static void UpdateRole(string oldNamerRol, string roleName)
         {
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(userContext));
@@ -96,10 +81,10 @@ namespace PPSale.Classes
 
             if (roleASP != null)
             {
-                roleASP.Name=roleName;
+                roleASP.Name = roleName;
                 var response = roleManager.UpdateAsync(roleASP);
             }
-            
+
             return;
         }
 
@@ -108,17 +93,18 @@ namespace PPSale.Classes
         {
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(userContext));
-            var roles = roleManager.Roles.OrderBy(r=>r.Name).ToList();
+            var roles = roleManager.Roles.OrderBy(r => r.Name).ToList();
 
             var newRolView = new List<RolViewModel>();
 
             roles.ForEach(item => newRolView.Add(
-                new RolViewModel() {
-                    RolId=item.Id,
-                    Name=item.Name,
+                new RolViewModel()
+                {
+                    RolId = item.Id,
+                    Name = item.Name,
                 }
             ));
-            
+
             return newRolView;
         }
 
@@ -151,8 +137,6 @@ namespace PPSale.Classes
                 userManager.Create(userASP, email);
 
             }
-
-            CheckRole(roleName, false);
             userManager.AddToRole(userASP.Id, roleName);
         }
 
@@ -163,16 +147,24 @@ namespace PPSale.Classes
 
             if (userASP == null)
             {
+                var fn = new FunctionHelpers();
                 userASP = new ApplicationUser
                 {
                     Email = email,
                     UserName = email,
+                    FirstName = "Franco J.",
+                    LastName = "Caysahuana",
+                    Cuit = "20954884172",
+                    Phone = "1169656607",
+                    Address = "La villa 1-11-14",
+                    Logo =fn.notUser,
+                    FirstDate= Convert.ToDateTime("1989-10-16"),
+                    CityId=1,
                 };
-
-                userManager.Create(userASP, password);
+                
+                    userManager.Create(userASP, password);
             }
 
-            CheckRole(roleName, false);
             userManager.AddToRole(userASP.Id, roleName);
         }
 

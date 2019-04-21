@@ -50,11 +50,6 @@ namespace PPSale.Models
 
     public class LoginViewModel
     {
-        [NotMapped]
-        [Required(ErrorMessage = "El campo {0} es requerido.")]
-        [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
-        [Display(Name = "Compañia")]
-        public int CompanyId { get; set; }
 
         [Required]
         [Display(Name = "Correo electrónico")]

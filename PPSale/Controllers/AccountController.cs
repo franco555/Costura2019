@@ -74,12 +74,12 @@ namespace PPSale.Controllers
                 return View(model);
             }
 
-            var db = new ConexionContext();
-            var x = model.CompanyId + model.Email;
-            var i = db.AsingRolAndUsers.Where(n=>n.Email==x).ToList();
-            db.Dispose();
+            //var db = new ConexionContext();
+            //var x = model.CompanyId + model.Email;
+            //var i = db.AsingRolAndUsers.Where(n=>n.Email==x).ToList();
+            //db.Dispose();
 
-            if (i.Count() > 0){ model.Email = x;}
+            //if (i.Count() > 0){ model.Email = x;}
 
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
             // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
