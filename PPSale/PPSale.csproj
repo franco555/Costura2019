@@ -248,6 +248,7 @@
     <Compile Include="Models\View\CountryWithProvincesViewModel.cs" />
     <Compile Include="Models\View\notViewDocumentEntry.cs" />
     <Compile Include="Models\View\ProvinceWithCititesViewModel.cs" />
+    <Compile Include="Models\View\RolViewModel.cs" />
     <Compile Include="Models\View\TDWithCDViewModel.cs" />
     <Compile Include="Models\View\ViewMoneyMonth.cs" />
     <Compile Include="Models\View\ViewNavEntry.cs" />

@@ -17,6 +17,7 @@ namespace PPSale.Controllers.Globals
     public class CompaniesController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         // GET: Companies
         public ActionResult Index()
@@ -90,7 +91,7 @@ namespace PPSale.Controllers.Globals
             var company = new Company
             {
                 FirstDate = DateTime.Now,
-                URL = "~/Content/Logos/NotCompany.jpg",
+                URL = fn.notCompany,
             };
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(0, 0), "CityId", "Name");
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name");
@@ -108,7 +109,7 @@ namespace PPSale.Controllers.Globals
         {
             if (ModelState.IsValid)
             {
-                company.Logo = "~/Content/Logos/NotCompany.jpg";
+                company.Logo = fn.notCompany;
                 db.Companies.Add(company);
 
                 var response = DBHelpers.SaveChage(db);
@@ -163,7 +164,7 @@ namespace PPSale.Controllers.Globals
 
             if (company.Logo == null)
             {
-                company.Logo = "~/Content/Logos/NotCompany.jpg";
+                company.Logo = fn.notCompany;
             }
             company.URL = company.Logo;
 
@@ -278,7 +279,7 @@ namespace PPSale.Controllers.Globals
         {
             if (ModelState.IsValid)
             {
-                user.Logo = "~/Content/Logos/NotUser.jpg";
+                user.Logo = fn.notUser;
                 db.Users.Add(user);
 
                 var response = DBHelpers.SaveChage(db);

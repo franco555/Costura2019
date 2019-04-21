@@ -12,6 +12,7 @@ namespace PPSale.Controllers.Globals
     public class UsersController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         // GET: Users
         public ActionResult Index()
@@ -30,13 +31,17 @@ namespace PPSale.Controllers.Globals
         {
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "No se envión ID...";
+
                 return RedirectToAction("Index");
             }
             var user = db.Users.Find(id);
             if (user == null)
             {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "Registro no existente...";
+
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -46,12 +51,12 @@ namespace PPSale.Controllers.Globals
         public ActionResult Create()
         {
             var user = new User {
-                URL = "~/Content/Logos/User/otro.png",
+                URL = fn.notUser,
             };
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(0,0), "CityId", "Name");
             ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name");
             ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(0), "ProvinceId", "Name");
-            return View(user);
+            return PartialView(user);
         }
 
         // POST: Users/Create
@@ -63,7 +68,7 @@ namespace PPSale.Controllers.Globals
         {
             if (ModelState.IsValid)
             {
-                user.Logo = "~/Content/Logos/User/otro.png";
+                user.Logo = fn.notUser;
                 db.Users.Add(user);
 
                 var response = DBHelpers.SaveChage(db);
@@ -72,7 +77,6 @@ namespace PPSale.Controllers.Globals
                     if (user.LogoFile != null)
                     {
                         var folder = "User";
-                        var Name = string.Format("{0}.jpg", user.UserId);
                         var Succ = FilesHelpers.UploadPhoto(user.LogoFile, folder, "",true);
                         if (Succ.Succeded)
                         {
@@ -82,17 +86,21 @@ namespace PPSale.Controllers.Globals
                             db.SaveChanges();
                         }
                     }
-                    return RedirectToAction("Index", user);
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = "Guardado Exitosamente!!!";
+
+                    return RedirectToAction("Index");
                 }
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                TempData["Action"] = "Warning";
+                TempData["Message"] = "Hay campos vacios...";
             }
 
-            TempData["Error"] = "Modelo no válido";
-
-            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(user.CountryId, user.ProvinceId), "CityId", "Name", user.CityId);
-            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", user.CountryId);
-            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(user.CountryId), "ProvinceId", "Name", user.ProvinceId);
-            return View(user);
+            return RedirectToAction("Index"); ;
         }
 
         // GET: Users/Edit/5
@@ -100,13 +108,17 @@ namespace PPSale.Controllers.Globals
         {
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "No se envión ID...";
+
                 return RedirectToAction("Index");
             }
             var user = db.Users.Find(id);
             if (user == null)
             {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "Registro no existente...";
+
                 return RedirectToAction("Index");
             }
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(user.CountryId, user.ProvinceId), "CityId", "Name", user.CityId);
@@ -115,11 +127,11 @@ namespace PPSale.Controllers.Globals
 
             if (string.IsNullOrEmpty(user.Logo))
             {
-                user.Logo = "~/Content/Logos/User/otro.png";
+                user.Logo = fn.notUser;
             }
             user.URL = user.Logo;
 
-            return View(user);
+            return PartialView(user);
         }
 
         // POST: Users/Edit/5
@@ -148,16 +160,21 @@ namespace PPSale.Controllers.Globals
                             db.SaveChanges();
                         }
                     }
-                    return RedirectToAction("Index", user);
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = "Actualizado Exitosamente!!!";
+
+                    return RedirectToAction("Index");
                 }
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                TempData["Action"] = "Warning";
+                TempData["Message"] = "Hay campos vacios...";
             }
 
-            ModelState.AddModelError(string.Empty, "Modelo no válido");
-            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(user.CountryId, user.ProvinceId), "CityId", "Name", user.CityId);
-            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", user.CountryId);
-            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(user.CountryId), "ProvinceId", "Name", user.ProvinceId);
-            return View(user);
+            return RedirectToAction("Index");
         }
 
         // GET: Users/Delete/5

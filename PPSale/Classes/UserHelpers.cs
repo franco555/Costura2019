@@ -4,7 +4,9 @@ using PPSale.Models;
 using PPSale.Models.Conexion;
 using PPSale.Models.Globals;
 using PPSale.Models.Other;
+using PPSale.Models.View;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Configuration;
 
@@ -18,13 +20,13 @@ namespace PPSale.Classes
         public static bool DeleteUser(string userName)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
-            var userASP= userManager.FindByEmail(userName);
-            if (userASP==null)
+            var userASP = userManager.FindByEmail(userName);
+            if (userASP == null)
             {
                 return false;
             }
 
-            var response=userManager.Delete(userASP);
+            var response = userManager.Delete(userASP);
             return response.Succeeded;
         }
 
@@ -58,7 +60,7 @@ namespace PPSale.Classes
             return response.Succeeded;
         }
 
-        public static void CheckRole(string roleName,bool locked)
+        public static void CheckRole(string roleName, bool locked)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(userContext));
 
@@ -67,14 +69,15 @@ namespace PPSale.Classes
             {
                 roleManager.Create(new IdentityRole(roleName));
 
-                var rol = db.Rols.Where(r=>r.Name==roleName).ToList();
-                var response= CrateRol(roleName,locked);
-             
+                //var rol = db.Rols.Where(r => r.Name == roleName).ToList();
+                //var response = CrateRol(roleName, locked);
+
             }
         }
 
         //Crear Rol en Alternativo
-        public static Response CrateRol(string roleName, bool locked) {
+        public static Response CrateRol(string roleName, bool locked)
+        {
 
             var rols = new Rol { RolId = 0, Name = roleName, Lock = locked, };
             db.Rols.Add(rols);
@@ -84,25 +87,41 @@ namespace PPSale.Classes
             return response;
         }
 
-        //TODO:Falta
-        public static void UpdateRole(string userName, string password, string roleName)
+        //Modificar Rol
+        public static  void UpdateRole(string oldNamerRol, string roleName)
         {
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
-            var userASP = userManager.FindByEmail(userName);
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(userContext));
-            var roleASP = roleManager.FindByName(roleName);
+            var roleASP = roleManager.FindByName(oldNamerRol);
 
-            if (userManager.IsInRole(userASP.Id, roleName))
+            if (roleASP != null)
             {
-                //userManager.(user.Id, "Admin");
+                roleASP.Name=roleName;
+                var response = roleManager.UpdateAsync(roleASP);
             }
-
-
-            //var response = roleManager.Update(roleName);
-            //return true;response.Succeeded;
+            
+            return;
         }
-        
+
+        //Lista de roles
+        public List<RolViewModel> listRole()
+        {
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(userContext));
+            var roles = roleManager.Roles.OrderBy(r=>r.Name).ToList();
+
+            var newRolView = new List<RolViewModel>();
+
+            roles.ForEach(item => newRolView.Add(
+                new RolViewModel() {
+                    RolId=item.Id,
+                    Name=item.Name,
+                }
+            ));
+            
+            return newRolView;
+        }
+
         public static void CheckSuperUser()
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
@@ -117,7 +136,7 @@ namespace PPSale.Classes
             userManager.AddToRole(userASP.Id, "Admin");
         }
 
-        public static void CreateUserASP(string email,string roleName)
+        public static void CreateUserASP(string email, string roleName)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
             var userASP = userManager.FindByEmail(email);
@@ -130,19 +149,20 @@ namespace PPSale.Classes
                 };
 
                 userManager.Create(userASP, email);
-           
+
             }
 
-            CheckRole(roleName,false);
+            CheckRole(roleName, false);
             userManager.AddToRole(userASP.Id, roleName);
         }
-        
+
         public static void CreateUserASP(string email, string roleName, string password)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
             var userASP = userManager.FindByEmail(email);
 
-            if (userASP == null) {
+            if (userASP == null)
+            {
                 userASP = new ApplicationUser
                 {
                     Email = email,

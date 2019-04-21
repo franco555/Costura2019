@@ -6,13 +6,8 @@
     ViewBag.Title = Pagina;
 }
 
-<h5 class="f-title f-titleCreate">
-    <span class="title_CreateEdit f-blue">
-        Registrar Nuevo:
-    </span> @Pagina
-</h5>
 
-@using (Html.BeginForm("Create", @Controlers, FormMethod.Post, new { @class = "form"}))
+@using (Html.BeginForm("Create", @Controlers, FormMethod.Post, new { @class = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -20,28 +15,30 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-Create">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-alter">
+            <div class="input-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-12" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control col-md-12" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Lock, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                        @Html.EditorFor(model => model.Lock)
-                        @Html.ValidationMessageFor(model => model.Lock, "", new { @class = "text-danger" })
 
+
+            <div class="form-check mt-3">
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Lock, new { @class = "form-check-input", @type = "checkbox", @value = "", @id = "defaultCheck1" })
+                    @Html.ValidationMessageFor(model => model.Lock, "", new { @class = "text-danger" })
+
+                    @Html.LabelFor(model => model.Lock, htmlAttributes: new { @class = "form-check-label", @for = "defaultCheck1" })
                 </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-12">
+                <div class="btn-rigth">
                     <input type="submit" value="Guardar" class="btn btn-primary" />
-                    <a href="@Url.Action("Index")" class="btn btn-success" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
                 </div>
             </div>
         </div>
