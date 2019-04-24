@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PPSale.Models.Globals.User>
+﻿@model IEnumerable<PPSale.Models.View.UserViewModel>
 
 @{
     var Pagina = "Usuarios";
@@ -65,9 +65,9 @@
                         @Html.DisplayNameFor(model => model.FullName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Country.Name) &nbsp;
-                        @Html.DisplayNameFor(model => model.Province.Name) &nbsp;
-                        @Html.DisplayNameFor(model => model.City.Name)
+                        @Html.DisplayNameFor(model => model.CountryName) &nbsp;
+                        @Html.DisplayNameFor(model => model.ProvinceName) &nbsp;
+                        @Html.DisplayNameFor(model => model.CityName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Cuit)
@@ -101,13 +101,13 @@
                                     <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:25px; padding:0px; margin:0px;" />
                                 }
                             </td>
-                            <td class="data-@Html.DisplayFor(modelItem => item.UserId)">
+                            <td class="data-@Html.DisplayFor(modelItem => item.userId)">
                                 @Html.DisplayFor(modelItem => item.FullName)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Country.Name) &nbsp;
-                                @Html.DisplayFor(modelItem => item.Province.Name) &nbsp;
-                                @Html.DisplayFor(modelItem => item.City.Name)
+                                @Html.DisplayFor(modelItem => item.CountryName) &nbsp;
+                                @Html.DisplayFor(modelItem => item.ProvinceName) &nbsp;
+                                @Html.DisplayFor(modelItem => item.CityName)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Cuit)
@@ -119,8 +119,8 @@
                                 @Html.DisplayFor(modelItem => item.Address)
                             </td>
                             <td>
-                                <a href="@Url.Action("Edit",new { id=item.UserId })" class="btn btn-sm btn-warning dialog-window" title="Editar" data-Option="Edit" data-title="Editar @Pagina"><span class="fa fa-edit" aria-hidden="true"></span></a>
-                                <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.UserId)" data-controller="@Controler"><span class="fa fa-eraser" aria-hidden="true"></span></a>
+                                <a href="@Url.Action("Edit",new { id=item.userId })" class="btn btn-sm btn-warning dialog-window" title="Editar" data-Option="Edit" data-title="Editar @Pagina"><span class="fa fa-edit" aria-hidden="true"></span></a>
+                                <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.userId)" data-controller="@Controler"><span class="fa fa-eraser" aria-hidden="true"></span></a>
                             </td>
                         </tr>
                     }

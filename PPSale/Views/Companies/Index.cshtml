@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PPSale.Models.Globals.Company>
+﻿@model IEnumerable<PPSale.Models.View.CompanyViewModel>
 
 @{
     var Pagina = "Compañías";
@@ -55,7 +55,13 @@
 <div class="row">
     @if (Model == null || Model.Count() == 0)
     {
-        <div class="alert alert-danger">No hay Elementos...</div>
+        <div class="alert alert-danger col-sm-12">
+            <div class="col-sm-12"><b> Necesitas Ingresar los datos de tu empresa...</b></div>
+            <div class="col-sm-12"> Es necesario los datos de tu empresa, como nombre direccion imagen, etc. <br /> 
+                hacer click en <i>Nuevo</i> E ingresar los datos
+            </div>
+   
+        </div>
     }
     else
     {
@@ -102,8 +108,8 @@
                                         @Html.DisplayFor(modelItem => item.FirstDate)
                                     </div>
                                     <div class="col-sm-12 form-control top-3">
-                                        <b>@Html.DisplayNameFor(model => model.IvaConditionId)&#58;&nbsp;</b>
-                                        @Html.DisplayFor(modelItem => item.IvaCondition.Name)
+                                        <b>@Html.DisplayNameFor(model => model.IvaConditionName)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.IvaConditionName)
                                     </div>
 
                                     <div class="col-sm-12 form-control top-3">
@@ -115,17 +121,17 @@
                                         @Html.DisplayFor(modelItem => item.Web)
                                     </div>
                                     <div class="col-sm-12 form-control top-3">
-                                        <b>@Html.DisplayNameFor(model => model.CountryId)&#58;&nbsp;</b>
-                                        @Html.DisplayFor(modelItem => item.Country.Name)
+                                        <b>@Html.DisplayNameFor(model => model.CountryName)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.CountryName)
                                     </div>
 
                                     <div class="col-sm-12 form-control top-3">
-                                        <b>@Html.DisplayNameFor(model => model.ProvinceId)&#58;&nbsp;</b>
-                                        @Html.DisplayFor(modelItem => item.Province.Name)
+                                        <b>@Html.DisplayNameFor(model => model.ProvinceName)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.ProvinceName)
                                     </div>
                                     <div class="col-sm-12 form-control top-3">
-                                        <b>@Html.DisplayNameFor(model => model.CityId)&#58;&nbsp;</b>
-                                        @Html.DisplayFor(modelItem => item.City.Name)
+                                        <b>@Html.DisplayNameFor(model => model.CityName)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.CityName)
                                     </div>
                                     <div class="col-sm-12 form-control top-3">
                                         <b>@Html.DisplayNameFor(model => model.Address)&#58;&nbsp;</b>

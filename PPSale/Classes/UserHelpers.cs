@@ -16,6 +16,7 @@ namespace PPSale.Classes
     {
         private static ApplicationDbContext userContext = new ApplicationDbContext();
         private static ConexionContext db = new ConexionContext();
+        private static FunctionHelpers fn = new FunctionHelpers();
 
         public static bool DeleteUser(string userName)
         {
@@ -60,8 +61,8 @@ namespace PPSale.Classes
             return response.Succeeded;
         }
 
-        // Verefica se esxiste rol, if not create it
-        public static void CheckRole(string roleName)
+        // Verefica si existe rol, if not create it
+        public static void CheckRole(string roleName, bool IsSeed)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(userContext));
 
@@ -69,8 +70,21 @@ namespace PPSale.Classes
             if (!roleManager.RoleExists(roleName))
             {
                 roleManager.Create(new IdentityRole(roleName));
+
+                if (IsSeed)
+                {
+                    var rol = new Rol() { RolId = 0, Name = roleName, Lock = roleName == "Admin" ? true : false };
+                    db.Rols.Add(rol);
+                    var response = DBHelpers.SaveChage(db);
+                }
+
             }
+            return;
         }
+
+        // para los modelos no ASP - CheckRole
+        public void CheckRol(string roleName, bool IsSeed) { CheckRole(roleName, IsSeed); }
+        public void UpdateRol(string oldNamerRol, string roleName) { UpdateRole(oldNamerRol, roleName); }
 
         //Modificar Rol
         public static void UpdateRole(string oldNamerRol, string roleName)
@@ -116,7 +130,20 @@ namespace PPSale.Classes
             var userASP = userManager.FindByName(email);
             if (userASP == null)
             {
-                CreateUserASP(email, "Admin", password);
+                var rol = "Admin";
+                CreateUserASP(email, password, rol);
+
+                //Creado Usuario
+                var user = fn.user;
+                db.Users.Add(fn.user);
+                var response = DBHelpers.SaveChage(db);
+
+                //Asignando Rol y Usuario
+                var rolId = db.Rols.Where(r => r.Name == rol).FirstOrDefault().RolId;
+                var userRol = new AsingRolAndUser() { UserId = user.UserId, CompanyId = fn.CompanyId, RolId = rolId, Email = email, Lock = true };
+                db.AsingRolAndUsers.Add(userRol);
+                var response2 = DBHelpers.SaveChage(db);
+
                 return;
             }
             userManager.AddToRole(userASP.Id, "Admin");
@@ -140,29 +167,20 @@ namespace PPSale.Classes
             userManager.AddToRole(userASP.Id, roleName);
         }
 
-        public static void CreateUserASP(string email, string roleName, string password)
+        public static void CreateUserASP(string email, string password, string roleName)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(userContext));
             var userASP = userManager.FindByEmail(email);
 
             if (userASP == null)
             {
-                var fn = new FunctionHelpers();
                 userASP = new ApplicationUser
                 {
                     Email = email,
                     UserName = email,
-                    FirstName = "Franco J.",
-                    LastName = "Caysahuana",
-                    Cuit = "20954884172",
-                    Phone = "1169656607",
-                    Address = "La villa 1-11-14",
-                    Logo =fn.notUser,
-                    FirstDate= Convert.ToDateTime("1989-10-16"),
-                    CityId=1,
                 };
-                
-                    userManager.Create(userASP, password);
+
+                userManager.Create(userASP, password);
             }
 
             userManager.AddToRole(userASP.Id, roleName);

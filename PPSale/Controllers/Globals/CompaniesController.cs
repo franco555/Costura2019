@@ -18,21 +18,40 @@ namespace PPSale.Controllers.Globals
     {
         private ConexionContext db = new ConexionContext();
         private FunctionHelpers fn = new FunctionHelpers();
-
-        // GET: Companies
+        
         public ActionResult Index()
         {
-            var companies = db.Companies.
-                Include(c => c.City).
-                Include(c => c.Country).
-                Include(c => c.IvaCondition).
-                Include(c => c.Province).
-                OrderBy(c => c.Name).
-                ToList();
+            var query = (from com in db.Companies
+                         join iva in db.IvaConditions on com.IvaConditionId equals iva.IvaConditionId
+                         join cit in db.Cities on com.CityId equals cit.CityId
+                         join pro in db.Provinces on cit.ProvinceId equals pro.ProvinceId
+                         join cou in db.Countries on pro.CountryId equals cou.CountryId
+                         where com.Name !=("Anónimo")
+                         select new {com,cit,pro,cou,iva }).ToList();
+
+            var companies = new List<CompanyViewModel>();
+            foreach (var item in query)
+            {
+                companies.Add(new CompanyViewModel()
+                {
+                    CompanyId = item.com.CompanyId,
+                    Name = item.com.Name,
+                    Cuit = item.com.Cuit,
+                    Address = item.com.Address,
+                    Email = item.com.Email,
+                    Web = item.com.Web,
+                    FirstDate = item.com.FirstDate,
+                    Logo = item.com.Logo,
+                    IvaConditionName = item.iva.Name,
+                    CountryName = item.cou.Name,
+                    ProvinceName = item.pro.Name,
+                    CityName = item.cit.Name
+                });
+            }
+            
             return View(companies);
         }
-
-        // GET: Companies/Details/5
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -57,7 +76,7 @@ namespace PPSale.Controllers.Globals
                          join r in db.Rols on a.RolId equals r.RolId
                          where c.CompanyId == company.CompanyId
 
-                         select new { u,r }
+                         select new { u, r }
                                    ).ToList();
 
             var user = new List<User>();
@@ -66,9 +85,9 @@ namespace PPSale.Controllers.Globals
                 user.Add(new User()
                 {
                     UserId = item.u.UserId,
-                    companyId=item.u.companyId,
-                    URL=item.r.Name,
-                    Logo=item.u.Logo,
+                    companyId = item.u.companyId,
+                    URL = item.r.Name,
+                    Logo = item.u.Logo,
                     FirstName = item.u.FirstName,
                     LastName = item.u.LastName,
                 });
@@ -84,8 +103,7 @@ namespace PPSale.Controllers.Globals
             };
             return View(companyWithUsers);
         }
-
-        // GET: Companies/Create
+        
         public ActionResult Create()
         {
             var company = new Company
@@ -99,10 +117,7 @@ namespace PPSale.Controllers.Globals
             ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(0), "ProvinceId", "Name");
             return PartialView(company);
         }
-
-        // POST: Companies/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Company company)
@@ -139,14 +154,9 @@ namespace PPSale.Controllers.Globals
             TempData["Action"] = "Warning";
             TempData["Message"] = "Campos vacíos!!!";
 
-            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(company.CountryId, company.ProvinceId), "CityId", "Name", company.CityId);
-            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", company.CountryId);
-            ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name", company.IvaConditionId);
-            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(company.CountryId), "ProvinceId", "Name", company.ProvinceId);
-            return View(company);
+            return RedirectToAction("Index");
         }
-
-        // GET: Companies/Edit/5
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -162,24 +172,17 @@ namespace PPSale.Controllers.Globals
                 return RedirectToAction("Index");
             }
 
-            if (company.Logo == null)
-            {
-                company.Logo = fn.notCompany;
-            }
+            company.Logo = company.Logo == null ? fn.notCompany : company.Logo;
             company.URL = company.Logo;
-
-
-            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(company.CountryId, company.ProvinceId), "CityId", "Name", company.CityId);
-            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", company.CountryId);
+            
+            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(company.City.CountryId, company.City.ProvinceId), "CityId", "Name", company.CityId);
+            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", company.City.CountryId);
             ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name", company.IvaConditionId);
-            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(company.CountryId), "ProvinceId", "Name", company.ProvinceId);
+            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(company.City.CountryId), "ProvinceId", "Name", company.City.ProvinceId);
 
             return PartialView(company);
         }
-
-        // POST: Companies/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Company company)
@@ -214,15 +217,9 @@ namespace PPSale.Controllers.Globals
             TempData["Action"] = "Warning";
             TempData["Message"] = "Campos vacíos!!!";
 
-            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(company.CountryId, company.ProvinceId), "CityId", "Name", company.CityId);
-            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", company.CountryId);
-            ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name", company.IvaConditionId);
-            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(company.CountryId), "ProvinceId", "Name", company.ProvinceId);
-
-            return PartialView(company);
+            return RedirectToAction("Index");
         }
-
-        // GET: Companies/Delete/5
+        
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -238,8 +235,7 @@ namespace PPSale.Controllers.Globals
             }
             return View(company);
         }
-
-        // POST: Companies/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -249,8 +245,7 @@ namespace PPSale.Controllers.Globals
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        // GET: Users/Create
+        
         public ActionResult AddUsers(int? Id)
         {
             if (Id == null)
@@ -318,7 +313,7 @@ namespace PPSale.Controllers.Globals
 
                     if (Succ2.Succeded)
                     {
-                        UsersHelper.CreateUserASP($"{user.companyId}{user.UserName}", rol.Name, user.UserName);
+                        UsersHelper.CreateUserASP(user.UserName, user.UserName, rol.Name);
                     }
                     else
                     {
@@ -347,7 +342,7 @@ namespace PPSale.Controllers.Globals
 
         public ActionResult ChangeRol(int? IdCompany, int? IdUser)
         {
-            if (IdCompany==null || IdUser==null)
+            if (IdCompany == null || IdUser == null)
             {
                 TempData["Action"] = "Error";
                 TempData["Message"] = $"No existe regitro con este IDs: compañiaId={IdCompany}. UsuarioId{ IdUser}";
@@ -355,9 +350,10 @@ namespace PPSale.Controllers.Globals
                 return RedirectToAction($"Details/{IdCompany}");
             }
 
-            var us = new ChangeRolViewModel {
+            var us = new ChangeRolViewModel
+            {
                 CompanyId = IdCompany.Value,
-                UserId=IdUser.Value,
+                UserId = IdUser.Value,
             };
 
             var aar = db.AsingRolAndUsers.Where(d => d.UserId == IdUser && d.CompanyId == IdCompany).FirstOrDefault();
@@ -371,7 +367,7 @@ namespace PPSale.Controllers.Globals
         {
             if (ModelState.IsValid)
             {
-                var asing = db.AsingRolAndUsers.Where(r=>r.CompanyId==model.CompanyId && r.UserId==model.UserId).FirstOrDefault();
+                var asing = db.AsingRolAndUsers.Where(r => r.CompanyId == model.CompanyId && r.UserId == model.UserId).FirstOrDefault();
                 var newROl = db.Rols.Find(model.RolId);
 
                 asing.RolId = newROl.RolId;
@@ -387,7 +383,7 @@ namespace PPSale.Controllers.Globals
                 var OldROl = db.Rols.Find(asing.RolId);
 
                 UsersHelper.RemoveRol(asing.Email, OldROl.Name);
-                UsersHelper.CreateUserASP(asing.Email, newROl.Name, asing.Email);
+                UsersHelper.CreateUserASP(asing.Email, asing.Email, newROl.Name);
             }
 
             return RedirectToAction($"Details/{model.CompanyId}");

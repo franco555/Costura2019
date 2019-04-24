@@ -7,6 +7,7 @@
 
     public class FilesHelpers
     {
+        // Cuando IsNew = true, NewName tiene un valor y si IsNew=false; NewName no trae ningun valor
         public static Response UploadPhoto(HttpPostedFileBase file, string folder, string NewName, bool IsNew)
         {
             var response = new Response();
@@ -17,7 +18,7 @@
                 string ruta = string.Empty;
                 newFolder = $"~/Content/Logos/{folder}";
 
-                if (IsNew)
+               /* if (IsNew)
                 {
                     var guid = Guid.NewGuid().ToString();
                     NewName = $"{guid}.jpg";
@@ -25,7 +26,9 @@
                 else
                 {
                     NewName = NewName.Substring(NewName.LastIndexOf('/') + 1);
-                }
+                }*/
+
+                NewName = IsNew ? $"{Guid.NewGuid().ToString()}.jpg" : NewName.Substring(NewName.LastIndexOf('/') + 1);
 
                 if (file != null)
                 {

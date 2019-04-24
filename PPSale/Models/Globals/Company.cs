@@ -61,11 +61,13 @@ namespace PPSale.Models.Globals
         [Display(Name = "Condición Iva")]
         public int IvaConditionId { get; set; }
 
+        [NotMapped]
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
         [Display(Name = "País")]
         public int CountryId { get; set; }
 
+        [NotMapped]
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
         [Display(Name = "Provincia")]
@@ -77,8 +79,8 @@ namespace PPSale.Models.Globals
         public int CityId { get; set; }
 
         public virtual IvaCondition IvaCondition { get; set; }
-        public virtual Country Country { get; set; }
-        public virtual Province Province { get; set; }
+        //public virtual Country Country { get; set; }
+        //public virtual Province Province { get; set; }
         public virtual City City { get; set; }
 
         //Relaciones

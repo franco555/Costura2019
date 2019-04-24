@@ -15,43 +15,17 @@ namespace PPSale.Controllers.Globals
         private ConexionContext db = new ConexionContext();
         private UsersHelper UserHelpers = new UsersHelper();
 
-        // GET: Rols
         public ActionResult Index()
         {
-            var rol = UserHelpers.listRole();
+            var rol = db.Rols.ToList();
             return View(rol);
         }
 
-        // GET: Rols/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                TempData["Action"] = "Error";
-                TempData["Message"] = "No se envión ID...";
-
-                return RedirectToAction("Index");
-            }
-            var rol = db.Rols.Find(id);
-            if (rol == null)
-            {
-                TempData["Action"] = "Error";
-                TempData["Message"] = "No existe registro...";
-
-                return RedirectToAction("Index");
-            }
-            return View(rol);
-        }
-
-        // GET: Rols/Create
         public ActionResult Create()
         {
             return PartialView();
         }
 
-        // POST: Rols/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Rol rol)
@@ -63,6 +37,7 @@ namespace PPSale.Controllers.Globals
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
+                    UserHelpers.CheckRol(rol.Name,false);
                     TempData["Action"] = "Success";
                     TempData["Message"] = "Guardado Exitosamente!!!";
 
@@ -83,7 +58,6 @@ namespace PPSale.Controllers.Globals
             return RedirectToAction("Index");
         }
 
-        // GET: Rols/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -104,13 +78,14 @@ namespace PPSale.Controllers.Globals
             return PartialView(rol);
         }
 
-        // POST: Rols/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Rol rol)
         {
+            var db2= new ConexionContext();
+            var oldRol = db2.Rols.Find(rol.RolId).Name;
+            db2.Dispose();
+
             if (ModelState.IsValid)
             {
                 db.Entry(rol).State = EntityState.Modified;
@@ -118,6 +93,8 @@ namespace PPSale.Controllers.Globals
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
+                    UserHelpers.UpdateRol(oldRol, rol.Name);
+
                     TempData["Action"] = "Success";
                     TempData["Message"] = "Actualizado Exitosamente!!!";
 

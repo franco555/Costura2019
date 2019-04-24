@@ -1,6 +1,8 @@
 ﻿using PPSale.Classes;
 using PPSale.Models.Conexion;
 using PPSale.Models.Globals;
+using PPSale.Models.View;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -17,12 +19,31 @@ namespace PPSale.Controllers.Globals
         // GET: Users
         public ActionResult Index()
         {
-            var users = db.Users.
-                Include(u => u.City).
-                Include(u => u.Country).
-                Include(u => u.Province).
-                OrderBy(u=>u.FirstName).
-                ToList();
+            var query = (from user in db.Users
+                         join cit in db.Cities on user.CityId equals cit.CityId
+                         join pro in db.Provinces on cit.ProvinceId equals pro.ProvinceId
+                         join cou in db.Countries on pro.CountryId equals cou.CountryId
+                         where user.LastName != ("Anónimo")
+                         select new { user, cit, pro, cou }).ToList();
+
+            var users = new List<UserViewModel>();
+            foreach (var item in query)
+            {
+                users.Add(new UserViewModel()
+                {
+                    userId = item.user.UserId,
+                    UserName = item.user.UserName,
+                    LastName = item.user.LastName,
+                    Cuit = item.user.Cuit,
+                    Phone = item.user.Phone,
+                    Address = item.user.Address,
+                    Logo = item.user.Logo,
+                    CountryName = item.cou.Name,
+                    ProvinceName = item.pro.Name,
+                    CityName = item.cit.Name
+                });
+            }
+
             return View(users);
         }
 
@@ -121,16 +142,14 @@ namespace PPSale.Controllers.Globals
 
                 return RedirectToAction("Index");
             }
-            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(user.CountryId, user.ProvinceId), "CityId", "Name", user.CityId);
-            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", user.CountryId);
-            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(user.CountryId), "ProvinceId", "Name", user.ProvinceId);
 
-            if (string.IsNullOrEmpty(user.Logo))
-            {
-                user.Logo = fn.notUser;
-            }
+            user.Logo = user.Logo ==null? fn.notUser:user.Logo;
             user.URL = user.Logo;
 
+            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(user.City.CountryId, user.City.ProvinceId), "CityId", "Name", user.CityId);
+            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", user.City.CountryId);
+            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(user.City.CountryId), "ProvinceId", "Name", user.City.ProvinceId);
+            
             return PartialView(user);
         }
 

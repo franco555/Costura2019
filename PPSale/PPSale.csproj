@@ -227,6 +227,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Nav\NavsController.cs" />
+    <Compile Include="Models\View\CompanyViewModel.cs" />
     <Compile Include="Models\Complement\Classification.cs" />
     <Compile Include="Models\Complement\Kardex.cs" />
     <Compile Include="Models\Complement\MeasuredUnit.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Models\View\ProvinceWithCititesViewModel.cs" />
     <Compile Include="Models\View\RolViewModel.cs" />
     <Compile Include="Models\View\TDWithCDViewModel.cs" />
+    <Compile Include="Models\View\UserViewModel.cs" />
     <Compile Include="Models\View\ViewMoneyMonth.cs" />
     <Compile Include="Models\View\ViewNavEntry.cs" />
     <Compile Include="Models\View\ViewPrice.cs" />
@@ -421,7 +423,6 @@
     <Content Include="Views\Countries\Index.cshtml" />
     <Content Include="Views\Rols\Create.cshtml" />
     <Content Include="Views\Rols\Delete.cshtml" />
-    <Content Include="Views\Rols\Details.cshtml" />
     <Content Include="Views\Rols\Edit.cshtml" />
     <Content Include="Views\Rols\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />

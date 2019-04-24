@@ -56,12 +56,18 @@ namespace PPSale.Models.Globals
 
         //Propiedad lectura
         [Display(Name = "Usuario")]
-        public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
+        public string FullName { get { return $"{FirstName} {LastName}"; } }
 
 
 
         //RELACION
+        [NotMapped]
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
+        [Display(Name = "Pais")]
+        public int CountryId { get; set; }
 
+        [NotMapped]
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
         [Display(Name = "Provincia")]
@@ -71,14 +77,7 @@ namespace PPSale.Models.Globals
         [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
         [Display(Name = "Ciudad")]
         public int CityId { get; set; }
-
-        [Required(ErrorMessage = "El campo {0} es requerido.")]
-        [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
-        [Display(Name = "Pais")]
-        public int CountryId { get; set; }
-
-        public virtual Country Country { get; set; }
-        public virtual Province Province { get; set; }
+        
         public virtual City City { get; set; }
 
         //Relaciones
