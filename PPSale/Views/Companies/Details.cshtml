@@ -9,7 +9,8 @@
     ViewBag.Title = Pagina;
     dynamic jsonObj = "";
 
-    if (TempData["Action"]!=null && TempData["Action"].Equals("Object")) { 
+    if (TempData["Action"] != null && TempData["Action"].Equals("Object"))
+    {
         if (TempData["Message"] != null) { jsonObj = JsonConvert.DeserializeObject(TempData["Message"].ToString()); }
     }
 }
@@ -59,7 +60,11 @@
         <div class="alert alert-danger alert-dismissible">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             <strong>Los Siguientes campos estan vacío y son requeridos!!!</strong> <br />
-            <ul> @foreach (var obj in jsonObj){<li>@obj</li> }</ul>
+            <ul>
+                @foreach (var obj in jsonObj)
+                {
+                    <li>@obj</li>}
+            </ul>
         </div>
     }
     else
@@ -87,11 +92,11 @@
                 }
             </div>
 
-            <div class="col-sm-12 control-label col-md-12 top-3">
+            <div class="form-control  col-md-12 mt-2">
                 <b> @Html.DisplayNameFor(model => model.Name) &nbsp;&#58;</b> @Html.DisplayFor(model => model.Name)
             </div>
 
-            <div class="col-sm-12 control-label col-md-12 top-3">
+            <div class="form-control  col-md-12 mt-2" style="font-size:10px;">
                 <b>@Html.DisplayNameFor(model => model.Address)</b>&nbsp;&#58;@Html.DisplayFor(model => model.Address)
             </div>
         </div>
@@ -123,7 +128,7 @@
                         }
                     </div>
                     <div class="col-sm-9">
-                        <div class="control-label col-md-12 top-3">@Url.Content(item.FirstName)&nbsp;@Url.Content(item.LastName)</div>
+                        <div class="form-control col-md-12 top-3">@Url.Content(item.FirstName)&nbsp;@Url.Content(item.LastName)</div>
                         <a class="btn btn-info dialog-window  btn-nuevo top-3" href="@Url.Action("ChangeRol", "Companies", new {IdCompany = Model.CompanyId ,IdUser = item.UserId })" title="Editar" id="btn-Option" data-Option="Edit" data-title="Cambiar Rol" style="color:#ffffff;">Cambiar: @Url.Content(item.URL)</a>
                     </div>
                 </div>

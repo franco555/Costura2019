@@ -30,13 +30,17 @@ namespace PPSale.Controllers.Globals
         {
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "No se envio ID...";
+
                 return RedirectToAction("Index");
             }
             AsingRolAndUser asingRolAndUser = db.AsingRolAndUsers.Find(id);
             if (asingRolAndUser == null)
             {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "Registro no existente...";
+
                 return RedirectToAction("Index");
             }
             return View(asingRolAndUser);

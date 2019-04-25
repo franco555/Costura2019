@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "control-label col-md-12" })
             <div class="col-md-12">
-                @Html.DropDownList("CompanyId", null, htmlAttributes: new { @class = "control-label col-md-12" })
+                @Html.DropDownList("CompanyId", null, htmlAttributes: new { @class = "form-control col-md-12" })
                 @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UserId,  htmlAttributes: new { @class = "control-label col-md-12" })
             <div class="col-md-12">
-                @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "control-label col-md-12" })
+                @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control col-md-12" })
                 @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RolId,  htmlAttributes: new { @class = "control-label col-md-12" })
             <div class="col-md-12">
-                @Html.DropDownList("RolId", null, htmlAttributes: new { @class = "control-label col-md-12" })
+                @Html.DropDownList("RolId", null, htmlAttributes: new { @class = "form-control col-md-12" })
                 @Html.ValidationMessageFor(model => model.RolId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,7 +61,7 @@
         <div class="form-group row">
             <div class="col-md-offset-2 col-md-12">
                 <input type="submit" value="Guardar" class="btn btn-warning" />
-                <a href="@Url.Action("Index")" class="btn btn-success" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+                <a href="@Url.Action("Index")" class="btn btn-success" title="Volver"><span class="fa fa-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
             </div>
         </div>
     </div>
