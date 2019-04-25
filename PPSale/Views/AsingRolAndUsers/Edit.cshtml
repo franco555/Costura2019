@@ -6,13 +6,6 @@
     ViewBag.Title = Pagina;
 }
 
-<h5 class="f-title f-titleEdit">
-    <span class="title_CreateEdit f-orange">
-        Editar:
-    </span> @Pagina
-</h5>
-
-
 @using (Html.BeginForm("Edit", @Controlers, FormMethod.Post, new { @class = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -23,8 +16,8 @@
     @Html.HiddenFor(model => model.AsingRolAndUserId)
     @Html.HiddenFor(model => model.Email)
 
-    <div class="form-Edit">
-        <div class="form-group">
+    <div class="form-alter">
+        <div class="input-group">
             @Html.LabelFor(model => model.CompanyId, htmlAttributes: new { @class = "control-label col-md-12" })
             <div class="col-md-12">
                 @Html.DropDownList("CompanyId", null, htmlAttributes: new { @class = "form-control col-md-12" })
@@ -32,7 +25,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="input-group">
             @Html.LabelFor(model => model.UserId,  htmlAttributes: new { @class = "control-label col-md-12" })
             <div class="col-md-12">
                 @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control col-md-12" })
@@ -40,7 +33,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="input-group">
             @Html.LabelFor(model => model.RolId,  htmlAttributes: new { @class = "control-label col-md-12" })
             <div class="col-md-12">
                 @Html.DropDownList("RolId", null, htmlAttributes: new { @class = "form-control col-md-12" })
@@ -48,20 +41,20 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Lock, htmlAttributes: new { @class = "control-label col-md-12" })
+        <div class="input-group mt-3">
             <div class="col-md-12">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Lock)
+                    @Html.CheckBoxFor(model => model.Lock)
                     @Html.ValidationMessageFor(model => model.Lock, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.Lock, htmlAttributes: new { @class = "control-label" })
                 </div>
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-md-offset-2 col-md-12">
-                <input type="submit" value="Guardar" class="btn btn-warning" />
-                <a href="@Url.Action("Index")" class="btn btn-success" title="Volver"><span class="fa fa-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+        <div class="col-md-12">
+            <div class="btn-rigth">
+                <input type="submit" value="Actualizar" class="btn btn-primary" />
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
             </div>
         </div>
     </div>

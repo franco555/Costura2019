@@ -7,82 +7,28 @@
 
 <h2> Configuraciones de Empresa</h2>
 
-<h4>Ubicacion</h4>
-<div class="col-lg-12">
-    <div class="card card-button return">
-        <a href="@Url.Action("Index","Home")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-arrow-left" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Volver</h5>
-                </div>
+<div class="col-md-12">
+    <div class="row">
+        <div class="card text-white bg-info mb-3 col-sm card-margin">
+            <div class="card-header"><h4>Ubicaci&oacute;n</h4></div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href="@Url.Action("Index","UnitBases")" class="btn btn-warning btn-lg btn-block">Unidad Base</a>
+                    <a href="@Url.Action("Index","MeasuredUnits")" class="btn btn-warning btn-lg btn-block">Unidad de Medida</a>
+                </p>
             </div>
-        </a>
-    </div>
+        </div>
 
-    <div class="card card-button">
-        <a href="@Url.Action("Index","UnitBases")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-scale" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Unidad Base</h5>
-                </div>
+        <div class="card text-white bg-info mb-3  col-sm  card-margin" ">
+            <div class="card-header"><h4>Compa&ntilde;&iacute;a</h4></div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href="@Url.Action("Index","Products")" class="btn btn-warning btn-lg btn-block">Productos</a>
+                    <a href="@Url.Action("Index","Classifications")" class="btn btn-warning btn-lg btn-block">Clasificaci&oacute;n</a>
+                    <a href="@Url.Action("Index","ProductClassifications")" class="btn btn-warning btn-lg btn-block">Producto &minus; Clasificaci&oacute;n</a>
+                    <a href="@Url.Action("Index","Kardexes")" class="btn btn-warning btn-lg btn-block">Almac&eacute;n</a>
+                </p>
             </div>
-        </a>
-    </div>
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","MeasuredUnits")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-road" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Unidad de Medida</h5>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","Products")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-ice-lolly" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Productos</h5>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","Classifications")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-object-align-right" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Clasificaci&oacute;n</h5>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","ProductClassifications")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-grain" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Producto &minus; Clasificaci&oacute;n</h5>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="card card-button">
-        <a href="@Url.Action("Index","Kardexes")">
-            <div class="card" style="width: 18rem;">
-                <div class="card-img-top glyphicon glyphicon-tasks" style="font-size:40px;"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Almac&eacute;n</h5>
-                </div>
-            </div>
-        </a>
+        </div>
     </div>
 </div>

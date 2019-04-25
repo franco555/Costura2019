@@ -1,4 +1,5 @@
-﻿using PPSale.Classes;
+﻿using Newtonsoft.Json;
+using PPSale.Classes;
 using PPSale.Models.Conexion;
 using PPSale.Models.Globals;
 using System.Data.Entity;
@@ -7,7 +8,7 @@ using System.Web.Mvc;
 
 namespace PPSale.Controllers.Globals
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
 
     public class AsingRolAndUsersController : Controller
     {
@@ -49,12 +50,12 @@ namespace PPSale.Controllers.Globals
         // GET: AsingRolAndUsers/Create
         public ActionResult Create()
         {
-            var us = new AsingRolAndUser {Email="Firts",};
+            var us = new AsingRolAndUser { Email = "Firts", };
 
             ViewBag.CompanyId = new SelectList(CombosHelpers.Getcompanies(), "CompanyId", "Name");
             ViewBag.RolId = new SelectList(CombosHelpers.GetRols(), "RolId", "Name");
             ViewBag.UserId = new SelectList(CombosHelpers.GetUsers(), "UserId", "UserName");
-            return View(us);
+            return PartialView(us);
         }
 
         // POST: AsingRolAndUsers/Create
@@ -68,32 +69,35 @@ namespace PPSale.Controllers.Globals
             {
                 var db1 = new ConexionContext();
                 var user = db1.Users.Find(asingRolAndUser.UserId);
-                var newEmail = asingRolAndUser.CompanyId + user.UserName;
                 db1.Dispose();
 
-                asingRolAndUser.Email = newEmail;
+                asingRolAndUser.Email = user.UserName;
                 db.AsingRolAndUsers.Add(asingRolAndUser);
 
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
                     var rol = db.Rols.Find(asingRolAndUser.RolId);
-                    UsersHelper.CreateUserASP(newEmail, rol.Name,user.UserName);
+                    UsersHelper.CreateUserASP(user.UserName, user.UserName, rol.Name);
 
+
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = "Guardado Correctamente..!!!";
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Modelo no válido");
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
-            ViewBag.CompanyId = new SelectList(CombosHelpers.Getcompanies(), "CompanyId", "Name", asingRolAndUser.CompanyId);
-            ViewBag.RolId = new SelectList(CombosHelpers.GetRols(), "RolId", "Name", asingRolAndUser.RolId);
-            ViewBag.UserId = new SelectList(CombosHelpers.GetUsers(), "UserId", "UserName", asingRolAndUser.UserId);
-            return View(asingRolAndUser);
+            return RedirectToAction("Index");
         }
 
         // GET: AsingRolAndUsers/Edit/5
@@ -101,19 +105,23 @@ namespace PPSale.Controllers.Globals
         {
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "No se envio ID...";
+
                 return RedirectToAction("Index");
             }
             AsingRolAndUser asingRolAndUser = db.AsingRolAndUsers.Find(id);
             if (asingRolAndUser == null)
             {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Action"] = "Error";
+                TempData["Message"] = "Registro no existente...";
+
                 return RedirectToAction("Index");
             }
             ViewBag.CompanyId = new SelectList(CombosHelpers.Getcompanies(), "CompanyId", "Name", asingRolAndUser.CompanyId);
             ViewBag.RolId = new SelectList(CombosHelpers.GetRols(), "RolId", "Name", asingRolAndUser.RolId);
             ViewBag.UserId = new SelectList(CombosHelpers.GetUsers(), "UserId", "UserName", asingRolAndUser.UserId);
-            return View(asingRolAndUser);
+            return PartialView(asingRolAndUser);
         }
 
         // POST: AsingRolAndUsers/Edit/5
@@ -125,27 +133,20 @@ namespace PPSale.Controllers.Globals
         {
             if (ModelState.IsValid)
             {
-                var newEmail = string.Empty;
-                var modifidEmail = false;
 
                 //Obtener valores anteriores
-                var bd2 = new ConexionContext();
-                var asing = bd2.AsingRolAndUsers.Find(asingRolAndUser.AsingRolAndUserId);
-                var rName = bd2.Rols.Find(asing.RolId);
-                var uName = bd2.Users.Find(asing.UserId);
-                bd2.Dispose();
+                var db1 = new ConexionContext();
+                var asing = db1.AsingRolAndUsers.Find(asingRolAndUser.AsingRolAndUserId);
+                var oldRol = db1.Rols.Find(asing.RolId);
+                var oldUser = db1.Users.Find(asing.UserId);
 
-                //si se cambia Company o User se modifica el EMAIL
-                if (asingRolAndUser.UserId!=asing.UserId || asingRolAndUser.CompanyId != asing.CompanyId)
+                var newrol = db1.Rols.Find(asingRolAndUser.RolId);
+                var newuser = db1.Users.Find(asingRolAndUser.UserId);
+                db1.Dispose();
+
+                if (asingRolAndUser.UserId != oldUser.UserId)
                 {
-                    modifidEmail = true;
-
-                    var bd3 = new ConexionContext();
-                    var uss = bd3.Users.Find(asingRolAndUser.UserId);
-                    bd3.Dispose();
-
-                    newEmail = asingRolAndUser.CompanyId + uss.UserName;
-                    asingRolAndUser.Email = newEmail;
+                    asingRolAndUser.Email = newuser.UserName;
                 }
 
                 db.Entry(asingRolAndUser).State = EntityState.Modified;
@@ -153,29 +154,27 @@ namespace PPSale.Controllers.Globals
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
-                    var rol = db.Rols.Find(asingRolAndUser.RolId);
+                    UsersHelper.RemoveRol(oldUser.UserName, oldRol.Name);
+                    UsersHelper.CreateUserASP(asingRolAndUser.Email, newuser.UserName, newrol.Name);
 
-                    if (modifidEmail)
-                    {
-                        UsersHelper.UpdateUser(asing.Email, asingRolAndUser.Email);
-                    }
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = "Guardado Correctamente..!!!";
 
-                    UsersHelper.RemoveRol(asing.Email, rName.Name);
-                    UsersHelper.CreateUserASP(asingRolAndUser.Email, rol.Name, uName.UserName);
-                    
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Modelo no válido");
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
-            ViewBag.CompanyId = new SelectList(CombosHelpers.Getcompanies(), "CompanyId", "Name", asingRolAndUser.CompanyId);
-            ViewBag.RolId = new SelectList(CombosHelpers.GetRols(), "RolId", "Name", asingRolAndUser.RolId);
-            ViewBag.UserId = new SelectList(CombosHelpers.GetUsers(), "UserId", "UserName", asingRolAndUser.UserId);
-            return View(asingRolAndUser);
+
+            return RedirectToAction("Index");
         }
 
         // GET: AsingRolAndUsers/Delete/5
@@ -206,7 +205,7 @@ namespace PPSale.Controllers.Globals
             return RedirectToAction("Index");
         }
 
-        
+
 
         protected override void Dispose(bool disposing)
         {
