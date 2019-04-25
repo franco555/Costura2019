@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CodeBar, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.EditorFor(model => model.CodeBar, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CodeBar, new { htmlAttributes = new { @class = "control-label col-md-12" } })
                 @Html.ValidationMessageFor(model => model.CodeBar, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProductId, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.DropDownList("ProductId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("ProductId", null, htmlAttributes: new { @class = "control-label col-md-12" })
                 @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,13 +41,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ClassificationId, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.DropDownList("ClassificationId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("ClassificationId", null, htmlAttributes: new { @class = "control-label col-md-12" })
                 @Html.ValidationMessageFor(model => model.ClassificationId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group row">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-12">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
                 <a href="@Url.Action("Index")" class="btn btn-success" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
             </div>

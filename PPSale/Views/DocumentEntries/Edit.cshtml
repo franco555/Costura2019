@@ -30,7 +30,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProviderId, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.DropDownList("ProviderId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("ProviderId", null, htmlAttributes: new { @class = "control-label col-md-12" })
                 @Html.ValidationMessageFor(model => model.ProviderId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -39,7 +39,7 @@
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
                 <div class='input-group date' id='datepicker' style="width:250px">
-                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control col-sm-12" } })
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "control-label col-md-12 col-sm-12" } })
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -51,7 +51,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TypeDocumentId, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.DropDownList("TypeDocumentId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("TypeDocumentId", null, htmlAttributes: new { @class = "control-label col-md-12" })
                 @Html.ValidationMessageFor(model => model.TypeDocumentId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,7 +59,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CategoryDocumentId, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.DropDownList("CategoryDocumentId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CategoryDocumentId", null, htmlAttributes: new { @class = "control-label col-md-12" })
                 @Html.ValidationMessageFor(model => model.CategoryDocumentId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.NumberDoc, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.EditorFor(model => model.NumberDoc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NumberDoc, new { htmlAttributes = new { @class = "control-label col-md-12" } })
                 @Html.ValidationMessageFor(model => model.NumberDoc, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -75,7 +75,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TypePaymentId, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.DropDownList("TypePaymentId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("TypePaymentId", null, htmlAttributes: new { @class = "control-label col-md-12" })
                 @Html.ValidationMessageFor(model => model.TypePaymentId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,7 +83,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PriceTotal, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.EditorFor(model => model.PriceTotal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.PriceTotal, new { htmlAttributes = new { @class = "control-label col-md-12" } })
                 @Html.ValidationMessageFor(model => model.PriceTotal, "", new { @class = "text-danger" })
             </div>
         </div>

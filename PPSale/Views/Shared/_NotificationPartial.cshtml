@@ -1,0 +1,47 @@
+﻿@using Newtonsoft.Json;
+@{
+    dynamic jsonObj = "";
+
+    if (TempData["Action"] != null && TempData["Action"].Equals("Object"))
+    {
+        if (TempData["Message"] != null) { jsonObj = JsonConvert.DeserializeObject(TempData["Message"].ToString()); }
+    }
+}
+
+@if (TempData["Action"] != null && TempData.Count != 0)
+{
+    if (TempData["Action"].Equals("Error"))
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+            <br />
+        </div>
+    }
+    else if (TempData["Action"].Equals("Success"))
+    {
+        <div class="alert alert-info alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Felicitaciones!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+    else if (TempData["Action"].ToString() == "Object")
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Los Siguientes campos estan vacío y son requeridos!!!</strong> <br />
+            <ul>
+                @foreach (var obj in jsonObj)
+                {
+                    <li>@obj</li>}
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Alerta!!!</strong>&nbsp;&nbsp;@TempData["Message"]
+        </div>
+    }
+}

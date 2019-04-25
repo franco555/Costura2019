@@ -79,7 +79,7 @@
                         @Html.DisplayFor(modelItem => item.Name) &nbsp;
                     </td>
                     <td>
-                        @if (true)
+                        @if (!item.Lock)
                         {
                             <a href="@Url.Action("Edit", new { id = item.RolId })" class="btn btn-sm btn-warning dialog-window " title="Editar" data-Option="Edit" data-title="Editar @Pagina"><span class="fa fa-edit" aria-hidden="true"></span></a>
                             <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.RolId)" data-controller="@Controler"><span class="fa fa-eraser" aria-hidden="true"></span></a>

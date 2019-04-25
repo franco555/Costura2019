@@ -87,11 +87,11 @@
                 }
             </div>
 
-            <div class="col-sm-12 form-control top-3">
+            <div class="col-sm-12 control-label col-md-12 top-3">
                 <b> @Html.DisplayNameFor(model => model.Name) &nbsp;&#58;</b> @Html.DisplayFor(model => model.Name)
             </div>
 
-            <div class="col-sm-12 form-control top-3">
+            <div class="col-sm-12 control-label col-md-12 top-3">
                 <b>@Html.DisplayNameFor(model => model.Address)</b>&nbsp;&#58;@Html.DisplayFor(model => model.Address)
             </div>
         </div>
@@ -123,7 +123,7 @@
                         }
                     </div>
                     <div class="col-sm-9">
-                        <div class="form-control top-3">@Url.Content(item.FirstName)&nbsp;@Url.Content(item.LastName)</div>
+                        <div class="control-label col-md-12 top-3">@Url.Content(item.FirstName)&nbsp;@Url.Content(item.LastName)</div>
                         <a class="btn btn-info dialog-window  btn-nuevo top-3" href="@Url.Action("ChangeRol", "Companies", new {IdCompany = Model.CompanyId ,IdUser = item.UserId })" title="Editar" id="btn-Option" data-Option="Edit" data-title="Cambiar Rol" style="color:#ffffff;">Cambiar: @Url.Content(item.URL)</a>
                     </div>
                 </div>
