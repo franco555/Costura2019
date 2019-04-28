@@ -1,5 +1,4 @@
-﻿using PPSale.Models.Entry;
-using PPSale.Models.Globals;
+﻿using PPSale.Models.Globals;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

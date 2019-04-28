@@ -1,4 +1,5 @@
-﻿using PPSale.Classes;
+﻿using Newtonsoft.Json;
+using PPSale.Classes;
 using PPSale.Models.Complement;
 using PPSale.Models.Conexion;
 using System.Data;
@@ -11,6 +12,7 @@ namespace PPSale.Controllers.Complement
     public class ProductsController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         // GET: Products
         public ActionResult Index()
@@ -26,8 +28,8 @@ namespace PPSale.Controllers.Complement
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Action"] ="Success";
+                TempData["Message"] = fn.notRegistre;
             }
 
             var products = db.Products.
@@ -43,13 +45,18 @@ namespace PPSale.Controllers.Complement
         {
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notId;
+
                 return RedirectToAction("Index");
             }
-            Product product = db.Products.Find(id);
+
+            var product = db.Products.Find(id);
             if (product == null)
             {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notExist;
+
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -58,9 +65,6 @@ namespace PPSale.Controllers.Complement
         // GET: Products/Create
         public ActionResult Create()
         {
-            TempData["Valid"] = null;
-            TempData["Error"] = null;
-
             var asing = db.AsingRolAndUsers.Where(a => a.Email == User.Identity.Name).FirstOrDefault();
             if (asing == null)
             {
@@ -70,8 +74,8 @@ namespace PPSale.Controllers.Complement
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notRegistre;
             }
 
 
@@ -80,7 +84,7 @@ namespace PPSale.Controllers.Complement
                 CompanyId = asing.CompanyId,
             };
 
-            return View(product);
+            return PartialView(product);
         }
 
         // POST: Products/Create
@@ -97,14 +101,23 @@ namespace PPSale.Controllers.Complement
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = fn.SuccessCreate;
+
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
-            ModelState.AddModelError(string.Empty, "Modelo no válido");
-            
             return View(product);
         }
 
@@ -126,7 +139,7 @@ namespace PPSale.Controllers.Complement
                 return RedirectToAction("Index");
             }
 
-            return View(product);
+            return PartialView(product);
         }
 
         // POST: Products/Edit/5
@@ -143,13 +156,22 @@ namespace PPSale.Controllers.Complement
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = fn.SuccessUpdate;
+
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
             }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
 
-            ModelState.AddModelError(string.Empty, "Modelo no válido");
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
+            }
 
             return View(product);
         }

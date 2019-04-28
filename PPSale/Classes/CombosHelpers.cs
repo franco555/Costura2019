@@ -172,11 +172,11 @@ namespace PPSale.Classes
                     ProductId = item.ProductId,
                     ClassificationId = item.ClassificationId,
                     CompanyId = item.CompanyId,
-                   ProductFull = $"{item.Product.Name}{' '}{item.Classification.Name}",
+                  // Product = $"{item.Product.Name}{' '}{item.Classification.Name}",
                 });
             }
 
-            ClassP.Add(new ProductClassification { ProductClassificationId = 0, ProductFull = "[Seleccionar...]" });
+            //ClassP.Add(new ProductClassification { ProductClassificationId = 0, ProductFull = "[Seleccionar...]" });
 
             return ClassP.OrderBy(p => p.ProductFull).ToList();
         }

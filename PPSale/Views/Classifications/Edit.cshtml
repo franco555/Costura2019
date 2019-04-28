@@ -6,12 +6,6 @@
     ViewBag.Title = Pagina;
 }
 
-<h5 class="f-title f-titleEdit">
-    <span class="title_CreateEdit f-orange">
-        Editar:
-    </span> @Pagina
-</h5>
-
 
 @using (Html.BeginForm("Edit", @Controlers, FormMethod.Post, new { @class = "form" }))
 {
@@ -22,19 +16,19 @@
         @Html.HiddenFor(model => model.ClassificationId)
         @Html.HiddenFor(model => model.CompanyId)
 
-        <div class="form-Edit">
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-9">
+        <div class="form-alter">
+            <div class="input-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "control-label col-md-12" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
-            
-            <div class="form-group row">
-                <div class="col-md-offset-2 col-md-12">
-                    <input type="submit" value="Guardar" class="btn btn-warning" />
-                    <a href="@Url.Action("Index")" class="btn btn-success" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+
+            <div class="col-md-12">
+                <div class="btn-rigth">
+                    <input type="submit" value="Actualizar" class="btn btn-primary" />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
                 </div>
             </div>
         </div>

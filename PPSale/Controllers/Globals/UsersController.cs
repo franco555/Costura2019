@@ -1,4 +1,5 @@
-﻿using PPSale.Classes;
+﻿using Newtonsoft.Json;
+using PPSale.Classes;
 using PPSale.Models.Conexion;
 using PPSale.Models.Globals;
 using PPSale.Models.View;

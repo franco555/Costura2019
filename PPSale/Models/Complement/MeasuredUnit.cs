@@ -50,8 +50,8 @@ namespace PPSale.Models.Complement
         public virtual Company Company { get; set; }
         public virtual UnitBase UnitBase { get; set; }
 
-        //
-        public virtual ICollection<ProductClassification> ProductClassifications { get; set; }
+        //Collection para las siguientes modelos
+        public virtual ICollection<Kardex> Kardices { get; set; }
         public virtual ICollection<DocumentEntryDetail> DocumentEntryDetails { get; set; }
         public virtual ICollection<TempDocEntryDetil> TempDocEntryDetils { get; set; }
     }

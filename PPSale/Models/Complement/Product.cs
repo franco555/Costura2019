@@ -18,17 +18,17 @@ namespace PPSale.Models.Complement
         [Index("Product_NameCompanyId_Index", 2, IsUnique = true)]
         public string Name { get; set; }
 
-        //Relacion
+        //llaves foraneas
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
         [Display(Name = "Compañia")]
         [Index("Product_NameCompanyId_Index", 1, IsUnique = true)]
         public int CompanyId { get; set; }
 
-        //
+        //con quien se relaciona las llaves foraneas
         public virtual Company Company { get; set; }
 
-        //
+        //Product es una collection de ProductClassification
         public virtual ICollection<ProductClassification> ProductClassifications { get; set; }
     }
 }

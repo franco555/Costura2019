@@ -1,4 +1,5 @@
-﻿using PPSale.Classes;
+﻿using Newtonsoft.Json;
+using PPSale.Classes;
 using PPSale.Models.Complement;
 using PPSale.Models.Conexion;
 using System.Data.Entity;
@@ -11,13 +12,11 @@ namespace PPSale.Controllers.Complement
     public class ClassificationsController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         // GET: Classifications
         public ActionResult Index()
         {
-            TempData["Valid"] = null;
-            TempData["Error"] = null;
-
             var asing = db.AsingRolAndUsers.Where(a => a.Email == User.Identity.Name).FirstOrDefault();
 
             if (asing == null)
@@ -28,8 +27,8 @@ namespace PPSale.Controllers.Complement
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notRegistre;
             }
 
             var classifications = db.Classifications.
@@ -43,18 +42,20 @@ namespace PPSale.Controllers.Complement
         // GET: Classifications/Details/5
         public ActionResult Details(int? id)
         {
-            TempData["Valid"] = null;
-            TempData["Error"] = null;
-
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notId;
+
                 return RedirectToAction("Index");
             }
-            Classification classification = db.Classifications.Find(id);
+
+            var classification = db.Classifications.Find(id);
             if (classification == null)
             {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notExist;
+
                 return RedirectToAction("Index");
             }
             return View(classification);
@@ -63,9 +64,6 @@ namespace PPSale.Controllers.Complement
         // GET: Classifications/Create
         public ActionResult Create()
         {
-            TempData["Valid"] = null;
-            TempData["Error"] = null;
-
             var asing = db.AsingRolAndUsers.Where(a => a.Email == User.Identity.Name).FirstOrDefault();
             if (asing == null)
             {
@@ -75,8 +73,8 @@ namespace PPSale.Controllers.Complement
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notRegistre;
             }
 
 
@@ -85,12 +83,9 @@ namespace PPSale.Controllers.Complement
                 CompanyId = asing.CompanyId,
             };
 
-            return View(classification);
+            return PartialView(classification);
         }
-
-        // POST: Classifications/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Classification classification)
@@ -102,41 +97,50 @@ namespace PPSale.Controllers.Complement
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = fn.SuccessCreate;
+
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
-            ModelState.AddModelError(string.Empty, "Modelo no válido");
-
-            return View(classification);
+            return RedirectToAction("Index");
         }
 
         // GET: Classifications/Edit/5
         public ActionResult Edit(int? id)
         {
-            TempData["Valid"] = null;
-            TempData["Error"] = null;
 
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notId;
+
                 return RedirectToAction("Index");
             }
-            Classification classification = db.Classifications.Find(id);
+
+            var classification = db.Classifications.Find(id);
             if (classification == null)
             {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notExist;
+
                 return RedirectToAction("Index");
             }
 
-            return View(classification);
+            return PartialView(classification);
         }
-
-        // POST: Classifications/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit( Classification classification)
@@ -148,15 +152,24 @@ namespace PPSale.Controllers.Complement
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = fn.SuccessCreate;
+
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
-            ModelState.AddModelError(string.Empty, "Modelo no válido");
-
-            return View(classification);
+            return RedirectToAction("Index");
         }
 
         // GET: Classifications/Delete/5

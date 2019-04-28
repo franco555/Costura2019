@@ -1,14 +1,14 @@
-﻿using PPSale.Models.Entry;
-using PPSale.Models.Globals;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace PPSale.Models.Complement
 {
+    using Entry;
+    using Globals;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+
     public class ProductClassification
     {
         [Key]
@@ -31,13 +31,13 @@ namespace PPSale.Models.Complement
         [Display(Name = "Clasificación")]
         public int ClassificationId { get; set; }
 
-        [Index("PC_PId_CId_CId_Index", 3, IsUnique = true)]
+        [Index("PC_PId_CId_CId_Index", 4, IsUnique = true)]
         public int CompanyId { get; set; }
+        
 
 
         [NotMapped]
-        public string ProductFull { get; set; }
-        //public string NameProduct { get { return string.Format("{0} {1}", Product.Name, Classification.Name); } }
+        public string ProductFull { get { return $"{Product.Name} [{ Classification.Name}]"; } }
 
 
         //Relaciones Simples
@@ -45,6 +45,7 @@ namespace PPSale.Models.Complement
         public virtual Classification Classification { get; set; }
         public virtual Company Company { get; set; }
 
+        //
         public virtual ICollection<Kardex> Kardexes { get; set; }
         public virtual ICollection<DocumentEntryDetail> DocumentEntryDetails { get; set; }
     }

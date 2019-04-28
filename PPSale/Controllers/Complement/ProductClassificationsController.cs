@@ -15,6 +15,7 @@ namespace PPSale.Controllers.Complement
     public class ProductClassificationsController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         // GET: ProductClassifications
         public ActionResult Index()
@@ -29,8 +30,8 @@ namespace PPSale.Controllers.Complement
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notRegistre;
             }
 
             var productClassifications = db.ProductClassifications.
