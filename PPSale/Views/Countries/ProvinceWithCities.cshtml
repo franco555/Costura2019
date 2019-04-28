@@ -8,24 +8,12 @@
 }
 
 <div class="col-sm-12">
-    <div class="col-sm-12">
-        <h4 class="list-group-item color-title-blue">
-            @Pagina
-        </h4>
-        <div class="col-sm-6 btn-group-line">
-            <div>
-                <a class="btn  btn-success btn-volver" href="@Url.Action("CountryWithProvinces","Countries" ,new { Id=Model.ContryId})" title="Volver">Volver</a>
-            </div>
-            <div>
-                <a class="btn  btn-success btn-menu" href="@Url.Action("Additional","Navs" )" title="Menú">Menu</a>
-            </div>
-            <div>
-                <a class="btn  btn-success  btn-inicio" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
-            </div>
-            <div>
-                <a class="btn btn-primary dialog-window  btn-nuevo" href="@Url.Action("AddCity",Controlers,new {idc=Model.ContryId ,idp=Model.ProvinceId})" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar Ciudad">Nuevo</a>
-            </div>
-        </div>
+    <div class="row color-title-blue">
+        <a class="btn  btn-success btn-volver btn-circles mr-2" href="@Url.Action("CountryWithProvinces","Countries" ,new { Id=Model.ContryId})" title="Volver">Volver</a>
+        <a class="btn  btn-success btn-menu btn-circles mr-2" href="@Url.Action("Additional","Navs" )" title="Menú">Menu</a>
+        <a class="btn  btn-success  btn-inicio btn-circles mr-2" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+        <a class="btn btn-primary dialog-window  btn-nuevo btn-circles mr-2" href="@Url.Action("AddCity",Controlers,new {idc=Model.ContryId ,idp=Model.ProvinceId})" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar Ciudad">Nuevo</a>
+        <span class="title-color-blue  btn-circles btn-circle-border-2 mr-5">@Pagina</span>
     </div>
 </div>
 

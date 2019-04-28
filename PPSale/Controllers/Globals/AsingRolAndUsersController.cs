@@ -57,10 +57,7 @@ namespace PPSale.Controllers.Globals
             ViewBag.UserId = new SelectList(CombosHelpers.GetUsers(), "UserId", "UserName");
             return PartialView(us);
         }
-
-        // POST: AsingRolAndUsers/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AsingRolAndUser asingRolAndUser)
@@ -123,10 +120,7 @@ namespace PPSale.Controllers.Globals
             ViewBag.UserId = new SelectList(CombosHelpers.GetUsers(), "UserId", "UserName", asingRolAndUser.UserId);
             return PartialView(asingRolAndUser);
         }
-
-        // POST: AsingRolAndUsers/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AsingRolAndUser asingRolAndUser)

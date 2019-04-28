@@ -1,4 +1,5 @@
-﻿using PPSale.Classes;
+﻿using Newtonsoft.Json;
+using PPSale.Classes;
 using PPSale.Models.Conexion;
 using PPSale.Models.Globals;
 using PPSale.Models.View;
@@ -71,8 +72,10 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Campos vacíos!!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("Index");
@@ -122,8 +125,10 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Campos vacíos!!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
             return RedirectToAction("Index");
         }
@@ -212,8 +217,10 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Formulario con campos vacios!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("CountryWithProvinces", "Countries", new { id = province.CountryId });
@@ -262,8 +269,10 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Formulario con campos vacios!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("CountryWithProvinces", "Countries", new { id = province.CountryId });
@@ -355,8 +364,10 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Formulario con campos vacios!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("ProvinceWithCities", "Countries", new { Idc = city.CountryId, Idp = city.ProvinceId });
@@ -405,8 +416,10 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Formulario con campos vacios!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("ProvinceWithCities", "Countries", new { Idc = city.CountryId, Idp = city.ProvinceId });

@@ -148,11 +148,16 @@ namespace PPSale.Controllers.Globals
 
                     return RedirectToAction("Index");
                 }
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
             }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
 
-            TempData["Action"] = "Warning";
-            TempData["Message"] = "Campos vacíos!!!";
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
+            }
 
             return RedirectToAction("Index");
         }
@@ -211,11 +216,18 @@ namespace PPSale.Controllers.Globals
 
                     return RedirectToAction("Index", company);
                 }
-                ModelState.AddModelError(string.Empty, response.Message);
-            }
 
-            TempData["Action"] = "Warning";
-            TempData["Message"] = "Campos vacíos!!!";
+                TempData["Action"] = "Error";
+                TempData["Message"] =response.Message;
+
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
+            }
 
             return RedirectToAction("Index");
         }

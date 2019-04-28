@@ -1,5 +1,6 @@
 ﻿namespace PPSale.Controllers.Globals
 {
+    using Newtonsoft.Json;
     using PPSale.Classes;
     using PPSale.Models.Conexion;
     using PPSale.Models.Globals;
@@ -52,8 +53,10 @@
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Formulario con campos vacios!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("index");
@@ -101,8 +104,10 @@
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Campos vacíos!!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
             return View(Generic);
         }
@@ -135,8 +140,10 @@
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Formulario con campos vacios!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("index");
@@ -184,8 +191,10 @@
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Campos vacíos!!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
             return View(Generic);
         }
@@ -218,8 +227,10 @@
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Formulario con campos vacios!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("index");
@@ -267,8 +278,10 @@
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Campos vacíos!!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
             return View(Generic);
         }
@@ -348,8 +361,10 @@
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Formulario con campos vacios!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("TDWithCD", "ContentControl", new { id = generic.TypeDocumentId });
@@ -397,8 +412,10 @@
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Campos vacíos!!!";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
             return View(Generic);
         }

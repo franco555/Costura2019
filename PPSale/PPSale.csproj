@@ -251,6 +251,7 @@
     <Compile Include="Models\View\ProvinceWithCititesViewModel.cs" />
     <Compile Include="Models\View\RolViewModel.cs" />
     <Compile Include="Models\View\TDWithCDViewModel.cs" />
+    <Compile Include="Models\View\UnitBaseWithMeasureUnitViewModel.cs" />
     <Compile Include="Models\View\UserViewModel.cs" />
     <Compile Include="Models\View\ViewMoneyMonth.cs" />
     <Compile Include="Models\View\ViewNavEntry.cs" />
@@ -530,6 +531,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Companies\ChangeRol.cshtml" />
     <Content Include="Views\Shared\_NotificationPartial.cshtml" />
+    <Content Include="Views\UnitBases\CreateMeasuredUnit.cshtml" />
+    <Content Include="Views\UnitBases\EditMeasuredUnit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

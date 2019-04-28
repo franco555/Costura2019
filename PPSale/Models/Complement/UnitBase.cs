@@ -1,5 +1,6 @@
 ﻿using PPSale.Models.Globals;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,7 +12,7 @@ namespace PPSale.Models.Complement
         public int UnitBaseId { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
-        [Display(Name = "Unidad de Medida Base")]
+        [Display(Name = "Valor")]
         public double Value { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
@@ -20,13 +21,17 @@ namespace PPSale.Models.Complement
         [Index("UnitBase_Index", 2,IsUnique = true)]
         public string Name { get; set; }
         
+        
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
         [Display(Name = "Compañia")]
         [Index("UnitBase_Index", 1, IsUnique = true)]
         public int CompanyId { get; set; }
 
-        //
+        
         public virtual Company Company { get; set; }
+
+        
+        public virtual ICollection<MeasuredUnit> MeasuredUnits { get; set; }
     }
 }

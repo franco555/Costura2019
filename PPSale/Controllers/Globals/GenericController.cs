@@ -424,6 +424,8 @@ namespace PPSale.Controllers.Global
 
         }
 
+        
+
         //Para Precio
         public JsonResult GetPrice(int IdPr, int IdMe,int IdCl, int IdCo)
         {

@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+﻿using Newtonsoft.Json;
 using PPSale.Classes;
 using PPSale.Models.Complement;
 using PPSale.Models.Conexion;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace PPSale.Controllers.Complement
 {
     public class MeasuredUnitsController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         // GET: MeasuredUnits
         public ActionResult Index()
@@ -29,14 +27,15 @@ namespace PPSale.Controllers.Complement
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Action"] = "Error";
+                TempData["Message"] = fn.notRegistre;
             }
 
             var measuredUnits = db.MeasuredUnits.
                 Include(m => m.Company).
                 Where(m=>m.CompanyId==asing.CompanyId).
-                OrderBy(m=>m.Name).
+                OrderBy(m=>m.Name)
+                .ThenBy(m=>m.UnitBaseId).
                 ToList();
             return View(measuredUnits);
         }
@@ -71,16 +70,18 @@ namespace PPSale.Controllers.Complement
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Error"] = "Error";
+                TempData["Message"] = fn.notRegistre;
             }
 
             var measuredUnit = new MeasuredUnit
             {
                 CompanyId = asing.CompanyId,
             };
-            
-            return View(measuredUnit);
+
+            ViewBag.UnitBaseId = new SelectList(CombosHelpers.GetUnitBase(), "unitBaseId", "Name");
+
+            return PartialView(measuredUnit);
         }
 
         // POST: MeasuredUnits/Create
@@ -97,15 +98,24 @@ namespace PPSale.Controllers.Complement
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
+                    TempData["Error"] = "Success";
+                    TempData["Message"] = fn.SuccessCreate;
+
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Error"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
-            ModelState.AddModelError(string.Empty, "Modelo no válido");
-            
-            return View(measuredUnit);
+
+            return RedirectToAction("Index");
         }
 
         // GET: MeasuredUnits/Edit/5
@@ -113,17 +123,24 @@ namespace PPSale.Controllers.Complement
         {
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
-                return RedirectToAction("Index");
-            }
-            MeasuredUnit measuredUnit = db.MeasuredUnits.Find(id);
-            if (measuredUnit == null)
-            {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Error"] = "Error";
+                TempData["Message"] = fn.notId;
+
                 return RedirectToAction("Index");
             }
 
-            return View(measuredUnit);
+            var measuredUnit = db.MeasuredUnits.Find(id);
+            if (measuredUnit == null)
+            {
+                TempData["Error"] = "Error";
+                TempData["Message"] = fn.notExist;
+
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.UnitBaseId = new SelectList(CombosHelpers.GetUnitBase(), "unitBaseId", "Name",measuredUnit.UnitBaseId);
+
+            return PartialView(measuredUnit);
         }
 
         // POST: MeasuredUnits/Edit/5
@@ -140,15 +157,23 @@ namespace PPSale.Controllers.Complement
                 var response = DBHelpers.SaveChage(db);
                 if (response.Succeded)
                 {
+                    TempData["Error"] = "Success";
+                    TempData["Message"] = fn.SuccessUpdate;
+
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Error"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
-            ModelState.AddModelError(string.Empty, "Modelo no válido");
-            
-            return View(measuredUnit);
+            return RedirectToAction("Index");
         }
 
         // GET: MeasuredUnits/Delete/5

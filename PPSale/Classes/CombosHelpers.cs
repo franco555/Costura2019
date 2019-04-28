@@ -189,6 +189,13 @@ namespace PPSale.Classes
             return c.OrderBy(p => p.Name).ToList();
         }
 
+        public static List<UnitBase> GetUnitBase()
+        {
+            var c = db.UnitBases.ToList();
+            c.Add(new UnitBase { UnitBaseId = 0, Name = "[Seleccionar...]" });
+            return c.OrderBy(p => p.Name).ToList();
+        }
+
         public void Dispose()
         {
             db.Dispose();

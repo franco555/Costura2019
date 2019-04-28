@@ -7,39 +7,20 @@
     ViewBag.Title = Pagina;
 }
 
-<h2 class="header-title">Nueva  @Pagina</h2>
-
-
-
-<div class="col-lg-12">
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
-    </p>
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-info" href="@Url.Action("Configuration","Navs" )" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
-    </p>
-    @if (TempData["Valid"] != null && TempData.Count != 0)
-    {
-        <p class="btn-new" style="display:inline-flex">
-            <a class="btn btn-primary" disabled href="" title="Nuevo"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Nuevo</a>
-        </p>
-    }
-    else
-    {
-        <p class="btn-new" style="display:inline-flex">
-            <a class="btn btn-primary" href="@Url.Action("Create",Controlers )" title="Nuevo"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
-        </p>
-    }
+<div class="col-sm-12">
+    <div class="row color-title-blue">
+        <a class="btn  btn-success btn-volver btn-circles mr-2" href="@Url.Action("Configuration","Navs" )" title="Volver">Volver</a>
+        <a class="btn  btn-success  btn-inicio btn-circles mr-2" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+        <a class="btn btn-primary dialog-window  btn-nuevo btn-circles mr-2" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar @Pagina">Nuevo</a>
+        <span class="title-color-blue  btn-circles btn-circle-border-2 mr-5">@Pagina</span>
+    </div>
 </div>
 
-@if (TempData["Error"] != null && TempData.Count != 0)
-{
-    <div class="alert alert-danger" role="alert">
-        <strong>Alerta!</strong>&nbsp;&nbsp;@TempData["Error"]
-    </div>
-}
+@RenderPage("~/Views/Shared/_NotificationPartial.cshtml")
 
-    <table class="table table-responsive tableTwoBtn ">
+
+<table class="table tableTwoBtn table-striped table-bordered" id="example">
+    <thead class="table-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -52,36 +33,42 @@
             </th>
             <th>Acci&oacute;n</th>
         </tr>
+    </thead>
+    <tbody class=" table-hover">
         @if (Model == null || Model.Count() == 0)
-    {
-        <tr>
-            <td colspan="4">
-                No hay Elementos...
-            </td>
-        </tr>
-    }
-    else
-    {
-        foreach (var item in Model)
         {
             <tr>
-                <td class="data-@Html.DisplayFor(modelItem => item.MeasuredUnitId)">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Abrev)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Equivalent)
-                </td>
-                <td>
-                    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit",Controlers,new { id=item.MeasuredUnitId})" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                    <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.MeasuredUnitId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                <td colspan="4">
+                    No hay Elementos...
                 </td>
             </tr>
         }
-    }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td class="data-@Html.DisplayFor(modelItem => item.MeasuredUnitId)">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Abrev)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Equivalent)
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                         <a href="@Url.Action("Edit",new {id=item.MeasuredUnitId })" class="btn btn-sm btn-warning dialog-window" title="Editar" data-Option="Edit" data-title="@Pagina"><span class="fa-edit fa" aria-hidden="true"></span></a>
+                        <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.MeasuredUnitId)" data-controller="@Controler"><span class="fa-eraser fa" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+            }
+        }
 
+    </tbody>
+    <tfoot class="table-dark">
+        <tr><td colspan="4">pie de tabla</td></tr>
+    </tfoot>
 
-
-    </table>
+</table>

@@ -22,6 +22,13 @@ namespace PPSale.Classes
         public int CityId { get; set; }
         public int CompanyId { get; set; }
 
+        public string SuccessCreate { get; set; }
+        public string SuccessUpdate { get; set; }
+
+        public string notRegistre{get; set;}
+        public string notId { get; set; }
+        public string notExist { get; set; }
+
         public FunctionHelpers()
         {
             urlBase = "~/Content/Logos/";
@@ -65,6 +72,13 @@ namespace PPSale.Classes
 
             CompanyId = Compania(company);
 
+            //Mensajes
+            SuccessCreate = "Felicitaciones! Registro Guardado Correctamente.";
+            SuccessUpdate = "Felicitaciones! Registro Actualizado Correctamente.";
+
+            notRegistre = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
+            notId = "No se recibio ningun ID.";
+            notExist = "No existe regsitro!";
         }
 
         public static int Pais()

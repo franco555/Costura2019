@@ -117,8 +117,10 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Hay campos vacios...";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("Index"); ;
@@ -189,8 +191,10 @@ namespace PPSale.Controllers.Globals
             }
             else
             {
-                TempData["Action"] = "Warning";
-                TempData["Message"] = "Hay campos vacios...";
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
             return RedirectToAction("Index");

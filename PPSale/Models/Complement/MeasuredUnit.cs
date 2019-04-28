@@ -16,7 +16,7 @@ namespace PPSale.Models.Complement
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [MaxLength(50, ErrorMessage = "El Campo {0} no puede tener más de {1} caracteres.")]
-        [Display(Name = "Unidad de Medida")]
+        [Display(Name = "Nombre")]
         [Index("MeasuredUnit_NameCompanyId_Index", 2,IsUnique = true)]
         public string Name { get; set; }
 
@@ -26,9 +26,9 @@ namespace PPSale.Models.Complement
         [Display(Name = "Abreviatura")]
         public string Abrev { get; set; }
 
-        [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [NotMapped]
         [Display(Name = "Valor")]
-        public double Value { get; set; }
+        public string Value { get { return UnitBase.Name != null ? UnitBase.Name : "No Registrado"; } }
 
         [Required(ErrorMessage = "El campo {0} es requerido.")]
         [Display(Name = "Equivalencia")]
