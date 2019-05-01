@@ -39,9 +39,9 @@ $(document).ready(function () {
 
         $("#ModalTitle").removeClass();
         $("#ModalTitle").addClass("modal-header");
-        
-        WindowsModals(title, url, attr_option);
 
+        WindowsModals(title, url, attr_option);
+        
     });
 
     //Cargar Provincia
@@ -208,7 +208,7 @@ $(document).ready(function () {
     //Boton Guardar de formulario
     $(document).on('click', 'a#SaveAs', function (event) {
         var frm = $(this).attr("data-frm");
-        Validate_Frm(frm);
+       // Validate_Frm(frm);
     });
 
     //Guardar y agreagar en kardex
@@ -537,12 +537,20 @@ function WindowsModals(title, url, class_attr) {
         $.get(url, function (data) {
             $('#WindowModal .te').html(data);
             $('#WindowModal').modal();
-            if ($("#datepicker").length > 0) { loadFormatDatePickers();}
-        }).done(function () {
-            $('input:text:visible:first').focus();
+            if ($("#datepicker").length > 0) { loadFormatDatePickers(); }
+
+            if ($("form.form").length > 0) {  
+                //$("input[name=" + PushCursor +"]").bind('focus').focus();
+                $('input:text:visible:first').focus();
+            }
         });
 
     }
+    
 }
 
-
+function PushCursor() {
+    var nameInput = "No Existe";
+    $(".form").find(':input').each(function () { if (this.type !== "hidden") { nameInput = this.name; return false; } });
+    return nameInput;
+}

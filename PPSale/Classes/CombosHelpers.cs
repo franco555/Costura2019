@@ -159,7 +159,7 @@ namespace PPSale.Classes
 
 
         //Producto Clasificacion
-        internal static List<ProductClassification> GetProductClassification(int IdC)
+        /*internal static List<ProductClassification> GetProductClassification(int IdC)
         {
             var c = db.ProductClassifications.Where(q => q.CompanyId == IdC).ToList();
             
@@ -179,7 +179,7 @@ namespace PPSale.Classes
             //ClassP.Add(new ProductClassification { ProductClassificationId = 0, ProductFull = "[Seleccionar...]" });
 
             return ClassP.OrderBy(p => p.ProductFull).ToList();
-        }
+        }*/
 
         //Unidad de medida
         public static List<MeasuredUnit> GetMeasuredUnit(int Id)

@@ -33,17 +33,21 @@ namespace PPSale.Models.Complement
 
         [Index("PC_PId_CId_CId_Index", 4, IsUnique = true)]
         public int CompanyId { get; set; }
+
+        [Required(ErrorMessage = "El campo {0} es requerido.")]
+        [Range(1, Double.MaxValue, ErrorMessage = "No ha selecionado {0}")]
+        [Display(Name = "Unidad Base")]
+        public int UnitBaseId { get; set; }
         
-
-
-        [NotMapped]
-        public string ProductFull { get { return $"{Product.Name} [{ Classification.Name}]"; } }
+        //[NotMapped]
+        //public string ProductFull { get { return $"{Product.Name} [{ Classification.Name}]"; } }
 
 
         //Relaciones Simples
         public virtual Product Product { get; set; }
         public virtual Classification Classification { get; set; }
         public virtual Company Company { get; set; }
+        public virtual UnitBase UnitBase { get; set; }
 
         //
         public virtual ICollection<Kardex> Kardexes { get; set; }

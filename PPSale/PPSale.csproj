@@ -227,6 +227,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Nav\NavsController.cs" />
+    <Compile Include="Models\View\ClassificationWithProductsViewModel.cs" />
     <Compile Include="Models\View\CompanyViewModel.cs" />
     <Compile Include="Models\Complement\Classification.cs" />
     <Compile Include="Models\Complement\Kardex.cs" />
@@ -247,7 +248,9 @@
     <Compile Include="Models\View\CompanyWithUsersViewModel.cs" />
     <Compile Include="Models\View\ContentControlViewModel.cs" />
     <Compile Include="Models\View\CountryWithProvincesViewModel.cs" />
+    <Compile Include="Models\View\KardexViewModel.cs" />
     <Compile Include="Models\View\notViewDocumentEntry.cs" />
+    <Compile Include="Models\View\ProductClassificationAndKardex.cs" />
     <Compile Include="Models\View\ProvinceWithCititesViewModel.cs" />
     <Compile Include="Models\View\RolViewModel.cs" />
     <Compile Include="Models\View\TDWithCDViewModel.cs" />
@@ -470,10 +473,6 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\ProductClassifications\Create.cshtml" />
-    <Content Include="Views\ProductClassifications\Delete.cshtml" />
-    <Content Include="Views\ProductClassifications\Details.cshtml" />
-    <Content Include="Views\ProductClassifications\Edit.cshtml" />
     <Content Include="Views\ProductClassifications\Index.cshtml" />
     <Content Include="Views\Navs\Entry.cshtml" />
     <Content Include="Views\Navs\Departure.cshtml" />
@@ -500,10 +499,6 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\DocumentEntryDetails\AddProductEntryEdit.cshtml" />
-    <Content Include="Views\Kardexes\Create.cshtml" />
-    <Content Include="Views\Kardexes\Delete.cshtml" />
-    <Content Include="Views\Kardexes\Details.cshtml" />
-    <Content Include="Views\Kardexes\Edit.cshtml" />
     <Content Include="Views\Kardexes\Index.cshtml" />
     <Content Include="Views\UnitBases\Create.cshtml" />
     <Content Include="Views\UnitBases\Delete.cshtml" />
@@ -533,9 +528,12 @@
     <Content Include="Views\Shared\_NotificationPartial.cshtml" />
     <Content Include="Views\UnitBases\CreateMeasuredUnit.cshtml" />
     <Content Include="Views\UnitBases\EditMeasuredUnit.cshtml" />
+    <Content Include="Views\Classifications\AddProdClass.cshtml" />
+    <Content Include="Views\Classifications\RestProdClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Logos\Classification\" />
     <Folder Include="Content\Logos\Client\" />
     <Folder Include="Content\Logos\Provider\" />
   </ItemGroup>

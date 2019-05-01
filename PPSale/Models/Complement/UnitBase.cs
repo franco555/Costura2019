@@ -31,7 +31,7 @@ namespace PPSale.Models.Complement
         
         public virtual Company Company { get; set; }
 
-        
         public virtual ICollection<MeasuredUnit> MeasuredUnits { get; set; }
+        public virtual ICollection<ProductClassification> ProductClassifications { get; set; }
     }
 }

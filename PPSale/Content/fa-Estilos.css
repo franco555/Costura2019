@@ -106,7 +106,9 @@ button.Closed {
 .btn-Compania:before,
 .btn-Salir:before,
 .btn-Calendario:before,
-.btn-Archivo:before {
+.btn-Archivo:before,
+.btn-Mas:before, 
+.btn-Menos:before {
     font-family: "FontAwesome";
     font-weight: 400;
     font-style: normal;
@@ -157,10 +159,20 @@ button.Closed {
 .btn-Archivo:before {
     content: "\f15b";
 }
+
+.btn-Mas:before {
+    content: "\f00c";
+}
+
+.btn-Menos:before {
+    content: "\f00d";
+}
+
 .btn-group-line div {
     display: inline-block;
     vertical-align: middle;
 }
+
 
 /*TITULO Principal*/
 .color-title-blue {
@@ -346,4 +358,13 @@ button.Closed {
     border:2px solid #ffffff;
     border-radius:20px !important;
     padding:3px 15px;
+}
+
+/*BackGound*/
+.bg-success-ligth {
+    background: #7fce91 !important;
+}
+
+.bg-danger-ligth {
+    background: #de8890 !important;
 }

@@ -397,7 +397,7 @@ namespace PPSale.Controllers.Global
         }
 
         //Para Obtener Unidad de medida 
-        public JsonResult GetMeasuredUnits(int IdPr, int IdCl, int IdCo)
+        /*public JsonResult GetMeasuredUnits(int IdPr, int IdCl, int IdCo)
         {
             db.Configuration.ProxyCreationEnabled = false;
 
@@ -422,12 +422,12 @@ namespace PPSale.Controllers.Global
             var json = Json(measuredUnit.OrderBy(o => o.Name).ToList());
             return json;
 
-        }
+        }*/
 
         
 
         //Para Precio
-        public JsonResult GetPrice(int IdPr, int IdMe,int IdCl, int IdCo)
+        /*public JsonResult GetPrice(int IdPr, int IdMe,int IdCl, int IdCo)
         {
             db.Configuration.ProxyCreationEnabled = false;
 
@@ -457,7 +457,7 @@ namespace PPSale.Controllers.Global
             var json = Json(s);
             return json;
 
-        }
+        }*/
 
 
 

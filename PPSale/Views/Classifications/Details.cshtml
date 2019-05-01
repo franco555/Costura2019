@@ -1,34 +1,75 @@
-﻿@model PPSale.Models.Complement.Classification
+﻿@model PPSale.Models.View.ClassificationWithProductsViewModel
 
 @{
+    var Pagina = $"Detalles de: { Model.Name}";
+    var Controlers = "Classifications";
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Classification</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Company.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Company.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
+<div class="col-sm-12">
+    <div class="row color-title-blue">
+        <a class="btn  btn-success btn-volver btn-circles mr-2" href="@Url.Action("index",Controlers )" title="Volver">Volver</a>
+        <a class="btn  btn-success btn-menu btn-circles mr-2" href="@Url.Action("Configuration","Navs" )" title="Volver">Menu</a>
+        <a class="btn  btn-success  btn-inicio btn-circles mr-2" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+        <a class="btn btn-primary dialog-window  btn-nuevo btn-circles mr-2" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar @Pagina">Nuevo</a>
+        <span class="title-color-blue  btn-circles btn-circle-border-2 mr-5">@Pagina</span>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ClassificationId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@RenderPage("~/Views/Shared/_NotificationPartial.cshtml")
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="alert text-white bg-success" role="alert" style="font-size:25px; padding:5px 20px;">
+            <b>Productos Agregados</b>
+        </div>
+
+        @if (Model.ProductOn == null || Model.ProductOn.Count() == 0)
+        {
+            <div class="alert alert-danger" role="alert">
+                <a class="alert-link">Mensaje:</a>. Aún no hay productos registrados.
+            </div>
+        }
+        else
+        {
+            foreach (var item in Model.ProductOn)
+            {
+                <div class="bg-success-ligth  mb-1" style="width:100%;">
+                    <div class="clearfix  p-1">
+                        <div class="float-left pt-1 pl-3 ">@Html.DisplayFor(modelItem => item.Name)</div>
+                        <div class="float-right">
+                            <a href="@Url.Action("RestProdClass", new {  idp = item.ProductId, idc = Model.ClassificationId,idcom=item.CompanyId})" class="btn btn-sm btn-danger dialog-window  btn-Mas" title="Editar" data-Option="Edit" data-title="Quitar producto">Quitar</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+    <div class="col-md-6">
+        <div class="alert text-white bg-danger" role="alert" style="font-size:25px; padding:5px 20px;">
+            <b>Productos No Agregados</b>
+        </div>
+        @if (Model.ProductOff == null || Model.ProductOff.Count() == 0)
+        {
+            <div class="alert alert-danger" role="alert">
+                <a class="alert-link">Mensaje:</a>.Primero debe resgistrar productos.
+            </div>
+        }
+        else
+        {
+            foreach (var item in Model.ProductOff)
+            {
+                <div class="bg-danger-ligth mb-1" style="width:100%;">
+                    <div class="clearfix  p-1">
+                        <div class="float-left pt-1 pl-3 ">@Html.DisplayFor(modelItem => item.Name)</div>
+                        <div class="float-right">
+                            <a href="@Url.Action("AddProdClass", new { idp = item.ProductId, idc = Model.ClassificationId,idcom=item.CompanyId })" class="btn btn-sm btn-primary dialog-window btn-Menos" title="Crear" data-Option="Create" data-title="Agregar Producto">Agregar</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</div>

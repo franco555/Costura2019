@@ -1,0 +1,47 @@
+﻿
+@model PPSale.Models.Complement.ProductClassification
+
+@{
+    var Pagina = "Producto y clasificación";
+    var Controlers = "Classifications";
+    ViewBag.Title = Pagina;
+}
+
+
+@using (Html.BeginForm("RestProdClass", @Controlers, FormMethod.Post, new { @class = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ProductClassificationId)
+    @Html.HiddenFor(model => model.CompanyId)
+    @Html.HiddenFor(model => model.ProductId)
+    @Html.HiddenFor(model => model.UnitBaseId)
+    @Html.HiddenFor(model => model.ClassificationId)
+    @Html.HiddenFor(model => model.CodeBar)
+
+    <div class="form-alter">
+        <div class="col-sm-12">
+            <div class="card bg-warning text-white p-2"> 
+            <h4>Estas seguro que deseas quitarlo?</h4>
+                <p>Se perderan datos como: precio y cantidad en stok.</p>
+            </div>
+        </div>
+
+        <div class="col-md-12 mt-3">
+            <div class="btn-rigth">
+                <input type="submit" value="Quitar" class="btn btn-primary" />
+                <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

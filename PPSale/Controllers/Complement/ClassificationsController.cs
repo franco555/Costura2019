@@ -2,6 +2,9 @@
 using PPSale.Classes;
 using PPSale.Models.Complement;
 using PPSale.Models.Conexion;
+using PPSale.Models.View;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -33,8 +36,8 @@ namespace PPSale.Controllers.Complement
 
             var classifications = db.Classifications.
                 Include(c => c.Company).
-                Where(c=>c.CompanyId==asing.CompanyId ).
-                OrderBy(c=>c.Name).ToList();
+                Where(c => c.CompanyId == asing.CompanyId).
+                OrderBy(c => c.Name).ToList();
 
             return View(classifications);
         }
@@ -51,6 +54,7 @@ namespace PPSale.Controllers.Complement
             }
 
             var classification = db.Classifications.Find(id);
+
             if (classification == null)
             {
                 TempData["Action"] = "Success";
@@ -58,7 +62,32 @@ namespace PPSale.Controllers.Complement
 
                 return RedirectToAction("Index");
             }
-            return View(classification);
+
+            //var product = new List<Product>();
+            //var _productOn = db.ProductClassifications.Include(c => c.Product).Where(o => o.ClassificationId == classification.ClassificationId).ToList();
+            //foreach (var item in _productOn) { product.Add(new Product() { ProductId = item.Product.ProductId, Name = item.Product.Name, }); }
+
+            var _productOn = db.Products.Where(o => o.ProductClassifications.Select(i => i.ClassificationId).Contains(id.Value)).ToList();
+            var _productOff = db.Products.Where(o => !o.ProductClassifications.Select(i => i.ClassificationId).Contains(id.Value)).ToList();
+
+            // Obtiene todos los productos que aun no registrado en ProductClassifications
+            /*
+            var _productOff = (from prod in db.Products
+                        where !(from clas in db.ProductClassifications
+                                select clas.ProductId)
+                               .Contains(prod.ProductId)
+                        select prod).ToList();
+            */
+
+            var cl = new ClassificationWithProductsViewModel()
+            {
+                ClassificationId = classification.ClassificationId,
+                Name = classification.Name,
+                ProductOn = _productOn,
+                ProductOff = _productOff,
+            };
+
+            return View(cl);
         }
 
         // GET: Classifications/Create
@@ -85,7 +114,7 @@ namespace PPSale.Controllers.Complement
 
             return PartialView(classification);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Classification classification)
@@ -140,10 +169,10 @@ namespace PPSale.Controllers.Complement
 
             return PartialView(classification);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Classification classification)
+        public ActionResult Edit(Classification classification)
         {
             if (ModelState.IsValid)
             {
@@ -199,6 +228,171 @@ namespace PPSale.Controllers.Complement
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+        #region Add ProductClassification
+
+        //Add  ProductClassification
+        public ActionResult AddProdClass(int? idp, int? idc, int? idcom)
+        {
+            if (idp == null || idc == null || idcom == null)
+            {
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notId;
+
+                return RedirectToAction($"Details/{idc}");
+            }
+
+            var asing = db.AsingRolAndUsers.Where(a => a.Email == User.Identity.Name).FirstOrDefault();
+
+            if (asing == null)
+            {
+                asing = new Models.Globals.AsingRolAndUser
+                {
+                    AsingRolAndUserId = 0,
+                    CompanyId = 0,
+                };
+
+                TempData["Action"] = "Error";
+                TempData["Message"] = fn.notRegistre;
+
+                return RedirectToAction($"Details/{idc}");
+            }
+
+            var productClass = new ProductClassificationAndKardex
+            {
+                CodeBar = DateTime.Now.ToString("yyyyMMddhhmmss"),
+                CompanyId = idcom.Value,
+                ClassificationId = idc.Value,
+                ProductId = idp.Value,
+            };
+
+            ViewBag.UnitBaseId = new SelectList(CombosHelpers.GetUnitBase(), "UnitBaseId", "Name");
+
+            return PartialView(productClass);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddProdClass(ProductClassificationAndKardex pcKardex)
+        {
+            if (ModelState.IsValid)
+            {
+                var productClassification = new ProductClassification()
+                {
+                    CodeBar = pcKardex.CodeBar,
+                    ClassificationId = pcKardex.ClassificationId,
+                    ProductId = pcKardex.ProductId,
+                    CompanyId = pcKardex.CompanyId,
+                    UnitBaseId = pcKardex.UnitBaseId,
+
+                };
+
+                db.ProductClassifications.Add(productClassification);
+
+                var response = DBHelpers.SaveChage(db);
+                if (response.Succeded)
+                {
+                    var kardex = new Kardex()
+                    {
+                        Stock = pcKardex.Stock,
+                        Price = pcKardex.Price,
+                        ProductClassificationId = productClassification.ProductClassificationId,
+                    };
+
+                    db.Kardexes.Add(kardex);
+                    var response2 = DBHelpers.SaveChage(db);
+
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = fn.SuccessCreate;
+
+                    return RedirectToAction($"details/{pcKardex.ClassificationId}");
+                }
+
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
+            }
+
+            return RedirectToAction($"details/{pcKardex.ClassificationId}");
+        }
+
+        // Delete ProductClassification
+        public ActionResult RestProdClass(int? idp, int? idc, int? idcom)
+        {
+            if (idp == null || idc == null || idcom == null)
+            {
+                TempData["Action"] = "Success";
+                TempData["Message"] = fn.notId;
+
+                return RedirectToAction($"Details/{idc}");
+            }
+
+            var productclassification =
+                db.ProductClassifications.Where(o => o.ProductId == idp && o.ClassificationId == idc && o.CompanyId == idcom).FirstOrDefault();
+            if (productclassification == null)
+            {
+                TempData["Action"] = "Error" +
+                    "";
+                TempData["Message"] = fn.notExist;
+
+                return RedirectToAction($"Details/{idc}");
+            }
+
+            return PartialView(productclassification);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RestProdClass(ProductClassification pcKardex)
+        {
+            if (ModelState.IsValid)
+            {
+                var ok = db.ProductClassifications.Find(pcKardex.ProductClassificationId);
+
+                if (ok==null)
+                {
+                    TempData["Action"] = "Error";
+                    TempData["Message"] = fn.notId;
+
+                    return RedirectToAction($"details/{pcKardex.ClassificationId}");
+                }
+
+                var kar = db.Kardexes.Where(k => k.ProductClassificationId == ok.ProductClassificationId).FirstOrDefault();
+
+                db.Kardexes.Remove(kar);
+                db.ProductClassifications.Remove(ok);
+
+                var response = DBHelpers.SaveChage(db);
+                if (response.Succeded)
+                {
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = fn.SuccessUpdate;
+
+                    return RedirectToAction($"details/{pcKardex.ClassificationId}");
+                }
+
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
+            }
+
+            return RedirectToAction($"details/{pcKardex.ClassificationId}");
+        }
+
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

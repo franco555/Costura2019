@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PPSale.Models.Complement.Kardex>
+﻿@model IEnumerable<PPSale.Models.View.KardexViewModel>
 
 @{
     var Pagina = "Kardex";
@@ -7,87 +7,79 @@
     ViewBag.Title = Pagina;
 }
 
-<h2 class="header-title">Nueva  @Pagina</h2>
-
-<div class="col-lg-12">
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
-    </p>
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-info" href="@Url.Action("Configuration","Navs" )" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
-    </p>
-    <p class="btn-new " style="display:inline-flex">
-        <a class="btn btn-primary" href="@Url.Action("Create",Controlers )" title="Nuevo"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
-    </p>
+<div class="col-sm-12">
+    <div class="row color-title-blue">
+        <a class="btn btn-sm btn-success btn-volver btn-circles mr-2" href="@Url.Action("Configuration","Navs" )" title="Volver">Volver</a>
+        <a class="btn btn-sm btn-success  btn-inicio btn-circles mr-2" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+        <a class="btn btn-sm btn-primary dialog-window  btn-nuevo  btn-circles mr-2" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar País">Nuevo</a>
+        <span class="title-color-blue  btn-circles btn-circle-border-2 mr-5">@Pagina</span>
+    </div>
 </div>
 
 
-@if (TempData["Error"] != null && TempData.Count != 0)
-{
-    <div class="alert alert-danger" role="alert">
-        <strong>Alerta!</strong>&nbsp;&nbsp;@TempData["Error"]
-    </div>
-}
+@RenderPage("~/Views/Shared/_NotificationPartial.cshtml")
 
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CodeBar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductClassification.Product.Name) &nbsp;
-            @Html.DisplayNameFor(model => model.ProductClassification.Classification.Name)
-        </th>
-        <th>
-            Cantidad
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MeasuredUnit.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>Acci&oacute;n</th>
-    </tr>
-
-    @if (Model == null || Model.Count() == 0)
-    {
+<table class="table tableTwoBtn table-striped table-bordered" id="example">
+    <thead class="table-dark">
         <tr>
-            <td colspan="6">
-                No hay Elementos...
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassificationName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitBasenName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>Acci&oacute;n</th>
         </tr>
-
-    }
-    else
-    {
-        foreach (var item in Model)
+    </thead>
+    <tbody class=" table-hover">
+        @if (Model == null || Model.Count() == 0)
         {
-
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodeBar)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductClassification.Product.Name)&nbsp;
-                    @Html.DisplayFor(modelItem => item.ProductClassification.Classification.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Stock)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MeasuredUnit.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <a href="@Url.Action("Edit",new { id=item.KardexId })" class="btn btn-sm btn-warning" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                    <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.KardexId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                <td colspan="6">
+                    No hay Elementos...
                 </td>
             </tr>
-        }
-    }
 
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassificationName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitBasenName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stock)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit",new { id=item.KardexId })" class="btn btn-sm btn-warning" title="Editar"><span class="fa fa-edit" aria-hidden="true"></span></a>
+                        <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.KardexId)" data-controller="@Controler"><span class="fa fa-eraser" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    <tfoot class="table-dark">
+        <tr><td colspan="6">pie de tabla</td></tr>
+    </tfoot>
 </table>
