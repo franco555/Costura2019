@@ -25,7 +25,7 @@ namespace PPSale.Models.View
         public double TotalDinero { get; set; }
 
         public List<DocumentEntry> DocumentEntry { get; set; }
-        public List<ViewProductQuantity> ProductQuantities { get; set; }
-        public List<ViewMoneyMonth> MoneyMonths { get; set; }
+        public List<ProductQuantityPriceViewModel> ProductQuantities { get; set; }
+        public List<MoneyMonthViewModel> MoneyMonths { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace PPSale.Models.View
         [Display(Name = "Stock")]
         public double Stock { get; set; }
 
-        [Display(Name = "P. Venta/Unidad")]
+        [Display(Name = "Precio/Unidad")]
         public double Price { get; set; }
 
     }

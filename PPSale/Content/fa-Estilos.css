@@ -108,7 +108,8 @@ button.Closed {
 .btn-Calendario:before,
 .btn-Archivo:before,
 .btn-Mas:before, 
-.btn-Menos:before {
+.btn-Menos:before,
+.btn-point:before{
     font-family: "FontAwesome";
     font-weight: 400;
     font-style: normal;
@@ -159,11 +160,12 @@ button.Closed {
 .btn-Archivo:before {
     content: "\f15b";
 }
-
+.btn-point:before {
+    content: "\f140";
+}
 .btn-Mas:before {
     content: "\f00c";
 }
-
 .btn-Menos:before {
     content: "\f00d";
 }

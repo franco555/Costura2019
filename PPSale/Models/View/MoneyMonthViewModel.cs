@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PPSale.Models.View
 {
-    public class ViewMoneyMonth
+    public class MoneyMonthViewModel
     {
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = false)]
         public int ViewMoneyMonthId { get; set; }

@@ -1,4 +1,5 @@
-﻿using PPSale.Classes;
+﻿using Newtonsoft.Json;
+using PPSale.Classes;
 using PPSale.Models.Conexion;
 using PPSale.Models.Departure;
 using System;
@@ -12,6 +13,7 @@ namespace PPSale.Controllers.Departure
     public class ClientsController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         // GET: Clients
         public ActionResult Index()
@@ -26,8 +28,8 @@ namespace PPSale.Controllers.Departure
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Error"] = "Error";
+                TempData["Message"] = fn.notRegistre;
             }
 
             var clients = db.Clients.
@@ -42,22 +44,7 @@ namespace PPSale.Controllers.Departure
             return View(clients);
         }
 
-        // GET: Clients/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                TempData["Error"] = "No se envión ID...";
-                return RedirectToAction("Index");
-            }
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                TempData["Error"] = "No existe regitro con este ID...";
-                return RedirectToAction("Index");
-            }
-            return View(client);
-        }
+
 
         // GET: Clients/Create
         public ActionResult Create()
@@ -67,7 +54,7 @@ namespace PPSale.Controllers.Departure
             {
                 CompanyId = asing.CompanyId,
                 FirstDate = DateTime.Now,
-                URL = "~/Content/Logos/Empresa/otro.png",
+                URL = fn.notCompany,
             };
 
             ViewBag.CityId = new SelectList(CombosHelpers.GetCities(0, 0), "CityId", "Name");
@@ -75,7 +62,7 @@ namespace PPSale.Controllers.Departure
             ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name");
             ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(0), "ProvinceId", "Name");
 
-            return View(client);
+            return PartialView(client);
         }
 
         // POST: Clients/Create
@@ -87,7 +74,7 @@ namespace PPSale.Controllers.Departure
         {
             if (ModelState.IsValid)
             {
-                client.Logo = "~/Content/Logos/Empresa/otro.png";
+                client.Logo = fn.notCompany;
 
                 db.Clients.Add(client);
 
@@ -105,20 +92,25 @@ namespace PPSale.Controllers.Departure
                             db.Entry(client).State = EntityState.Modified;
                             db.SaveChanges();
                         }
+
                     }
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = fn.SuccessCreate;
+
                     return RedirectToAction("Index");
                 }
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
             }
 
-            TempData["Error"] = "Modelo no válido";
-
-            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(client.CountryId, client.ProvinceId), "CityId", "Name", client.CityId);
-            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", client.CountryId);
-            ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name", client.IvaConditionId);
-            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(client.CountryId), "ProvinceId", "Name", client.ProvinceId);
-
-            return View(client);
+            return RedirectToAction("Index");
         }
 
         // GET: Clients/Edit/5
@@ -126,13 +118,18 @@ namespace PPSale.Controllers.Departure
         {
             if (id == null)
             {
-                TempData["Error"] = "No se envión ID...";
+                TempData["Action"] = "Object";
+                TempData["Message"] = fn.notId;
+
                 return RedirectToAction("Index");
             }
-            Client client = db.Clients.Find(id);
+
+            var client = db.Clients.Find(id);
             if (client == null)
             {
-                TempData["Error"] = "No existe regitro con este ID...";
+                TempData["Action"] = "Object";
+                TempData["Message"] = fn.notExist;
+
                 return RedirectToAction("Index");
             }
 
@@ -143,7 +140,7 @@ namespace PPSale.Controllers.Departure
             ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name", client.IvaConditionId);
             ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(client.CountryId), "ProvinceId", "Name", client.ProvinceId);
 
-            return View(client);
+            return PartialView(client);
         }
 
         // POST: Clients/Edit/5
@@ -171,49 +168,27 @@ namespace PPSale.Controllers.Departure
                             db.Entry(client).State = EntityState.Modified;
                             db.SaveChanges();
                         }
+
                     }
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = fn.SuccessUpdate;
+
                     return RedirectToAction("Index");
                 }
-                ModelState.AddModelError(string.Empty, response.Message);
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
             }
-
-            TempData["Error"] = "Modelo no válido";
-
-            ViewBag.CityId = new SelectList(CombosHelpers.GetCities(client.CountryId, client.ProvinceId), "CityId", "Name", client.CityId);
-            ViewBag.CountryId = new SelectList(CombosHelpers.GetCountries(), "CountryId", "Name", client.CountryId);
-            ViewBag.IvaConditionId = new SelectList(CombosHelpers.GetIvaConditions(), "IvaConditionId", "Name", client.IvaConditionId);
-            ViewBag.ProvinceId = new SelectList(CombosHelpers.GetProvinces(client.CountryId), "ProvinceId", "Name", client.ProvinceId);
-
-            return View(client);
-        }
-
-        // GET: Clients/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
+            else
             {
-                TempData["Error"] = "No se envión ID...";
-                return RedirectToAction("Index");
-            }
-            Client client = db.Clients.Find(id);
-            if (client == null)
-            {
-                TempData["Error"] = "No existe regitro con este ID...";
-                return RedirectToAction("Index");
-            }
-            return View(client);
-        }
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
 
-        // POST: Clients/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Client client = db.Clients.Find(id);
-            db.Clients.Remove(client);
-            db.SaveChanges();
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
+            }
+
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {

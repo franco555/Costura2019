@@ -15,6 +15,7 @@ namespace PPSale.Controllers.Entry
     public class DocumentEntriesController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         // GET: DocumentEntries
         public ActionResult Index()
@@ -29,8 +30,8 @@ namespace PPSale.Controllers.Entry
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Error"] = "Error";
+                TempData["Message"] = fn.notRegistre;
             }
 
             var documentEntries = db.DocumentEntries.
@@ -81,7 +82,7 @@ namespace PPSale.Controllers.Entry
             ViewBag.TypeDocumentId = new SelectList(CombosHelpers.GetTypeDocuments(), "TypeDocumentId", "Name");
             ViewBag.TypePaymentId = new SelectList(CombosHelpers.GetTypePayments(), "TypePaymentId", "Name");
 
-            return View(DocumentEntry);
+            return PartialView(DocumentEntry);
         }
 
         // POST: DocumentEntries/Create

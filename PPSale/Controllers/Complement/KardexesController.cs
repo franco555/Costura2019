@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using PPSale.Classes;
 using PPSale.Models.Complement;
 using PPSale.Models.Conexion;
@@ -16,13 +17,11 @@ namespace PPSale.Controllers.Complement
     public class KardexesController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         // GET: Kardexes
         public ActionResult Index()
         {
-            TempData["Valid"] = null;
-            TempData["Error"] = null;
-
             var asing = db.AsingRolAndUsers.Where(a => a.Email == User.Identity.Name).FirstOrDefault();
 
             if (asing == null)
@@ -33,8 +32,10 @@ namespace PPSale.Controllers.Complement
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Error"] = "Error";
+                TempData["Message"] = fn.notRegistre;
+
+                return RedirectToAction("Index");
             }
 
             var query = (from k in db.Kardexes
@@ -61,6 +62,60 @@ namespace PPSale.Controllers.Complement
             }
 
             return View(kardex);
+        }
+
+
+        // GET: Products/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                TempData["Error"] = "Error";
+                TempData["Message"] = fn.notId;
+
+                return RedirectToAction("Index");
+            }
+            var kardex = db.Kardexes.Find(id);
+            if (kardex == null)
+            {
+                TempData["Error"] = "Error";
+                TempData["Message"] = fn.notExist;
+
+                return RedirectToAction("Index");
+            }
+
+            return PartialView(kardex);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Kardex kardex)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(kardex).State = EntityState.Modified;
+
+                var response = DBHelpers.SaveChage(db);
+                if (response.Succeded)
+                {
+                    TempData["Action"] = "Success";
+                    TempData["Message"] = fn.SuccessUpdate;
+
+                    return RedirectToAction("Index");
+                }
+
+                TempData["Action"] = "Error";
+                TempData["Message"] = response.Message;
+            }
+            else
+            {
+                string messages = JsonConvert.SerializeObject(ModelState.Values.SelectMany(state => state.Errors).Select(error => error.ErrorMessage));
+
+                TempData["Action"] = "Object";
+                TempData["Message"] = messages;
+            }
+
+            return RedirectToAction("index");
         }
 
 

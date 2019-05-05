@@ -6,12 +6,6 @@
     ViewBag.Title = Pagina;
 }
 
-<h5 class="f-title f-titleCreate">
-    <span class="title_CreateEdit f-blue">
-        Registrar Nuevo:
-    </span> @Pagina
-</h5>
-
 @using (Html.BeginForm("Create", @Controlers, FormMethod.Post, new { @class = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -21,68 +15,73 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CompanyId)
 
-        <div class="form-Create">
-            <div class="form-group">
-                @Html.LabelFor(model => model.ProviderId, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-9">
-                    @Html.DropDownList("ProviderId", null, htmlAttributes: new { @class = "control-label col-md-12" })
+        <div class="form-alter">
+            <div class="input-group">
+                @Html.LabelFor(model => model.ProviderId, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
+                    @Html.DropDownList("ProviderId", null, htmlAttributes: new { @class = "form-control col-md-12" })
                     @Html.ValidationMessageFor(model => model.ProviderId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-9">
+            <div class="input-group mt-3">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-12" })
+                <div class="col-md-12">
                     <div class='input-group date' id='datepicker' style="width:250px">
-                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "control-label col-md-12 col-sm-12" } })
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control col-sm-12" } })
                         <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                            <span class="fa fa-calendar"></span>
                         </span>
                     </div>
                     @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.TypeDocumentId, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-9">
-                    @Html.DropDownList("TypeDocumentId", null, htmlAttributes: new { @class = "control-label col-md-12" })
-                    @Html.ValidationMessageFor(model => model.TypeDocumentId, "", new { @class = "text-danger" })
+            <div class="row input-group mt-3 ">
+                <div class="input-group col-md-6">
+                    @Html.LabelFor(model => model.TypeDocumentId, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownList("TypeDocumentId", null, htmlAttributes: new { @class = "form-control col-md-12" })
+                        @Html.ValidationMessageFor(model => model.TypeDocumentId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="input-group col-md-6">
+                    @Html.LabelFor(model => model.CategoryDocumentId, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownList("CategoryDocumentId", null, htmlAttributes: new { @class = "form-control col-md-12" })
+                        @Html.ValidationMessageFor(model => model.CategoryDocumentId, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.CategoryDocumentId, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-9">
-                    @Html.DropDownList("CategoryDocumentId", null, htmlAttributes: new { @class = "control-label col-md-12" })
-                    @Html.ValidationMessageFor(model => model.CategoryDocumentId, "", new { @class = "text-danger" })
+            <div class="row input-group  mt-3">
+                <div class="input-group col-md-6">
+                    @Html.LabelFor(model => model.NumberDoc, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.NumberDoc, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+                        @Html.ValidationMessageFor(model => model.NumberDoc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="input-group  col-md-6">
+                    @Html.LabelFor(model => model.TypePaymentId, htmlAttributes: new { @class = "control-label col-md-12" })
+                    <div class="col-md-12">
+                        @Html.DropDownList("TypePaymentId", null, htmlAttributes: new { @class = "form-control col-md-12" })
+                        @Html.ValidationMessageFor(model => model.TypePaymentId, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
+               
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.NumberDoc, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-9">
-                    @Html.EditorFor(model => model.NumberDoc, new { htmlAttributes = new { @class = "control-label col-md-12" } })
-                    @Html.ValidationMessageFor(model => model.NumberDoc, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TypePaymentId, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-9">
-                    @Html.DropDownList("TypePaymentId", null, htmlAttributes: new { @class = "control-label col-md-12" })
-                    @Html.ValidationMessageFor(model => model.TypePaymentId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-offset-2 col-md-9">
-                    <input type="submit" value="Guardar" class="btn btn-primary" />
-                    <a href="@Url.Action("Entry","Navs")" class="btn btn-success" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
+                <div class="col-md-12">
+                    <div class="btn-rigth">
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 }
 
 

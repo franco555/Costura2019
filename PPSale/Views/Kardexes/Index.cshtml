@@ -72,7 +72,7 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        <a href="@Url.Action("Edit",new { id=item.KardexId })" class="btn btn-sm btn-warning" title="Editar"><span class="fa fa-edit" aria-hidden="true"></span></a>
+                        <a href="@Url.Action("Edit",new {id=item.KardexId })" class="btn btn-sm btn-warning dialog-window" title="Editar" data-Option="Edit" data-title="Editar @Pagina"><span class="fa-edit fa" aria-hidden="true"></span></a>
                         <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.KardexId)" data-controller="@Controler"><span class="fa fa-eraser" aria-hidden="true"></span></a>
                     </td>
                 </tr>

@@ -256,10 +256,10 @@
     <Compile Include="Models\View\TDWithCDViewModel.cs" />
     <Compile Include="Models\View\UnitBaseWithMeasureUnitViewModel.cs" />
     <Compile Include="Models\View\UserViewModel.cs" />
-    <Compile Include="Models\View\ViewMoneyMonth.cs" />
+    <Compile Include="Models\View\MoneyMonthViewModel.cs" />
     <Compile Include="Models\View\ViewNavEntry.cs" />
     <Compile Include="Models\View\ViewPrice.cs" />
-    <Compile Include="Models\View\ViewProductQuantity.cs" />
+    <Compile Include="Models\View\ProductQuantityPriceViewModel.cs" />
     <Compile Include="Models\View\ViewUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -426,7 +426,6 @@
     <Content Include="Views\Countries\Edit.cshtml" />
     <Content Include="Views\Countries\Index.cshtml" />
     <Content Include="Views\Rols\Create.cshtml" />
-    <Content Include="Views\Rols\Delete.cshtml" />
     <Content Include="Views\Rols\Edit.cshtml" />
     <Content Include="Views\Rols\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
@@ -444,13 +443,9 @@
     <Content Include="Views\AsingRolAndUsers\Edit.cshtml" />
     <Content Include="Views\AsingRolAndUsers\Index.cshtml" />
     <Content Include="Views\Providers\Create.cshtml" />
-    <Content Include="Views\Providers\Delete.cshtml" />
-    <Content Include="Views\Providers\Details.cshtml" />
     <Content Include="Views\Providers\Edit.cshtml" />
     <Content Include="Views\Providers\Index.cshtml" />
     <Content Include="Views\Clients\Create.cshtml" />
-    <Content Include="Views\Clients\Delete.cshtml" />
-    <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\MeasuredUnits\Create.cshtml" />
@@ -530,6 +525,7 @@
     <Content Include="Views\UnitBases\EditMeasuredUnit.cshtml" />
     <Content Include="Views\Classifications\AddProdClass.cshtml" />
     <Content Include="Views\Classifications\RestProdClass.cshtml" />
+    <Content Include="Views\Kardexes\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

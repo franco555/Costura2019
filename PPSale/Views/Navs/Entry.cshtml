@@ -8,178 +8,172 @@
     ViewBag.Title = Pagina;
 }
 
-<h2 class="header-title">Detalles de  @Pagina</h2>
-
-<div class="col-lg-12">
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-success" href="@Url.Action("Index","Home" )" title="Inicio"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
-    </p>
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-info" href="@Url.Action("Index","Home" )" title="Volver"><span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>&nbsp;Volver</a>
-    </p>
-    <p class="btn-new" style="display:inline-flex">
-        <a class="btn btn-primary" href="@Url.Action("Create",Controlers )" title="Nuevo"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
-    </p>
-</div>
-
-@if (TempData["Error"] != null && TempData.Count != 0)
-{
-    <div class="alert alert-danger" role="alert">
-        <strong>Alerta!</strong>&nbsp;&nbsp;@TempData["Error"]
+<div class="col-sm-12">
+    <div class="row color-title-blue">
+        <a class="btn  btn-success btn-volver btn-circles mr-2" href="@Url.Action("Additional","Navs" )" title="Volver">Volver</a>
+        <a class="btn  btn-success  btn-inicio btn-circles mr-2" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+        <a class="btn  btn-warning  btn-point  btn-circles mr-2" href="@Url.Action("Index","Providers" )" title="Proveedor">Proveedor</a>
+        <a class="btn btn-primary dialog-window  btn-nuevo btn-circles mr-2" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar Compañia">Nuevo</a>
+        <span class="title-color-blue  btn-circles btn-circle-border-2 mr-5">@Pagina</span>
     </div>
-}
-
-<div class="form-horizontal">
-
-    @if (Model.MoneyMonths == null || Model.MoneyMonths.Count == 0)
-    {
-        <h5 class="f-block f-background-red">No hay Productos</h5>
-    }
-    else
-    {
-        foreach (var item in Model.MoneyMonths)
-        {
-            <p class="btn-new" style="display:inline-flex">
-                <a class="btn btn-default" href="@Url.Action("Entry","Navs",new { id=item.ViewMoneyMonthId})" title=" @Html.DisplayFor(modelItem => item.Name)"> @Html.DisplayFor(modelItem => item.Name) @Html.DisplayFor(modelItem => item.Price)</a>
-            </p>
-        }
-    }
 </div>
 
-<div class="col-lg-12">
-    <div class="col-md-8">
-        @if (Model.DocumentEntry == null || Model.DocumentEntry.Count == 0)
-        {
-            <h5 class="f-block f-background-red">No hay Productos</h5>
-        }
-        else
-        {
-            <h5 class="f-block-all f-background-orange" style="text-align:center"><strong>Ventas del Mes</strong></h5>
-            <table class=" table tableFourBtn">
-                <tr>
-                    <th>
-                        &nbsp;Proveedor&nbsp;
-                    </th>
-                    <th>
-                        &nbsp;Fecha&nbsp;
-                    </th>
-                    <th>
-                        &nbsp;Cantidad&nbsp;
-                    </th>
-                    <th>
-                        &nbsp;Condici&oacute;n&nbsp;
-                    </th>
-                    <th>
-                        &nbsp;Accion&nbsp;
-                    </th>
-                </tr>
+@RenderPage("~/Views/Shared/_NotificationPartial.cshtml")
 
-                @foreach (var item in Model.DocumentEntry)
+<div class="col-12">
+    <div class="col-12">
+        <div class="row">
+            @if (Model.MoneyMonths == null || Model.MoneyMonths.Count == 0)
+            {
+                <div class="alert alert-danger col-12">Dinero Mensual</div>
+            }
+            else
+            {
+                foreach (var item in Model.MoneyMonths)
                 {
-                    <tr>
-                        <td>
-                            @if (item.save == false)
-                            {
-                                <span class="save save-false"></span>
-                            }
-                            else
-                            {
-                                <span class="save save-true"></span>
-                            }
-                            @Html.DisplayFor(modelItem => item.Provider.Name)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PriceTotal)
-                        </td>
-                        <td>
-                            @if (item.Payment == false)
-                            {
-                                <div>
-                                    <span class="save save-false"></span>
-                                    Debe
-                                </div>
-                            }
-                            else
-                            {
-                                <div>
-                                    <span class="save save-true"></span>
-                                    Pagado
-                                </div>
-                            }
-                        </td>
-                        <td>
-                            <a class="btn btn-success btn-sm" href="@Url.Action("AddProductEntry",Controlers,new { id=item.DocumentEntryId})" title="Agregar"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
-                            <a class="btn btn-info btn-sm" href="@Url.Action("Details",Controlers,new { id=item.DocumentEntryId})" title="Detalles"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
-                            <a class="btn btn-warning btn-sm" href="@Url.Action("Edit",Controlers,new { id=item.DocumentEntryId})" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                            <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.DocumentEntryId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
-                        </td>
-                    </tr>
+                    <p class="btn-new" style="display:inline-flex">
+                        <a class="btn btn-default" href="@Url.Action("Entry","Navs",new { id=item.ViewMoneyMonthId})" title=" @Html.DisplayFor(modelItem => item.Name)"> @Html.DisplayFor(modelItem => item.Name) @Html.DisplayFor(modelItem => item.Price)</a>
+                    </p>
                 }
-            </table>
-
-        }
+            }
+        </div>
     </div>
-    <div class="col-md-4">
-
-
-        @*Parte 2*@
-        @if (Model.ProductQuantities == null || Model.ProductQuantities.Count == 0)
-        {
-            <h5 class="f-block f-background-red">Productos Tops</h5>
-        }
-        else
-        {
-            <h5 class="f-block-all f-background-orange-l" style="text-align:center"><strong>Ventas del Mes</strong></h5>
-            <table class=" table table-responsive">
-                <tr>
-                    <th>
-                        &nbsp;Producto&nbsp;
-                    </th>
-                    <th>
-                        &nbsp;Cantidad&nbsp;
-                    </th>
-
-                    <th>
-                        &nbsp;Precio&nbsp;
-                    </th>
-                </tr>
-
-                @foreach (var item in Model.ProductQuantities)
+    <div class="col-12">
+        <div class="row">
+            <div class="col-md-8">
+                @if (Model.DocumentEntry == null || Model.DocumentEntry.Count == 0)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quantity) &nbsp; Kg
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                    </tr>
+                    <div class="alert alert-danger col-12">Ventas Mensual</div>
                 }
-                <tr>
-                    <th>
-                        <strong>TOTAL</strong>
-                    </th>
-                    <th>
-                        @Html.DisplayFor(model => model.TotalKilo) Kg
-                    </th>
+                else
+                {
+                    <h5 class="f-block-all f-background-orange" style="text-align:center"><strong>Ventas del Mes</strong></h5>
+                    <table class=" table tableFourBtn">
+                        <tr>
+                            <th>
+                                &nbsp;Proveedor&nbsp;
+                            </th>
+                            <th>
+                                &nbsp;Fecha&nbsp;
+                            </th>
+                            <th>
+                                &nbsp;Cantidad&nbsp;
+                            </th>
+                            <th>
+                                &nbsp;Condici&oacute;n&nbsp;
+                            </th>
+                            <th>
+                                &nbsp;Accion&nbsp;
+                            </th>
+                        </tr>
 
-                    <th>
-                        @Html.DisplayFor(model => model.TotalDinero)
-                    </th>
-                </tr>
-            </table>
+                        @foreach (var item in Model.DocumentEntry)
+                        {
+                            <tr>
+                                <td>
+                                    @if (item.save == false)
+                                    {
+                                        <span class="save save-false"></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="save save-true"></span>
+                                    }
+                                    @Html.DisplayFor(modelItem => item.Provider.Name)
+                                </td>
 
-        }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PriceTotal)
+                                </td>
+                                <td>
+                                    @if (item.Payment == false)
+                                    {
+                                        <div>
+                                            <span class="save save-false"></span>
+                                            Debe
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <span class="save save-true"></span>
+                                            Pagado
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    <a class="btn btn-success btn-sm" href="@Url.Action("AddProductEntry",Controlers,new { id=item.DocumentEntryId})" title="Agregar"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a>
+                                    <a class="btn btn-info btn-sm" href="@Url.Action("Details",Controlers,new { id=item.DocumentEntryId})" title="Detalles"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+                                    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit",Controlers,new { id=item.DocumentEntryId})" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                                    <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.DocumentEntryId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                }
+            </div>
+            <div class="col-md-4">
+                @if (Model.ProductQuantities == null || Model.ProductQuantities.Count == 0)
+                {
+                    <div class="alert alert-danger col-12">Top Productos</div>
+                }
+                else
+                {
+                    <h5 class="f-block-all f-background-orange-l" style="text-align:center"><strong>Ventas del Mes</strong></h5>
+                    <table class=" table table-responsive">
+                        <tr>
+                            <th>
+                                &nbsp;Producto&nbsp;
+                            </th>
+                            <th>
+                                &nbsp;Cantidad&nbsp;
+                            </th>
+
+                            <th>
+                                &nbsp;Precio&nbsp;
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model.ProductQuantities)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Quantity) &nbsp; Kg
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <th>
+                                <strong>TOTAL</strong>
+                            </th>
+                            <th>
+                                @Html.DisplayFor(model => model.TotalKilo) Kg
+                            </th>
+
+                            <th>
+                                @Html.DisplayFor(model => model.TotalDinero)
+                            </th>
+                        </tr>
+                    </table>
+
+                }
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 <div class="col-lg-12">
     @*<div class="card card-button return">

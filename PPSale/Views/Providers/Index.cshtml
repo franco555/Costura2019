@@ -7,114 +7,112 @@
     ViewBag.Title = Pagina;
 }
 
-<h2 class="header-title">Nueva  @Pagina</h2>
+@RenderPage("~/Views/Shared/_NotificationPartial.cshtml")
 
-@if (TempData["Valid"] != null && TempData.Count != 0)
-{
-    <p class="btn-new">
-        <a class="btn btn-primary"  disabled href="" title="Nuevo"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Nuevo</a>
-    </p>
-}else
-{
-    <p class="btn-new">
-        <a class="btn btn-primary" href="@Url.Action("Create",Controlers )" title="Nuevo"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
-    </p>
-}
-
-@if (TempData["Error"] != null && TempData.Count != 0)
-{
-    <div class="alert alert-danger" role="alert">
-        <strong>Alerta!</strong>&nbsp;&nbsp;@TempData["Error"]
+<div class="col-sm-12">
+    <div class="row color-title-blue">
+        <a class="btn  btn-success btn-volver btn-circles mr-2" href="@Url.Action("Additional","Navs" )" title="Volver">Volver</a>
+        <a class="btn  btn-success  btn-inicio btn-circles mr-2" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+        <a class="btn btn-primary dialog-window  btn-nuevo btn-circles mr-2" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar @Pagina">Nuevo</a>
+        <span class="title-color-blue  btn-circles btn-circle-border-2 mr-5">@Pagina</span>
     </div>
-}
+</div>
 
-<table class="table table-responsive tableTwoBtn ">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Logo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country.Name)&nbsp;
-            @Html.DisplayNameFor(model => model.Province.Name)&nbsp;
-            @Html.DisplayNameFor(model => model.City.Name)&nbsp;
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IvaCondition.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cuit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Web)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstDate)
-        </th>
 
-        <th>Acci&oacute;n</th>
-    </tr>
+
+<div class="row">
     @if (Model == null || Model.Count() == 0)
     {
-        <tr>
-            <td colspan="4">
-                No hay Elementos...
-            </td>
-        </tr>
+        <div class="alert alert-danger col-sm-12">
+            <div class="col-sm-12"><b> Necesitas Ingresar los datos de tu Proveedor...</b></div>
+            <div class="col-sm-12">
+                Es necesario los datos de tu Proveedor, como nombre direccion imagen, etc. <br />
+                hacer click en <i>Nuevo</i> e ingresar los datos
+            </div>
+
+        </div>
     }
     else
     {
         foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.Logo))
-                    {
-                        <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:25px; padding:0px; margin:0px;" />
-                    }
-                </td>
-                <td class="data-@Html.DisplayFor(modelItem => item.ProviderId)">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Country.Name)&nbsp;
-                    @Html.DisplayFor(modelItem => item.Province.Name)&nbsp;
-                    @Html.DisplayFor(modelItem => item.City.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IvaCondition.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cuit)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Web)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstDate)
-                </td>
+            <div class="col-lg-6 ">
 
-                <td>
-                    <a class="btn btn-warning btn-sm" href="@Url.Action("Edit","Providers",new { id=item.ProviderId})" title="Editar"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                    <a class="btn btn-danger btn-sm Delete-reg" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.ProviderId)" data-controller="@Controler"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a>
-                </td>
-            </tr>
+                <div class="col-sm-12 f-background-blue-l" style="padding:20px; margin:15px auto;">
+
+                    <div class="col-sm-12">
+                        <div class="row Ec-title-Company">
+                            <div class="f-border-skyblue">
+                                @if (!string.IsNullOrEmpty(item.Logo))
+                                {
+                                    <img src="@Url.Content(item.Logo)" alt="Image" style="width:auto;height:35px; padding:0px; margin:0px;" />
+                                }
+                                else
+                                {
+                                    <div style="background:#808080; display:block; width:35px;height:35px; padding:0px; margin:0px;"> </div>
+                                }
+                            </div>
+                            <div class="data-@Html.DisplayFor(modelItem => item.CompanyId)">
+                                <h4>
+                                    &nbsp; @Html.DisplayFor(modelItem => item.Name)
+                                </h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <a class="btn btn-warning dialog-window  btn-editar" href="@Url.Action("Edit", "Providers", new { id = item.ProviderId })" title="Editar" id="btn-Option" data-Option="Edit" data-title="Editar Proveedor" style="color:#ffffff;">Editar</a>
+                                <a class="btn btn-danger Delete-reg btn-eliminar" title="Eliminar" data-id="@Html.DisplayFor(modelItem => item.ProviderId)" data-controller="@Controler" style="color:#ffffff;">Eliminar</a>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="col-sm-12 control-label col-md-12 top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Cuit)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Cuit)
+                                    </div>
+                                    <div class="col-sm-12 control-label col-md-12 top-3">
+                                        <b>@Html.DisplayNameFor(model => model.FirstDate)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.FirstDate)
+                                    </div>
+                                    <div class="col-sm-12 control-label col-md-12 top-3">
+                                        <b>@Html.DisplayNameFor(model => model.IvaCondition.Name)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.IvaCondition.Name)
+                                    </div>
+
+                                    <div class="col-sm-12 control-label col-md-12 top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Email)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </div>
+                                    <div class="col-sm-12 control-label col-md-12 top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Web)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Web)
+                                    </div>
+                                    <div class="col-sm-12 control-label col-md-12 top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Country.Name)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Country.Name)
+                                    </div>
+
+                                    <div class="col-sm-12 control-label col-md-12 top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Province.Name)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Province.Name)
+                                    </div>
+                                    <div class="col-sm-12 control-label col-md-12 top-3">
+                                        <b>@Html.DisplayNameFor(model => model.City.Name)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.City.Name)
+                                    </div>
+                                    <div class="col-sm-12 control-label col-md-12 top-3">
+                                        <b>@Html.DisplayNameFor(model => model.Address)&#58;&nbsp;</b>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         }
     }
 
-
-</table>
+</div>

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PPSale.Models.View
 {
-    public class ViewProductQuantity
+    public class ProductQuantityPriceViewModel
     {
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public double Quantity { get; set; }

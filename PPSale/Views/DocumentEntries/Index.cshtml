@@ -7,27 +7,17 @@
     ViewBag.Title = Pagina;
 }
 
-<h2 class="header-title">Nueva  @Pagina</h2>
-
-@if (TempData["Valid"] != null && TempData.Count != 0)
-{
-    <p class="btn-new">
-        <a class="btn btn-primary" disabled href="" title="Nuevo"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Nuevo</a>
-    </p>
-}
-else
-{
-    <p class="btn-new">
-        <a class="btn btn-primary" href="@Url.Action("Create",Controlers )" title="Nuevo"><span class="glyphicon glyphicon-file" aria-hidden="true"></span> Nuevo</a>
-    </p>
-}
-
-@if (TempData["Error"] != null && TempData.Count != 0)
-{
-    <div class="alert alert-danger" role="alert">
-        <strong>Alerta!</strong>&nbsp;&nbsp;@TempData["Error"]
+<div class="col-sm-12">
+    <div class="row color-title-blue">
+        <a class="btn  btn-success btn-volver btn-circles mr-2" href="@Url.Action("Additional","Navs" )" title="Volver">Volver</a>
+        <a class="btn  btn-success  btn-inicio btn-circles mr-2" href="@Url.Action("Index","Home" )" title="Inicio">Inicio</a>
+        <a class="btn btn-primary dialog-window  btn-nuevo btn-circles mr-2" href="@Url.Action("Create",Controlers)" title="Nuevo" id="btn-Option" data-Option="Create" data-title="Agregar Compañia">Nuevo</a>
+        <span class="title-color-blue  btn-circles btn-circle-border-2 mr-5">@Pagina</span>
     </div>
-}
+</div>
+
+@RenderPage("~/Views/Shared/_NotificationPartial.cshtml")
+
 
 <table class="table table-responsive ">
     <tr>

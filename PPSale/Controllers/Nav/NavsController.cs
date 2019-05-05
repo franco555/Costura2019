@@ -1,4 +1,5 @@
-﻿using PPSale.Models.Conexion;
+﻿using PPSale.Classes;
+using PPSale.Models.Conexion;
 using PPSale.Models.Entry;
 using PPSale.Models.View;
 using System;
@@ -12,6 +13,7 @@ namespace PPSale.Controllers.Nav
     public class NavsController : Controller
     {
         private ConexionContext db = new ConexionContext();
+        private FunctionHelpers fn = new FunctionHelpers();
 
         /*****************************************************************************
          * ****************         ***********************************
@@ -38,8 +40,8 @@ namespace PPSale.Controllers.Nav
         public ActionResult Entry(int? id)
         {
             var month =(id==null) ?DateTime.Now.Month:id;
-            var asing = db.AsingRolAndUsers.Where(a => a.Email == User.Identity.Name).FirstOrDefault();
 
+            var asing = db.AsingRolAndUsers.Where(a => a.Email == User.Identity.Name).FirstOrDefault();
             if (asing == null)
             {
                 asing = new Models.Globals.AsingRolAndUser
@@ -48,8 +50,8 @@ namespace PPSale.Controllers.Nav
                     CompanyId = 0,
                 };
 
-                TempData["Error"] = "Necesita que el usuario este registado en alguna empresa, Éste usuario no tiene permiso de Modificar esta opción. Por favor comuniquese con el administrador";
-                TempData["Valid"] = true;
+                TempData["Error"] = "Error";
+                TempData["Message"] = fn.notRegistre;
             }
 
 
@@ -101,12 +103,12 @@ namespace PPSale.Controllers.Nav
          * ******************************************************************************/
 
         //Pertenece a: ActionResult Entry
-        public List<ViewMoneyMonth> ReportYear(int anio,int idc)
+        public List<MoneyMonthViewModel> ReportYear(int anio,int idc)
         {
             string[] Months = { "", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre", };
 
             var Stock = (from dde in db.DocumentEntries
-                         where dde.Date.Year == anio &&dde.CompanyId ==idc
+                         where dde.Date.Year == anio && dde.CompanyId ==idc
                          group dde by new { dde.Date.Month } into stock
                          select new
                          {
@@ -116,16 +118,16 @@ namespace PPSale.Controllers.Nav
             .ToList();
 
 
-            var product = new List<ViewMoneyMonth>();
+            var product = new List<MoneyMonthViewModel>();
             foreach (var item in Stock)
             {
-                product.Add(new ViewMoneyMonth() {ViewMoneyMonthId=item.Fecha ,Name = Months[item.Fecha], Price = item.Dinero });
+                product.Add(new MoneyMonthViewModel() {ViewMoneyMonthId=item.Fecha ,Name = Months[item.Fecha], Price = item.Dinero });
             }
 
             return product.ToList();
         }
         //Pertenece a: ActionResult Entry
-        public List<ViewProductQuantity> ReportMonth(DateTime desde, DateTime hasta,int idc)
+        public List<ProductQuantityPriceViewModel> ReportMonth(DateTime desde, DateTime hasta,int idc)
         {
             //var uni = db.DerivativeProducts.ToList();
 
@@ -146,10 +148,10 @@ namespace PPSale.Controllers.Nav
             .ToList();
 
 
-            var product = new List<ViewProductQuantity>();
+            var product = new List<ProductQuantityPriceViewModel>();
             foreach (var item in Stock)
             {
-                product.Add(new ViewProductQuantity() { Name = item.Product, Quantity = item.stocks, Price = item.Price });
+                product.Add(new ProductQuantityPriceViewModel() { Name = item.Product, Quantity = item.stocks, Price = item.Price });
             }
 
             return product.ToList();
